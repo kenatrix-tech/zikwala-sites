@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default CSS variable values — overridden per client via buildThemeVars() in layout.tsx */
+:root {
+  --color-primary: #0EA5E9;
+  --color-secondary: #0369A1;
+  --color-accent: #E0F2FE;
+  --color-surface: #F0F9FF;
+  --color-on-primary: #FFFFFF;
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Inter", sans-serif;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
