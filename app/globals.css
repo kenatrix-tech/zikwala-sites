@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Default CSS variable values — overridden per client via buildThemeVars() in layout.tsx */
 :root {
   --color-primary: #0EA5E9;
   --color-secondary: #0369A1;
@@ -18,11 +17,44 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  color: #111827;
+  background: #ffffff;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-brand {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  }
+
+  .card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
+  }
+
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
 }

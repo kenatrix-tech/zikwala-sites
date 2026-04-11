@@ -13,9 +13,9 @@ export default function HomePage() {
 
   return (
     <>
-      <Hero hero={config.hero} />
+      <Hero hero={config.hero} business={config.business} />
 
-      <Services services={config.services} />
+      <Services services={config.services} nav={config.nav} />
 
       {features.stats && config.stats && (
         <Stats stats={config.stats} />
