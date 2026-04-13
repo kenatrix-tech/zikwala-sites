@@ -2,6 +2,7 @@ import { getConfig } from "@/config"
 import { getFeatures } from "@/lib/features"
 import { Hero } from "@/components/sections/Hero"
 import { Services } from "@/components/sections/Services"
+import { Gallery } from "@/components/sections/Gallery"
 import { Stats } from "@/components/sections/Stats"
 import { Testimonials } from "@/components/sections/Testimonials"
 import { About } from "@/components/sections/About"
@@ -16,6 +17,10 @@ export default function HomePage() {
       <Hero hero={config.hero} business={config.business} />
 
       <Services services={config.services} nav={config.nav} />
+
+      {features.gallery && config.gallery && (
+        <Gallery gallery={config.gallery} />
+      )}
 
       {features.stats && config.stats && (
         <Stats stats={config.stats} />

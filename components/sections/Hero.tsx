@@ -47,7 +47,7 @@ export function Hero({ hero, business }: HeroProps) {
 
             {/* Trust points */}
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              {["Licensed & Insured", "Free Estimate", "5-Star Rated"].map((point) => (
+              {(hero.trustPoints ?? ["Licensed & Insured", "Free Estimate", "5-Star Rated"]).map((point) => (
                 <div key={point} className="flex items-center gap-2 text-sm text-gray-600">
                   <CheckCircle2 size={16} className="text-primary shrink-0" />
                   {point}
@@ -82,7 +82,10 @@ export function Hero({ hero, business }: HeroProps) {
                 ))}
               </div>
               <div className="text-sm text-gray-500">
-                <span className="font-semibold text-gray-800">500+</span> happy clients in {business.city}
+                <span className="font-semibold text-gray-800">
+                  {hero.socialProof?.count ?? "500+"}
+                </span>{" "}
+                {hero.socialProof?.label ?? `happy clients in ${business.city}`}
               </div>
             </div>
           </div>

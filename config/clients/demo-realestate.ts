@@ -56,6 +56,8 @@ export const config: SiteConfig = {
     secondaryCta: { label: "View Listings", href: "/gallery" },
     image: "/clients/demo-realestate/hero.jpg",
     badge: "Licensed in DC, MD & VA",
+    trustPoints: ["Licensed in DC, MD & VA", "Free Consultation", "12+ Years Experience"],
+    socialProof: { count: "300+", label: "homes sold across the DMV" },
   },
   services: {
     title: "Real Estate Services",
@@ -146,8 +148,8 @@ export const config: SiteConfig = {
   contact: {
     title: "Let's Talk Real Estate",
     subtitle: "Schedule your free consultation today.",
-    mapEmbed: "",
-    formEndpoint: "mailto:info@habesharealtygroup.com",
+    mapEmbed: "https://maps.google.com/maps?q=456+Georgia+Ave+NW,+Washington,+DC&output=embed",
+    formEndpoint: "https://formspree.io/f/demo",
   },
   social: {
     facebook: "https://facebook.com",

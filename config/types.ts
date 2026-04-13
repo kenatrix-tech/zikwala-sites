@@ -65,7 +65,9 @@ export interface SiteConfig {
     cta: { label: string; href: string }
     secondaryCta?: { label: string; href: string }
     image: string
-    badge?: string         // e.g. "Trusted by 500+ clients"
+    badge?: string                   // e.g. "Licensed in DC, MD & VA"
+    trustPoints?: string[]           // 3 bullet trust indicators below subheading
+    socialProof?: { count: string; label: string }  // e.g. { count: "300+", label: "homes sold in DC" }
   }
 
   // ─── Services Section ────────────────────────────────────
