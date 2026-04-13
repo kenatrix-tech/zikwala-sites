@@ -57,4 +57,16 @@ h1, h2, h3, h4 {
   .section-padding {
     @apply py-20 px-4 sm:px-6 lg:px-8;
   }
+
+  /* Scroll-triggered entrance animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+
+  .animate-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

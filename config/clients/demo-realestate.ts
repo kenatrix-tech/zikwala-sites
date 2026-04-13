@@ -149,7 +149,7 @@ export const config: SiteConfig = {
     title: "Let's Talk Real Estate",
     subtitle: "Schedule your free consultation today.",
     mapEmbed: "https://maps.google.com/maps?q=456+Georgia+Ave+NW,+Washington,+DC&output=embed",
-    formEndpoint: "https://formspree.io/f/demo",
+    formEndpoint: "mailto:info@habesharealtygroup.com",
   },
   social: {
     facebook: "https://facebook.com",

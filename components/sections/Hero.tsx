@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
+import { AnimateIn } from "@/components/ui/AnimateIn"
 
 interface HeroProps {
   hero: SiteConfig["hero"]
@@ -25,7 +26,7 @@ export function Hero({ hero, business }: HeroProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* Left — Text */}
-          <div className="order-2 lg:order-1">
+          <AnimateIn className="order-2 lg:order-1">
             {/* Badge */}
             {hero.badge && (
               <div className="inline-flex items-center gap-2 bg-accent border border-primary/20 text-primary text-xs font-semibold px-4 py-2 rounded-full mb-6">
@@ -88,10 +89,10 @@ export function Hero({ hero, business }: HeroProps) {
                 {hero.socialProof?.label ?? `happy clients in ${business.city}`}
               </div>
             </div>
-          </div>
+          </AnimateIn>
 
           {/* Right — Image */}
-          <div className="order-1 lg:order-2 relative">
+          <AnimateIn className="order-1 lg:order-2 relative" delay={150}>
             {/* Main image */}
             <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
@@ -125,7 +126,7 @@ export function Hero({ hero, business }: HeroProps) {
               </div>
               <div className="text-xs text-gray-500">4.9 avg rating</div>
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import type { SiteConfig } from "@/config/types"
+import { AnimateIn } from "@/components/ui/AnimateIn"
 
 interface StatsProps {
   stats: NonNullable<SiteConfig["stats"]>
@@ -21,15 +22,17 @@ export function Stats({ stats }: StatsProps) {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.items.map((stat) => (
-            <div key={stat.label} className="group">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-2 group-hover:scale-110 transition-transform duration-200">
-                {stat.value}
+          {stats.items.map((stat, i) => (
+            <AnimateIn key={stat.label} delay={i * 100}>
+              <div className="group">
+                <div className="text-4xl md:text-5xl font-bold text-white mb-2 group-hover:scale-110 transition-transform duration-200">
+                  {stat.value}
+                </div>
+                <div className="text-sm font-medium text-white/70 uppercase tracking-widest">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-sm font-medium text-white/70 uppercase tracking-widest">
-                {stat.label}
-              </div>
-            </div>
+            </AnimateIn>
           ))}
         </div>
       </div>

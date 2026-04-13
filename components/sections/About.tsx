@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { CheckCircle2 } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
+import { AnimateIn } from "@/components/ui/AnimateIn"
 
 interface AboutProps {
   about: SiteConfig["about"]
@@ -19,32 +20,34 @@ export function About({ about }: AboutProps) {
 
           {/* Image side */}
           {about.image && (
-            <div className="relative">
-              <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src={about.image}
-                  alt={about.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              {/* Decorative accent box */}
-              <div
-                className="absolute -bottom-6 -right-6 w-48 h-48 rounded-2xl -z-10 opacity-30"
-                style={{ background: "var(--color-primary)" }}
-              />
-              {/* Experience badge */}
-              <div className="absolute -left-6 bottom-12 bg-white rounded-2xl shadow-xl px-5 py-4 border border-gray-100">
-                <div className="text-3xl font-bold text-gradient mb-0.5">
-                  {about.highlights[0]?.value}
+            <AnimateIn>
+              <div className="relative">
+                <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
+                  <Image
+                    src={about.image}
+                    alt={about.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="text-xs text-gray-500 font-medium">{about.highlights[0]?.label}</div>
+                {/* Decorative accent box */}
+                <div
+                  className="absolute -bottom-6 -right-6 w-48 h-48 rounded-2xl -z-10 opacity-30"
+                  style={{ background: "var(--color-primary)" }}
+                />
+                {/* Experience badge */}
+                <div className="absolute -left-6 bottom-12 bg-white rounded-2xl shadow-xl px-5 py-4 border border-gray-100">
+                  <div className="text-3xl font-bold text-gradient mb-0.5">
+                    {about.highlights[0]?.value}
+                  </div>
+                  <div className="text-xs text-gray-500 font-medium">{about.highlights[0]?.label}</div>
+                </div>
               </div>
-            </div>
+            </AnimateIn>
           )}
 
           {/* Text side */}
-          <div>
+          <AnimateIn delay={150}>
             <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-4">
               About Us
             </span>
@@ -70,7 +73,7 @@ export function About({ about }: AboutProps) {
                 </div>
               ))}
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </div>
     </section>
