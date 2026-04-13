@@ -6,6 +6,7 @@ import { buildThemeVars, getFontUrl } from "@/lib/theme"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { DemoBanner } from "@/components/layout/DemoBanner"
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
 
 const config = getConfig()
 
@@ -53,6 +54,10 @@ export default function RootLayout({
           business={config.business}
           nav={config.nav}
           social={config.social}
+        />
+        <WhatsAppButton
+          phone={config.business.phone}
+          message={`Hi, I'm interested in ${config.business.name}'s services.`}
         />
       </body>
     </html>
