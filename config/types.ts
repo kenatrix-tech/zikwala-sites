@@ -82,6 +82,15 @@ export interface SiteConfig {
     badge?: string                   // e.g. "Licensed in DC, MD & VA"
     trustPoints?: string[]           // 3 bullet trust indicators below subheading
     socialProof?: { count: string; label: string }  // e.g. { count: "300+", label: "homes sold in DC" }
+    /**
+     * Layout variant. Omit (or "split") for the default.
+     * split    — text left, image right (default)
+     * centered — full-viewport image bg, text centered over overlay
+     * minimal  — no image, large typography + trust card
+     * bold     — solid primary-color panel left, full-bleed image right
+     * magazine — image-forward 60/40, editorial text column right
+     */
+    variant?: "split" | "centered" | "minimal" | "bold" | "magazine"
   }
 
   // ─── Services Section ────────────────────────────────────

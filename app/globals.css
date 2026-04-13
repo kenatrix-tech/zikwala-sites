@@ -69,4 +69,11 @@ h1, h2, h3, h4 {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Hero bold variant — diagonal clip on desktop only */
+  @media (min-width: 1024px) {
+    .hero-bold-clip {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 108px) 100%, 0 100%);
+    }
+  }
 }

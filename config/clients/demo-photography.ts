@@ -50,6 +50,7 @@ export const config: SiteConfig = {
   },
   hero: {
     heading: "Your Story, Beautifully Told",
+    //variant: "minimal",
     subheading:
       "Award-winning photography for weddings, portraits, and events in Washington DC and the DMV.",
     cta: { label: "Book a Session", href: "/contact" },
