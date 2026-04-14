@@ -7,6 +7,8 @@ import { Stats } from "@/components/sections/Stats"
 import { Testimonials } from "@/components/sections/Testimonials"
 import { About } from "@/components/sections/About"
 import { Contact } from "@/components/sections/Contact"
+import { VehicleListings } from "@/components/sections/VehicleListings"
+import { PropertyListings } from "@/components/sections/PropertyListings"
 
 export default function HomePage() {
   const config = getConfig()
@@ -17,6 +19,14 @@ export default function HomePage() {
       <Hero hero={config.hero} business={config.business} />
 
       <Services services={config.services} nav={config.nav} />
+
+      {features.vehicleListings && config.vehicles && (
+        <VehicleListings vehicles={config.vehicles} business={config.business} preview />
+      )}
+
+      {features.propertyListings && config.properties && (
+        <PropertyListings properties={config.properties} business={config.business} preview />
+      )}
 
       {features.gallery && config.gallery && (
         <Gallery gallery={config.gallery} />

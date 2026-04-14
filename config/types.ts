@@ -18,6 +18,7 @@ export type Niche =
   | "insurance"
   | "babysitting"
   | "eventplanning"
+  | "cardealership"
 
 export type Tier = "basic" | "standard" | "pro" | "premium"
 
@@ -144,6 +145,46 @@ export interface SiteConfig {
     subtitle: string
     mapEmbed?: string      // Google Maps embed URL
     formEndpoint?: string  // e.g. mailto: or external form service
+  }
+
+  // ─── Vehicle Listings (Standard+ / cardealership niche) ──
+  vehicles?: {
+    title: string
+    subtitle: string
+    items: {
+      id: string
+      make: string
+      model: string
+      year: number
+      price: number
+      mileage?: number
+      fuel?: "Gasoline" | "Diesel" | "Hybrid" | "Electric"
+      transmission?: "Automatic" | "Manual"
+      color?: string
+      image: string
+      badge?: string          // e.g. "Certified", "Hot Deal", "New Arrival"
+      sold?: boolean
+    }[]
+  }
+
+  // ─── Property Listings (Standard+ / realestate niche) ────
+  properties?: {
+    title: string
+    subtitle: string
+    items: {
+      id: string
+      title: string
+      address: string
+      city: string
+      price: number
+      status: "For Sale" | "For Rent" | "Sold" | "Under Contract"
+      type: "House" | "Condo" | "Townhouse" | "Apartment" | "Land" | "Commercial"
+      bedrooms?: number
+      bathrooms?: number
+      sqft?: number
+      image: string
+      badge?: string          // e.g. "New Listing", "Price Reduced", "Open House"
+    }[]
   }
 
   // ─── Social Links ────────────────────────────────────────

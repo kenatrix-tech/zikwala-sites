@@ -14,7 +14,7 @@ export function HeroBold({ hero, business }: HeroProps) {
   const decorNum = hero.socialProof?.count?.replace(/[^0-9KkMm+]/g, "") ?? ""
 
   return (
-    <section className="relative min-h-[88vh] overflow-hidden">
+    <section className="relative overflow-hidden min-h-[88vh] lg:h-[88vh] lg:min-h-0">
 
       {/* Full-section background image (visible on right side desktop, hidden on mobile) */}
       <Image
@@ -29,9 +29,9 @@ export function HeroBold({ hero, business }: HeroProps) {
 
       {/* Primary color panel — full width on mobile, 58% + diagonal clip on desktop */}
       <div
-        className="relative z-10 min-h-[88vh] lg:absolute lg:inset-y-0 lg:left-0 lg:w-[58%]
+        className="relative z-10 lg:absolute lg:inset-y-0 lg:left-0 lg:w-[58%]
                    flex flex-col justify-center
-                   px-10 md:px-16 lg:px-20 py-28 text-white hero-bold-clip"
+                   px-10 md:px-16 lg:px-20 py-14 lg:py-0 text-white hero-bold-clip"
         style={{ background: "var(--color-primary)" }}
       >
         {/* Dot-grid texture */}

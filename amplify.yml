@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        # Required env vars — set these in Amplify console per app:
+        #   NEXT_PUBLIC_CLIENT_ID      e.g. "demo-photography"
+        #   NEXT_PUBLIC_SITE_URL       e.g. "https://demo-photography.zikwala.com"
+        #   NEXT_PUBLIC_ZIKWALA_EMAIL  e.g. "hello@zikwala.com"     (fallback contact email)
+        #   NEXT_PUBLIC_ZIKWALA_URL   e.g. "https://zikwala.com"  (main site for order form redirect)
+        # NEXT_PUBLIC_BASE_PATH is NOT needed — each Amplify app gets its own URL
+        - npm run build
+  artifacts:
+    baseDirectory: out
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*

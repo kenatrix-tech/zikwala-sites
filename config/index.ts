@@ -22,6 +22,7 @@ import { config as demoTutor } from "./clients/demo-tutor"
 import { config as demoInsurance } from "./clients/demo-insurance"
 import { config as demoBabysitting } from "./clients/demo-babysitting"
 import { config as demoEventplanning } from "./clients/demo-eventplanning"
+import { config as demoCardealership } from "./clients/demo-cardealership"
 
 const configs: Record<string, SiteConfig> = {
   // ── Existing demos ────────────────────────────────────────
@@ -46,6 +47,7 @@ const configs: Record<string, SiteConfig> = {
   "demo-insurance": demoInsurance,
   "demo-babysitting": demoBabysitting,
   "demo-eventplanning": demoEventplanning,
+  "demo-cardealership": demoCardealership,
 
   // ── Production clients (add real clients here) ────────────
   // "sparkle-cleaning": sparkleCleaningConfig,

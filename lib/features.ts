@@ -7,6 +7,8 @@ export interface Features {
   booking: boolean
   analytics: boolean
   customDesign: boolean
+  vehicleListings: boolean
+  propertyListings: boolean
 }
 
 const TIER_FEATURES: Record<Tier, Features> = {
@@ -17,6 +19,8 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking: false,
     analytics: false,
     customDesign: false,
+    vehicleListings: false,
+    propertyListings: false,
   },
   standard: {
     gallery: true,
@@ -25,14 +29,18 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking: false,
     analytics: false,
     customDesign: false,
+    vehicleListings: true,
+    propertyListings: true,
   },
   pro: {
     gallery: true,
     testimonials: true,
     stats: true,
     booking: true,
-    analytics: false,
+    analytics: true,
     customDesign: false,
+    vehicleListings: true,
+    propertyListings: true,
   },
   premium: {
     gallery: true,
@@ -41,6 +49,8 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking: true,
     analytics: true,
     customDesign: true,
+    vehicleListings: true,
+    propertyListings: true,
   },
 }
 

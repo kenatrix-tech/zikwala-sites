@@ -9,11 +9,20 @@ import type { SiteConfig } from "@/config/types"
 interface NavbarProps {
   business: SiteConfig["business"]
   nav: SiteConfig["nav"]
+  /** Extra links auto-injected by layout based on active features */
+  extraLinks?: { label: string; href: string }[]
 }
 
-export function Navbar({ business, nav }: NavbarProps) {
+export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  // Merge config links with auto-injected listing links (no duplicates)
+  const existingHrefs = new Set(nav.links.map(l => l.href))
+  const allLinks = [
+    ...nav.links,
+    ...extraLinks.filter(l => !existingHrefs.has(l.href)),
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
@@ -51,7 +60,7 @@ export function Navbar({ business, nav }: NavbarProps) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {nav.links.map((link) => (
+            {allLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -85,7 +94,7 @@ export function Navbar({ business, nav }: NavbarProps) {
       {open && (
         <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
           <nav className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
-            {nav.links.map((link) => (
+            {allLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
