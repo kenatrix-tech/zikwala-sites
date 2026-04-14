@@ -49,13 +49,14 @@ export const config: SiteConfig = {
   },
   hero: {
     heading: "Find Your Dream Home in the DMV",
-    variant: "magazine",
+    variant: "split",
 
     subheading:
       "Expert real estate guidance for buyers, sellers, and investors in DC, Maryland, and Virginia.",
     cta: { label: "Free Consultation", href: "/contact" },
     secondaryCta: { label: "View Listings", href: "/gallery" },
-    image: "/clients/demo-realestate/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/demo-photography/hero.jpg",
+    //image: "/clients/demo-realestate/hero.jpg",
     badge: "Licensed in DC, MD & VA",
     trustPoints: ["Licensed in DC, MD & VA", "Free Consultation", "12+ Years Experience"],
     socialProof: { count: "300+", label: "homes sold across the DMV" },

@@ -21,7 +21,7 @@ export function DemoBanner({ businessName }: DemoBannerProps) {
                      font-bold text-xs px-4 py-1.5 rounded-full shrink-0
                      hover:bg-gray-100 transition-colors"
         >
-          Get this site from $299
+          Get this site from $399
           <ArrowRight size={12} />
         </Link>
       </div>

@@ -51,35 +51,22 @@ export function HeroMagazine({ hero, business }: HeroProps) {
           priority
         />
 
-        {/* Gradient overlay — bottom fade + subtle brand tint */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-        {/* Subtle brand color tint on top */}
-        <div className="absolute inset-0 opacity-20" style={{ background: "var(--color-primary)" }} />
+        {/* Gradient overlay — bottom fade for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        {/* Subtle brand color tint */}
+        <div className="absolute inset-0 opacity-15" style={{ background: "var(--color-primary)" }} />
 
-        {/* Floating glass card — bottom left, desktop only */}
-        <AnimateIn delay={400} className="absolute bottom-8 left-8 hidden lg:block
-                        bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl
-                        border border-white/60 px-5 py-4 max-w-[220px]">
-          <div className="flex items-center gap-1 mb-2">
-            {[1,2,3,4,5].map(i => (
-              <span key={i} className="text-yellow-400 text-sm">★</span>
-            ))}
-            <span className="text-xs text-gray-500 ml-1">4.9</span>
-          </div>
-          <p className="text-sm font-bold text-gray-900 leading-tight">
-            {hero.socialProof?.count ?? "500+"}
+        {/* Text overlay — bottom of image, mobile and desktop */}
+        <AnimateIn delay={200} className="absolute bottom-0 left-0 right-0 px-6 pb-6 lg:px-8 lg:pb-8">
+          <p className="text-white/60 text-[10px] font-bold tracking-[0.3em] uppercase mb-1.5">
+            {categoryLabel}
           </p>
-          <p className="text-xs text-gray-500 leading-tight mt-0.5">
-            {hero.socialProof?.label ?? `happy clients in ${business.city}`}
+          <p className="text-white font-bold text-xl lg:text-2xl leading-snug">
+            {business.name}
           </p>
-        </AnimateIn>
-
-        {/* Business name tag — top right, desktop only */}
-        <AnimateIn delay={200} className="absolute top-8 right-8 hidden lg:flex items-center gap-2
-                        bg-black/40 backdrop-blur-md rounded-full
-                        border border-white/20 px-4 py-2">
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-xs font-semibold text-white">{business.name}</span>
+          <p className="text-white/65 text-sm mt-1 leading-snug line-clamp-1">
+            {hero.subheading}
+          </p>
         </AnimateIn>
       </AnimateIn>
 

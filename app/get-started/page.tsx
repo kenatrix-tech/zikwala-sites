@@ -15,7 +15,7 @@ const PLANS = [
     id: "basic",
     name: "Basic",
     setupFee: 399,
-    monthly: 39,
+    monthly: 19,
     description: "Professional online presence. Everything you need to be found and contacted.",
     highlight: false,
     features: [
@@ -38,7 +38,7 @@ const PLANS = [
     id: "standard",
     name: "Standard",
     setupFee: 799,
-    monthly: 59,
+    monthly: 29,
     description: "Full website with all sections. The right choice for most businesses.",
     highlight: true,
     badge: "Most Popular",
@@ -60,7 +60,7 @@ const PLANS = [
     id: "pro",
     name: "Pro",
     setupFee: 1399,
-    monthly: 99,
+    monthly: 49,
     description: "Take bookings and payments online. Built for service businesses that want to grow.",
     highlight: false,
     features: [

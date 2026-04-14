@@ -25,15 +25,21 @@ export function HeroBold({ hero, business }: HeroProps) {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-black/25" />
-        {hero.badge && (
-          <div className="absolute bottom-4 left-4 inline-flex items-center gap-2
-                          bg-black/50 border border-white/20 backdrop-blur-sm
-                          text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            {hero.badge}
-          </div>
-        )}
+        {/* Gradient — stronger at bottom for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+
+        {/* Mobile text overlay */}
+        <div className="absolute bottom-0 left-0 right-0 px-5 pb-5">
+          <p className="text-white/60 text-[10px] font-bold tracking-[0.25em] uppercase mb-1">
+            {business.city}, {business.state}
+          </p>
+          <p className="text-white font-black text-xl leading-snug">
+            {business.name}
+          </p>
+          <p className="text-white/70 text-sm mt-0.5 leading-snug line-clamp-1">
+            {hero.subheading}
+          </p>
+        </div>
       </div>
 
       {/* ── Desktop: full-bleed background image ── */}
@@ -45,6 +51,21 @@ export function HeroBold({ hero, business }: HeroProps) {
         priority
       />
       <div className="hidden lg:block absolute inset-0 bg-gradient-to-l from-black/20 via-black/10 to-transparent" />
+
+      {/* Desktop image text overlay — bottom-right, below the color panel (z-[5]) */}
+      <div className="hidden lg:block absolute bottom-0 right-0 w-[48%] h-48
+                      bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[5]" />
+      <div className="hidden lg:flex absolute bottom-10 right-12 flex-col items-end z-[5]">
+        <p className="text-white/60 text-[10px] font-bold tracking-[0.3em] uppercase mb-1.5">
+          {business.city}, {business.state}
+        </p>
+        <p className="text-white font-black text-2xl leading-snug text-right">
+          {business.name}
+        </p>
+        <p className="text-white/65 text-sm mt-1 leading-snug line-clamp-1 text-right max-w-[260px]">
+          {hero.subheading}
+        </p>
+      </div>
 
       {/* ── Color panel: below image on mobile, clipped overlay on desktop ── */}
       <div

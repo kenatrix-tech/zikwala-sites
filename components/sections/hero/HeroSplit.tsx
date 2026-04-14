@@ -100,28 +100,20 @@ export function HeroSplit({ hero, business }: HeroProps) {
                 className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-
-            {/* Floating card — top left */}
-            <div className="absolute -left-6 top-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 border border-gray-100">
-              <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center text-xl">
-                ✅
+              {/* Gradient for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+              {/* Text overlay */}
+              <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+                <p className="text-white/60 text-[10px] font-bold tracking-[0.3em] uppercase mb-1.5">
+                  {business.city}, {business.state}
+                </p>
+                <p className="text-white font-bold text-xl leading-snug">
+                  {business.name}
+                </p>
+                <p className="text-white/65 text-sm mt-1 leading-snug line-clamp-1">
+                  {hero.subheading}
+                </p>
               </div>
-              <div>
-                <div className="text-xs text-gray-400 font-medium">Verified Business</div>
-                <div className="text-sm font-bold text-gray-800">{business.name}</div>
-              </div>
-            </div>
-
-            {/* Floating card — bottom right */}
-            <div className="absolute -right-6 bottom-8 bg-white rounded-2xl shadow-xl px-4 py-3 border border-gray-100">
-              <div className="flex items-center gap-1 mb-1">
-                {[1,2,3,4,5].map(i => (
-                  <span key={i} className="text-yellow-400 text-sm">★</span>
-                ))}
-              </div>
-              <div className="text-xs text-gray-500">4.9 avg rating</div>
             </div>
           </AnimateIn>
         </div>

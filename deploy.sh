@@ -152,6 +152,14 @@ fi
 echo "✓  Synced"
 echo ""
 
+# ── 3b. Copy 404.html to bucket root (S3 website error doc must be at root) ──
+if aws s3 ls "s3://${BUCKET}/${PREFIX}/404.html" > /dev/null 2>&1; then
+  aws s3 cp "s3://${BUCKET}/${PREFIX}/404.html" "s3://${BUCKET}/404.html" \
+    --cache-control "no-cache" > /dev/null
+  echo "✓  404.html copied to bucket root"
+  echo ""
+fi
+
 # ── 4. CloudFront invalidation ────────────────────────────────────────────────
 if [ -n "$CF_ID" ]; then
   echo "── Invalidating CloudFront..."
