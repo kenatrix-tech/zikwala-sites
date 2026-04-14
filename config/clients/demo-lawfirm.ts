@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "bold",
     heading: "Legal Expertise You Can Rely On",
     subheading:
       "Immigration, business, and family law services tailored to the needs of DC's diverse community.",

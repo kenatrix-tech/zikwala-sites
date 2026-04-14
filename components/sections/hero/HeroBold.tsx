@@ -14,24 +14,43 @@ export function HeroBold({ hero, business }: HeroProps) {
   const decorNum = hero.socialProof?.count?.replace(/[^0-9KkMm+]/g, "") ?? ""
 
   return (
-    <section className="relative overflow-hidden min-h-[88vh] lg:h-[88vh] lg:min-h-0">
+    <section className="overflow-hidden lg:relative lg:h-[88vh]">
 
-      {/* Full-section background image (visible on right side desktop, hidden on mobile) */}
+      {/* ── Mobile: image strip above content ── */}
+      <div className="relative h-56 sm:h-72 lg:hidden">
+        <Image
+          src={hero.image}
+          alt={hero.heading}
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/25" />
+        {hero.badge && (
+          <div className="absolute bottom-4 left-4 inline-flex items-center gap-2
+                          bg-black/50 border border-white/20 backdrop-blur-sm
+                          text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            {hero.badge}
+          </div>
+        )}
+      </div>
+
+      {/* ── Desktop: full-bleed background image ── */}
       <Image
         src={hero.image}
         alt={hero.heading}
         fill
-        className="object-cover"
+        className="hidden lg:block object-cover"
         priority
       />
-      {/* Dark scrim on the image side only */}
-      <div className="absolute inset-0 bg-black/30 lg:bg-gradient-to-l lg:from-black/20 lg:via-black/10 lg:to-transparent" />
+      <div className="hidden lg:block absolute inset-0 bg-gradient-to-l from-black/20 via-black/10 to-transparent" />
 
-      {/* Primary color panel — full width on mobile, 58% + diagonal clip on desktop */}
+      {/* ── Color panel: below image on mobile, clipped overlay on desktop ── */}
       <div
         className="relative z-10 lg:absolute lg:inset-y-0 lg:left-0 lg:w-[58%]
                    flex flex-col justify-center
-                   px-10 md:px-16 lg:px-20 py-14 lg:py-0 text-white hero-bold-clip"
+                   px-8 sm:px-12 lg:px-20 py-12 lg:py-0 text-white lg:hero-bold-clip"
         style={{ background: "var(--color-primary)" }}
       >
         {/* Dot-grid texture */}
@@ -59,7 +78,7 @@ export function HeroBold({ hero, business }: HeroProps) {
           <div className="relative z-10 max-w-lg">
 
             {hero.badge && (
-              <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20
+              <div className="hidden lg:inline-flex items-center gap-2 bg-white/15 border border-white/20
                              text-white text-xs font-semibold px-4 py-2 rounded-full mb-8 w-fit
                              backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />

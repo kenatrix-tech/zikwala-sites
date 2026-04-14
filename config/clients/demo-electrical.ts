@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "bold",
     heading: "Electrical Work Done Safely & Right",
     subheading:
       "Licensed electricians in Bowie, MD. Panel upgrades, new wiring, outlets, lighting, and emergency service.",

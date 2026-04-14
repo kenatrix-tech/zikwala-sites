@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "magazine",
     heading: "Your Vision. Our Expertise.",
     subheading:
       "Award-winning event planning for weddings, corporate gatherings, and celebrations in Washington DC and the DMV.",

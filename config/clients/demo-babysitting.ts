@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "centered",
     heading: "Childcare You Can Truly Trust",
     subheading:
       "Background-checked, CPR-certified caregivers in Rockville, MD. Your child's safety and happiness is our only priority.",

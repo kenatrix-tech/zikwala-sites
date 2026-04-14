@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "magazine",
     heading: "Food That Brings People Together",
     subheading:
       "From intimate gatherings to 500-guest events — fresh, flavorful catering tailored to your occasion.",

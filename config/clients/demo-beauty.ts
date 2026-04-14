@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "split",
     heading: "Look Good. Feel Confident.",
     subheading:
       "Expert hair, barber, and beauty services in Takoma Park, MD. Specializing in natural hair and protective styles.",

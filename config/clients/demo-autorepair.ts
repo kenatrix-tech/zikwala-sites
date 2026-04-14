@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "bold",
     heading: "Auto Repair You Can Trust",
     subheading:
       "Expert mechanics serving Arlington and Northern Virginia. No upsells, no surprises — just honest work at fair prices.",

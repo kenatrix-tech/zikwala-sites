@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "minimal",
     heading: "Tax Filing Made Simple",
     subheading:
       "Professional tax preparation for individuals, families, and small businesses in the DMV area. Get the maximum refund you deserve.",

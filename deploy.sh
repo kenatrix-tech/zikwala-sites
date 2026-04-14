@@ -1,181 +1,175 @@
 #!/bin/bash
-# ─────────────────────────────────────────────────────────────
-# Zikwala Sites — Deploy Script
+# ─────────────────────────────────────────────────────────────────────────────
+# Zikwala Sites — S3 Deploy Script
 #
-# DEMO  (shared bucket, client subpath):
-#   ./deploy.sh <client-id> --demo [--region <region>]
-#   Deploys to: s3://demo.zikwala.com/<client-id>/
-#   Live at:    http://demo.zikwala.com.s3-website-us-east-1.amazonaws.com/<client-id>/
+# Usage:
+#   ./deploy.sh <client-id> [options]
 #
-# PRODUCTION (dedicated bucket per client):
-#   ./deploy.sh <client-id> <bucket> [--region <region>]
-#   Deploys to: s3://<bucket>/
-#   Live at:    http://<bucket>.s3-website-us-east-1.amazonaws.com
+# Options:
+#   --bucket <name>     S3 bucket name           (default: demo.zikwala.com)
+#   --prefix <path>     S3 subpath prefix        (default: <client-id>)
+#   --site-url <url>    NEXT_PUBLIC_SITE_URL      (default: https://<bucket>/<prefix>)
+#   --zikwala-url <url> NEXT_PUBLIC_ZIKWALA_URL   (default: https://zikwala.com)
+#   --email <email>     NEXT_PUBLIC_ZIKWALA_EMAIL (default: hello@zikwala.com)
+#   --cf-id <id>        CloudFront distribution ID for cache invalidation
+#   --region <region>   AWS region               (default: us-east-1)
+#   --no-build          Skip build, only sync existing out/ folder
+#   --force             Re-upload all files (not just changed ones)
+#   --setup             First-time bucket setup (create, policy, website hosting)
 #
-# Defaults:
-#   region → us-east-1
-# ─────────────────────────────────────────────────────────────
+# Examples:
+#   ./deploy.sh demo-realestate                             # → demo.zikwala.com/demo-realestate/
+#   ./deploy.sh demo-realestate --force
+#   ./deploy.sh demo-realestate --no-build
+#   ./deploy.sh demo-realestate --bucket mybucket --prefix realestate
+#   ./deploy.sh demo-realestate --setup                     # first time only
+# ─────────────────────────────────────────────────────────────────────────────
 set -e
 
-# ── Args ──────────────────────────────────────────────────────
 CLIENT_ID=$1
+if [ -z "$CLIENT_ID" ]; then
+  echo "Error: client-id is required."
+  echo "Usage: ./deploy.sh <client-id> [--bucket <name>] [--cf-id <id>]"
+  exit 1
+fi
 shift
 
-DEMO_MODE=false
 BUCKET="demo.zikwala.com"
+PREFIX="${CLIENT_ID}"
+SITE_URL=""
+ZIKWALA_URL="https://zikwala.com"
+ZIKWALA_EMAIL="hello@zikwala.com"
+CF_ID=""
 REGION="us-east-1"
+SKIP_BUILD=false
+FORCE=false
+SETUP=false
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --demo)
-      DEMO_MODE=true
-      ;;
-    --region)
-      shift; REGION=$1
-      ;;
-    *)
-      [ -z "$BUCKET" ] && BUCKET=$1
-      ;;
+    --bucket)       shift; BUCKET=$1 ;;
+    --prefix)       shift; PREFIX=$1 ;;
+    --site-url)     shift; SITE_URL=$1 ;;
+    --zikwala-url)  shift; ZIKWALA_URL=$1 ;;
+    --email)        shift; ZIKWALA_EMAIL=$1 ;;
+    --cf-id)        shift; CF_ID=$1 ;;
+    --region)       shift; REGION=$1 ;;
+    --no-build)     SKIP_BUILD=true ;;
+    --force)        FORCE=true ;;
+    --setup)        SETUP=true ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
   esac
   shift
 done
 
-if [ -z "$CLIENT_ID" ]; then
-  echo "Usage:"
-  echo "  Demo: ./deploy.sh <client-id> --demo [--region <region>]"
-  echo "  Prod: ./deploy.sh <client-id> <bucket> [--region <region>]"
-  echo ""
-  echo "Available client IDs:"
-  echo "  demo-realestate  demo-cleaning  demo-lawfirm  demo-tax  demo-decoration"
-  exit 1
-fi
-
-if $DEMO_MODE; then
-  BUCKET="demo.zikwala.com"
-  BASE_PATH="/${CLIENT_ID}"
-  S3_PREFIX="${CLIENT_ID}"
-else
-  if [ -z "$BUCKET" ]; then
-    echo "Error: Production deploy requires a bucket name."
-    echo "  Usage: ./deploy.sh <client-id> <bucket> [--region <region>]"
-    exit 1
-  fi
-  BASE_PATH=""
-  S3_PREFIX=""
+BASE_PATH="/${PREFIX}"
+if [ -z "$SITE_URL" ]; then
+  SITE_URL="http://${BUCKET}.s3-website-${REGION}.amazonaws.com/${PREFIX}"
 fi
 
 echo ""
-echo "▶  Client : $CLIENT_ID"
-if $DEMO_MODE; then
-  echo "▶  Mode   : demo  →  ${BUCKET}/${CLIENT_ID}/"
+echo "┌─────────────────────────────────────────────┐"
+echo "  Zikwala Sites — Deploy"
+echo "├─────────────────────────────────────────────┤"
+echo "  Client : $CLIENT_ID"
+echo "  Bucket : s3://$BUCKET/$PREFIX/"
+echo "  Region : $REGION"
+[ -n "$CF_ID" ] && echo "  CF     : $CF_ID"
+echo "└─────────────────────────────────────────────┘"
+echo ""
+
+# ── 1. Build ──────────────────────────────────────────────────────────────────
+if $SKIP_BUILD; then
+  echo "── Skipping build (--no-build)"
+  [ ! -d "out" ] && echo "Error: out/ not found. Run without --no-build first." && exit 1
 else
-  echo "▶  Mode   : production  →  ${BUCKET}/"
+  echo "── Building..."
+  NEXT_PUBLIC_CLIENT_ID="$CLIENT_ID" \
+  NEXT_PUBLIC_BASE_PATH="$BASE_PATH" \
+  NEXT_PUBLIC_SITE_URL="$SITE_URL" \
+  NEXT_PUBLIC_ZIKWALA_URL="$ZIKWALA_URL" \
+  NEXT_PUBLIC_ZIKWALA_EMAIL="$ZIKWALA_EMAIL" \
+  npm run build:clean
+  echo "✓  Build complete"
 fi
-echo "▶  Region : $REGION"
 echo ""
 
-# ── 1. Build ──────────────────────────────────────────────────
-echo "── Building static site..."
-NEXT_PUBLIC_CLIENT_ID=$CLIENT_ID NEXT_PUBLIC_BASE_PATH=$BASE_PATH npm run build
-echo "✓  Build complete"
-echo ""
+# ── 2. First-time bucket setup (--setup flag only) ────────────────────────────
+if $SETUP; then
+  echo "── Setting up bucket: $BUCKET ..."
 
-# ── Steps 2–5: Bucket setup ────────────────────────────────────
-# Demo mode: demo.zikwala.com is a shared, pre-configured bucket.
-# Bucket setup (create, public access, policy, website hosting) only
-# runs for production deploys where a new dedicated bucket is needed.
-if $DEMO_MODE; then
-  echo "── Demo mode: skipping bucket setup (pre-configured)"
-else
-  # ── 2. Create bucket ─────────────────────────────────────────
-  echo "── Creating bucket (if not exists)..."
-  if aws s3api head-bucket --bucket "$BUCKET" --region "$REGION" 2>/dev/null; then
-    echo "   Bucket already exists, skipping create"
+  if [ "$REGION" = "us-east-1" ]; then
+    aws s3api create-bucket --bucket "$BUCKET" --region "$REGION"
   else
-    if [ "$REGION" = "us-east-1" ]; then
-      aws s3api create-bucket \
-        --bucket "$BUCKET" \
-        --region "$REGION"
-    else
-      aws s3api create-bucket \
-        --bucket "$BUCKET" \
-        --region "$REGION" \
-        --create-bucket-configuration LocationConstraint="$REGION"
-    fi
-    echo "✓  Bucket created: $BUCKET"
+    aws s3api create-bucket --bucket "$BUCKET" --region "$REGION" \
+      --create-bucket-configuration LocationConstraint="$REGION"
   fi
 
-  # ── 3. Unblock public access ──────────────────────────────────
-  echo "── Enabling public access..."
-  aws s3api put-public-access-block \
-    --bucket "$BUCKET" \
+  aws s3api put-public-access-block --bucket "$BUCKET" \
     --public-access-block-configuration \
-      "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
-  echo "✓  Public access unblocked"
+    "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
 
-  # ── 4. Bucket policy — public read ───────────────────────────
-  echo "── Applying public read policy..."
-  aws s3api put-bucket-policy \
-    --bucket "$BUCKET" \
-    --policy "{
-      \"Version\": \"2012-10-17\",
-      \"Statement\": [{
-        \"Sid\": \"PublicReadGetObject\",
-        \"Effect\": \"Allow\",
-        \"Principal\": \"*\",
-        \"Action\": \"s3:GetObject\",
-        \"Resource\": \"arn:aws:s3:::${BUCKET}/*\"
-      }]
-    }"
-  echo "✓  Policy applied"
+  aws s3api put-bucket-policy --bucket "$BUCKET" --policy "{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [{
+      \"Effect\": \"Allow\",
+      \"Principal\": \"*\",
+      \"Action\": \"s3:GetObject\",
+      \"Resource\": \"arn:aws:s3:::${BUCKET}/*\"
+    }]
+  }"
 
-  # ── 5. Enable static website hosting ─────────────────────────
-  echo "── Enabling static website hosting..."
   aws s3 website "s3://${BUCKET}" \
     --index-document index.html \
     --error-document 404.html
-  echo "✓  Static hosting enabled"
+
+  echo "✓  Bucket ready"
+  echo ""
 fi
 
-# ── 6. Sync files ──────────────────────────────────────────────
-echo "── Syncing files..."
+# ── 3. Sync files ─────────────────────────────────────────────────────────────
+echo "── Syncing to s3://$BUCKET ..."
 
-if $DEMO_MODE; then
-  DEST_STATIC="s3://${BUCKET}/${S3_PREFIX}/_next/static"
-  DEST_ROOT="s3://${BUCKET}/${S3_PREFIX}"
-else
-  DEST_STATIC="s3://${BUCKET}/_next/static"
-  DEST_ROOT="s3://${BUCKET}"
-fi
-
-# Long-term cache for content-hashed assets
-aws s3 sync out/_next/static "$DEST_STATIC" \
+# Content-hashed assets — cache forever
+aws s3 sync out/_next/static "s3://${BUCKET}/${PREFIX}/_next/static" \
   --delete \
   --cache-control "public,max-age=31536000,immutable"
 
-# No-cache for HTML pages (updates propagate immediately)
-aws s3 sync out/ "$DEST_ROOT" \
-  --delete \
-  --exclude "_next/static/*" \
-  --cache-control "public,max-age=0,must-revalidate"
-
-echo "✓  Files synced"
-
-# ── 7. Print URL ───────────────────────────────────────────────
-if [ "$REGION" = "us-east-1" ]; then
-  BASE_URL="http://${BUCKET}.s3-website-${REGION}.amazonaws.com"
+# Everything else — no cache (always fetch latest)
+if $FORCE; then
+  aws s3 cp out/ "s3://${BUCKET}/${PREFIX}/" \
+    --recursive \
+    --exclude "_next/static/*" \
+    --cache-control "no-cache" \
+    --metadata-directive REPLACE
 else
-  BASE_URL="http://${BUCKET}.s3-website.${REGION}.amazonaws.com"
+  aws s3 sync out/ "s3://${BUCKET}/${PREFIX}/" \
+    --delete \
+    --exclude "_next/static/*" \
+    --cache-control "no-cache"
 fi
 
-if $DEMO_MODE; then
-  WEBSITE_URL="${BASE_URL}/${CLIENT_ID}/"
-else
-  WEBSITE_URL="${BASE_URL}"
-fi
-
+echo "✓  Synced"
 echo ""
-echo "────────────────────────────────────────────────"
-echo "  ✅  Live at: $WEBSITE_URL"
-echo "────────────────────────────────────────────────"
+
+# ── 4. CloudFront invalidation ────────────────────────────────────────────────
+if [ -n "$CF_ID" ]; then
+  echo "── Invalidating CloudFront..."
+  aws cloudfront create-invalidation \
+    --distribution-id "$CF_ID" \
+    --paths "/*" --query 'Invalidation.Id' --output text
+  echo "✓  Done"
+  echo ""
+fi
+
+# ── 5. URL ────────────────────────────────────────────────────────────────────
+if [ "$REGION" = "us-east-1" ]; then
+  S3_URL="http://${BUCKET}.s3-website-${REGION}.amazonaws.com"
+else
+  S3_URL="http://${BUCKET}.s3-website.${REGION}.amazonaws.com"
+fi
+
+echo "┌─────────────────────────────────────────────┐"
+echo "  ✅  Live at: $S3_URL/$PREFIX/"
+echo "└─────────────────────────────────────────────┘"
 echo ""

@@ -49,7 +49,7 @@ export const config: SiteConfig = {
   },
   hero: {
     heading: "Find Your Dream Home in the DMV",
-    variant: "bold",
+    variant: "magazine",
 
     subheading:
       "Expert real estate guidance for buyers, sellers, and investors in DC, Maryland, and Virginia.",

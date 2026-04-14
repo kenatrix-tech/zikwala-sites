@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "centered",
     heading: "Your Home, Sparkling Clean",
     subheading:
       "Professional residential & commercial cleaning in the DMV area. Trusted by 500+ families.",

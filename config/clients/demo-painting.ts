@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "split",
     heading: "Transform Your Space with Color",
     subheading:
       "Expert painting services for homes and businesses in the DMV. Clean prep, premium paint, flawless finish.",

@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "minimal",
     heading: "Coverage You Can Count On",
     subheading:
       "Independent insurance agent in Bethesda, MD. We shop 20+ carriers to find you the best coverage at the lowest price.",

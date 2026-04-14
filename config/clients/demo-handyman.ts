@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "bold",
     heading: "One Call, Every Home Repair",
     subheading:
       "From small fixes to bigger projects — FixRight handles it all so you don't have to. Serving Alexandria and Northern VA.",

@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "bold",
     heading: "Plumbing Problems? We Fix Them Fast",
     subheading:
       "Licensed plumbers in Greenbelt, MD. From clogged drains to full repiping — same-day service and 24/7 emergency response.",

@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "magazine",
     heading: "Cakes Made to Remember",
     subheading:
       "Handcrafted custom cakes and fresh pastries for every occasion. Made from scratch, delivered with joy.",

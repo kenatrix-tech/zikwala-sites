@@ -48,6 +48,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "centered",
     heading: "Unlock Your Child's Full Potential",
     subheading:
       "Personalized tutoring for K-12 and college students. Better grades, stronger confidence, and real results.",

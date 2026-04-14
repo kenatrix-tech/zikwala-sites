@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "bold",
     heading: "Stay Cool in Summer, Warm in Winter",
     subheading:
       "Licensed HVAC installation, repair, and tune-ups in Northern Virginia. Fast response, upfront pricing.",

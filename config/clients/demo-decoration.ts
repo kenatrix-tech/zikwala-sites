@@ -49,6 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
+    variant: "split",
     heading: "Design Spaces You Love to Live In",
     subheading:
       "Interior decoration and event styling that blends elegance, culture, and creativity for homes and occasions in the DMV.",
