@@ -16,10 +16,12 @@ const PLANS = [
     name: "Basic",
     setupFee: 399,
     monthly: 19,
-    description: "Professional online presence. Everything you need to be found and contacted.",
+    description: "Professional online presence. Everything you need to be found, trusted, and contacted.",
     highlight: false,
     features: [
       "Home, Services, About & Contact pages",
+      "Testimonials section + Google Review link",
+      "Stats & achievements section",
       "WhatsApp contact button",
       "SSL certificate + domain setup",
       "Mobile & tablet responsive",
@@ -28,8 +30,8 @@ const PLANS = [
     ],
     notIncluded: [
       "Gallery / portfolio page",
-      "Testimonials section",
       "Listings page (vehicles or properties)",
+      "Customer login & account portal",
       "Booking & online payment",
       "Analytics & Google Business",
     ],
@@ -39,15 +41,15 @@ const PLANS = [
     name: "Standard",
     setupFee: 799,
     monthly: 29,
-    description: "Full website with all sections. The right choice for most businesses.",
+    description: "Full website with client portal. Your customers can log in and manage their account.",
     highlight: true,
     badge: "Most Popular",
     features: [
       "Everything in Basic",
       "Gallery / portfolio page",
-      "Testimonials & reviews section",
-      "Stats & achievements section",
       "Listings page — vehicles or properties",
+      "Customer login & signup portal",
+      "Lead dashboard — see all inquiries",
       "2 content updates per month",
     ],
     notIncluded: [
@@ -104,22 +106,16 @@ const CUSTOM_SERVICES = [
     icon: "🛒",
     name: "E-Commerce Store",
     description: "Online store with product catalog, cart, checkout, and payment processing (Stripe). Perfect for retail, bakeries, or any business selling products.",
-    price: "From $3,000",
-    monthly: "$199/mo",
   },
   {
     icon: "📅",
     name: "Booking & Scheduling App",
     description: "Custom appointment system with calendar, client management, reminders, and payments. Built for salons, tutors, photographers, and service providers.",
-    price: "From $4,000",
-    monthly: "$149/mo",
   },
   {
     icon: "🏢",
     name: "Business Portal / Dashboard",
     description: "Client portal, staff management, invoicing, or any custom internal tool. Powered by our Kenatrix backend platform.",
-    price: "From $5,000",
-    monthly: "Custom",
   },
 ]
 
@@ -327,20 +323,14 @@ export default function GetStartedPage() {
                 <div className="text-3xl mb-4">{svc.icon}</div>
                 <h3 className="font-bold text-white mb-2">{svc.name}</h3>
                 <p className="text-white/55 text-sm leading-relaxed mb-5">{svc.description}</p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-black text-white">{svc.price}</p>
-                    <p className="text-white/40 text-xs">{svc.monthly} maintenance</p>
-                  </div>
-                  <a
-                    href={`${zikwalaUrl}/website-order?plan=${encodeURIComponent(svc.name)}&business=${encodeURIComponent(businessName)}`}
-                    className="text-xs font-bold text-white/70 hover:text-white
-                               border border-white/20 hover:border-white/50
-                               px-3 py-1.5 rounded-full transition-all"
-                  >
-                    Inquire →
-                  </a>
-                </div>
+                <a
+                  href={`${zikwalaUrl}/website-order?plan=${encodeURIComponent(svc.name)}&business=${encodeURIComponent(businessName)}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white/70 hover:text-white
+                             border border-white/20 hover:border-white/50
+                             px-4 py-2 rounded-full transition-all"
+                >
+                  Get a Quote →
+                </a>
               </div>
             ))}
           </div>

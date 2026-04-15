@@ -69,26 +69,10 @@ export function Contact({ contact, business }: ContactProps) {
           <p className="text-gray-500 text-lg max-w-xl mx-auto">{contact.subtitle}</p>
         </div>
 
-        {/* Map embed */}
-        {contact.mapEmbed && (
-          <div className="mb-12 rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-56">
-            <iframe
-              src={contact.mapEmbed}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Business location"
-            />
-          </div>
-        )}
-
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
 
           {/* Contact info — 2 cols */}
-          <div className="lg:col-span-2 flex flex-col gap-6 justify-center">
+          <div className="lg:col-span-2 flex flex-col gap-6">
             {[
               { icon: Phone, label: "Phone", value: business.phone, href: `tel:${business.phone}` },
               { icon: Mail, label: "Email", value: business.email, href: `mailto:${business.email}` },
@@ -116,9 +100,25 @@ export function Contact({ contact, business }: ContactProps) {
               </div>
             ))}
 
+            {/* Map — contextual below address */}
+            {contact.mapEmbed && (
+              <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 h-48">
+                <iframe
+                  src={contact.mapEmbed}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Business location"
+                />
+              </div>
+            )}
+
             {/* Quick CTA */}
             <div
-              className="mt-4 rounded-2xl p-6 text-white"
+              className="rounded-2xl p-6 text-white"
               style={{ background: "var(--color-primary)" }}
             >
               <div className="font-bold text-lg mb-1">Ready to get started?</div>

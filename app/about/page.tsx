@@ -27,7 +27,7 @@ export default function AboutPage() {
       <About about={config.about} />
 
       {features.testimonials && config.testimonials && (
-        <Testimonials testimonials={config.testimonials} />
+        <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
       )}
     </>
   )

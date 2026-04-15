@@ -37,7 +37,7 @@ export default function HomePage() {
       )}
 
       {features.testimonials && config.testimonials && (
-        <Testimonials testimonials={config.testimonials} />
+        <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
       )}
 
       <About about={config.about} />

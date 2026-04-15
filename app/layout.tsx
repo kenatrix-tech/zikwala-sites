@@ -18,7 +18,7 @@ const listingLinks: { label: string; href: string }[] = [
     ? [{ label: "Inventory", href: "/vehicles" }]
     : []),
   ...(features.propertyListings && config.properties
-    ? [{ label: "Listings", href: "/properties" }]
+    ? [{ label: config.business.niche === "realestate" ? "Properties" : "Listings", href: "/properties" }]
     : []),
 ]
 

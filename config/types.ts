@@ -187,6 +187,9 @@ export interface SiteConfig {
     }[]
   }
 
+  // ─── Google Review ───────────────────────────────────────
+  googleReviewUrl?: string   // e.g. https://g.page/r/{PLACE_ID}/review
+
   // ─── Social Links ────────────────────────────────────────
   social?: {
     facebook?: string
