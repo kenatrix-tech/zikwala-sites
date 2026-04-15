@@ -110,7 +110,7 @@ export interface SiteConfig {
   gallery?: {
     title: string
     subtitle: string
-    images: { src: string; alt: string }[]
+    images: { src: string; alt: string; badge?: string }[]
   }
 
   // ─── Testimonials (Standard+) ────────────────────────────

@@ -23,7 +23,10 @@ import { config as demoInsurance } from "./clients/demo-insurance"
 import { config as demoBabysitting } from "./clients/demo-babysitting"
 import { config as demoEventplanning } from "./clients/demo-eventplanning"
 import { config as demoCardealership } from "./clients/demo-cardealership"
+import { config as debelaMengesha } from "./clients/debela-mengesha"
 
+// ── Production client configs (add real clients here) ────────────
+// import { config as sparkleCleaningConfig } from "./clients/sparkle-cleaning" 
 const configs: Record<string, SiteConfig> = {
   // ── Existing demos ────────────────────────────────────────
   "demo-cleaning": demoCleaning,
@@ -51,6 +54,7 @@ const configs: Record<string, SiteConfig> = {
 
   // ── Production clients (add real clients here) ────────────
   // "sparkle-cleaning": sparkleCleaningConfig,
+  "debela-mengesha": debelaMengesha,
 }
 
 /**

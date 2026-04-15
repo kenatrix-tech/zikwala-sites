@@ -39,7 +39,7 @@ PREFIX="${CLIENT_ID}"
 SITE_URL=""
 ZIKWALA_URL="https://zikwala.com"
 ZIKWALA_EMAIL="hello@zikwala.com"
-CF_ID=""
+CF_ID="EACQJM4V4CO8W"
 REGION="us-east-1"
 SKIP_BUILD=false
 FORCE=false
@@ -64,7 +64,7 @@ done
 
 BASE_PATH="/${PREFIX}"
 if [ -z "$SITE_URL" ]; then
-  SITE_URL="http://${BUCKET}.s3-website-${REGION}.amazonaws.com/${PREFIX}"
+  SITE_URL="https://demo.zikwala.com/${PREFIX}"
 fi
 
 echo ""

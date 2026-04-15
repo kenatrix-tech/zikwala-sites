@@ -27,6 +27,19 @@ export function Gallery({ gallery }: GalleryProps) {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
+                {img.badge && (
+                  <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold tracking-wide
+                    ${img.badge === "Sold"
+                      ? "bg-gray-900/80 text-white"
+                      : img.badge === "For Rent"
+                      ? "bg-blue-600/85 text-white"
+                      : img.badge === "Under Contract"
+                      ? "bg-amber-500/85 text-white"
+                      : "bg-primary/85 text-white"
+                    } backdrop-blur-sm`}>
+                    {img.badge}
+                  </div>
+                )}
               </div>
             </AnimateIn>
           ))}
