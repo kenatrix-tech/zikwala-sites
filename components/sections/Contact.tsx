@@ -18,26 +18,43 @@ export function Contact({ contact, business }: ContactProps) {
     const form = e.currentTarget
     const data = new FormData(form)
 
-    const endpoint = contact.formEndpoint
+    const name    = data.get("name") as string
+    const phone   = data.get("phone") as string
+    const email   = data.get("email") as string
+    const message = data.get("message") as string
 
-    if (endpoint?.startsWith("https://")) {
+    // Priority: 1) Kenatrix Core endpoint, 2) any other https endpoint, 3) mailto fallback
+    const endpoint =
+      process.env.NEXT_PUBLIC_FORM_ENDPOINT ??
+      (contact.formEndpoint?.startsWith("https://") ? contact.formEndpoint : null)
+
+    if (endpoint) {
       setSubmitting(true)
       try {
+        // Map to ContactUsDto (Kenatrix Core)
         await fetch(endpoint, {
           method: "POST",
-          body: data,
-          headers: { Accept: "application/json" },
+          body: JSON.stringify({
+            name,
+            phone,
+            email,
+            details: message,
+            clientId: process.env.NEXT_PUBLIC_CLIENT_ID ?? "unknown",
+            appName:  business.name,
+            type:     "WEBSITE_INQUIRY",
+            reason:   "Contact Us",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
         })
         setSent(true)
       } finally {
         setSubmitting(false)
       }
     } else {
-      // Fallback: open mailto
-      const name = data.get("name") as string
-      const email = data.get("email") as string
-      const phone = data.get("phone") as string
-      const message = data.get("message") as string
+      // Last resort — mailto
       const subject = encodeURIComponent(`Website inquiry from ${name}`)
       const body = encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`

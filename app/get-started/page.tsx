@@ -30,10 +30,10 @@ const PLANS = [
     ],
     notIncluded: [
       "Gallery / portfolio page",
-      "Listings page (vehicles or properties)",
-      "Customer login & account portal",
+      "Listings or shop page",
       "Booking & online payment",
-      "Analytics & Google Business",
+      "Google Analytics & Business setup",
+      "Custom design",
     ],
   },
   {
@@ -41,20 +41,19 @@ const PLANS = [
     name: "Standard",
     setupFee: 799,
     monthly: 29,
-    description: "Full website with client portal. Your customers can log in and manage their account.",
+    description: "Full website with gallery, listings, and a shop page. Show your work and sell your products.",
     highlight: true,
     badge: "Most Popular",
     features: [
       "Everything in Basic",
       "Gallery / portfolio page",
-      "Listings page — vehicles or properties",
-      "Customer login & signup portal",
-      "Lead dashboard — see all inquiries",
-      "2 content updates per month",
+      "Listings page — properties, vehicles, or services",
+      "Shop page — sell products via WhatsApp",
+      "4 content updates per month",
     ],
     notIncluded: [
       "Booking & online payment",
-      "Analytics & Google Business",
+      "Google Analytics & Business setup",
       "Custom design",
     ],
   },
@@ -63,20 +62,20 @@ const PLANS = [
     name: "Pro",
     setupFee: 1399,
     monthly: 49,
-    description: "Take bookings and payments online. Built for service businesses that want to grow.",
+    description: "Everything in Standard plus Google visibility tools and priority support.",
     highlight: false,
     features: [
       "Everything in Standard",
-      "Online booking & appointment system",
-      "Online payment (deposits & service fees)",
       "Google Analytics — track your visitors",
       "Google Business profile setup",
       "Same-day content updates",
-      "Monthly performance summary",
+      "Monthly performance report",
+      "Priority support",
     ],
     notIncluded: [
+      "Online booking system",
+      "Online payment processing",
       "Custom design",
-      "Full e-commerce store",
     ],
   },
   {
@@ -89,13 +88,13 @@ const PLANS = [
     badge: "Custom",
     features: [
       "Everything in Pro",
-      "Unique design — not a template",
-      "E-commerce store (optional add-on)",
+      "Unique custom design",
+      "Online booking & appointment system",
+      "Online payment (deposits & service fees)",
+      "E-commerce store (optional)",
       "Multi-location support",
-      "Social media integration",
-      "Priority support (same-day response)",
+      "Priority support — same-day response",
       "Annual SEO review",
-      "Monthly performance report",
     ],
     notIncluded: [],
   },
@@ -138,7 +137,8 @@ export default function GetStartedPage() {
 
   const businessName = config.business.name
   const zikwalaUrl = process.env.NEXT_PUBLIC_ZIKWALA_URL ?? "https://zikwala.com"
-  const zikwalaEmail = process.env.NEXT_PUBLIC_ZIKWALA_EMAIL ?? "hello@zikwala.com"
+  const zikwalaEmail = process.env.NEXT_PUBLIC_ZIKWALA_EMAIL ?? "contact@kenatrix.com"
+  const zikwalaPhone = process.env.NEXT_PUBLIC_ZIKWALA_PHONE ?? "+1(571) 639-1098"
 
   function orderLink(planName: string) {
     const params = new URLSearchParams({
@@ -379,7 +379,9 @@ export default function GetStartedPage() {
           <ArrowRight size={16} />
         </a>
         <p className="text-xs text-gray-400 mt-4">
-          Or email us at{" "}
+          Call{" "}
+          <a href={`tel:${zikwalaPhone}`} className="underline">{zikwalaPhone}</a>
+          {" "}or email{" "}
           <a href={`mailto:${zikwalaEmail}`} className="underline">{zikwalaEmail}</a>
         </p>
       </section>
