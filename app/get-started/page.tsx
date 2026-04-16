@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { CheckCircle2, ArrowRight, Star, Zap, Phone } from "lucide-react"
 import { getConfig } from "@/config"
 import { redirect } from "next/navigation"
+import { WebsiteOrderForm } from "@/components/WebsiteOrderForm"
 
 export const metadata: Metadata = {
   title: "Get Your Professional Website | Zikwala",
@@ -136,15 +137,15 @@ export default function GetStartedPage() {
   if (!config.isDemo) redirect("/")
 
   const businessName = config.business.name
-  const zikwalaUrl = process.env.NEXT_PUBLIC_ZIKWALA_URL ?? "https://zikwala.com"
-  const zikwalaEmail = process.env.NEXT_PUBLIC_ZIKWALA_EMAIL ?? "contact@kenatrix.com"
-  const zikwalaPhone = process.env.NEXT_PUBLIC_ZIKWALA_PHONE ?? "+1(571) 639-1098"
+  const zikwalaUrl          = process.env.NEXT_PUBLIC_ZIKWALA_URL ?? "https://zikwala.com"
+  const zikwalaEmail        = process.env.NEXT_PUBLIC_ZIKWALA_EMAIL ?? "contact@kenatrix.com"
+  const zikwalaPhone        = process.env.NEXT_PUBLIC_ZIKWALA_PHONE ?? "+1(571) 639-1098"
+  const websiteOrderEndpoint =
+    process.env.NEXT_PUBLIC_WEBSITE_ORDER_ENDPOINT ?? "https://api.zikwala.com/api/v1/public/website"
 
-  function orderLink(planName: string) {
-    const params = new URLSearchParams({
-      plan: planName,
-      business: businessName,
-    })
+  // Used only for Premium consultation (still goes to zikwala.com form)
+  function consultationLink() {
+    const params = new URLSearchParams({ plan: "Premium", business: businessName })
     return `${zikwalaUrl}/website-order?${params.toString()}`
   }
 
@@ -263,7 +264,7 @@ export default function GetStartedPage() {
                   {/* CTA */}
                   {plan.setupFee !== null ? (
                     <a
-                      href={orderLink(plan.name)}
+                      href={`/get-started?plan=${encodeURIComponent(plan.name)}#order-form`}
                       className={`w-full text-center py-3 rounded-site font-bold text-sm
                         transition-all duration-200 hover:scale-105
                         ${plan.highlight
@@ -276,7 +277,7 @@ export default function GetStartedPage() {
                     </a>
                   ) : (
                     <a
-                      href={orderLink("Premium")}
+                      href={consultationLink()}
                       className="w-full text-center py-3 rounded-site font-bold text-sm
                         border-2 border-gray-900 text-gray-900
                         hover:bg-gray-900 hover:text-white transition-all duration-200"
@@ -324,7 +325,7 @@ export default function GetStartedPage() {
                 <h3 className="font-bold text-white mb-2">{svc.name}</h3>
                 <p className="text-white/55 text-sm leading-relaxed mb-5">{svc.description}</p>
                 <a
-                  href={`${zikwalaUrl}/website-order?plan=${encodeURIComponent(svc.name)}&business=${encodeURIComponent(businessName)}`}
+                  href={`/get-started?plan=${encodeURIComponent(svc.name)}#order-form`}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-white/70 hover:text-white
                              border border-white/20 hover:border-white/50
                              px-4 py-2 rounded-full transition-all"
@@ -361,29 +362,25 @@ export default function GetStartedPage() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="py-16 px-4 text-center">
-        <h2 className="text-2xl font-black text-gray-900 mb-3">
-          Ready to get started?
-        </h2>
-        <p className="text-gray-500 mb-8 max-w-md mx-auto">
-          Your site can be live in 3–5 business days. No contracts, no surprises.
-        </p>
-        <a
-          href={orderLink("Standard")}
-          className="inline-flex items-center gap-2 bg-gradient-brand text-white
-                     font-bold px-8 py-4 rounded-site shadow-xl
-                     hover:opacity-90 hover:scale-105 transition-all duration-200"
-        >
-          Get Started — Standard Plan
-          <ArrowRight size={16} />
-        </a>
-        <p className="text-xs text-gray-400 mt-4">
-          Call{" "}
-          <a href={`tel:${zikwalaPhone}`} className="underline">{zikwalaPhone}</a>
-          {" "}or email{" "}
-          <a href={`mailto:${zikwalaEmail}`} className="underline">{zikwalaEmail}</a>
-        </p>
+      {/* ── Order form ── */}
+      <section id="order-form" className="py-20 px-4 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-black text-gray-900 mb-3">Place Your Order</h2>
+            <p className="text-gray-500">
+              No payment now. We&apos;ll reach out within 24 hours to confirm and get started.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8">
+            <WebsiteOrderForm endpoint={websiteOrderEndpoint} />
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-6">
+            Call{" "}
+            <a href={`tel:${zikwalaPhone}`} className="underline">{zikwalaPhone}</a>
+            {" "}or email{" "}
+            <a href={`mailto:${zikwalaEmail}`} className="underline">{zikwalaEmail}</a>
+          </p>
+        </div>
       </section>
 
     </div>
