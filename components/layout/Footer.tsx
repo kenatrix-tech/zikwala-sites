@@ -124,7 +124,14 @@ export function Footer({ business, nav, social }: FooterProps) {
 
         <div className="border-t border-white/10 pt-6 text-xs text-gray-500 flex justify-between">
           <span>© {year} {business.name}</span>
-          <span>Built with ❤️ by Zikwala</span>
+          <a
+            href="https://zikwala.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition"
+          >
+            Built with ❤️ by Zikwala
+          </a>
         </div>
       </div>
     </footer>

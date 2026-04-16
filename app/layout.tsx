@@ -20,6 +20,9 @@ const listingLinks: { label: string; href: string }[] = [
   ...(features.propertyListings && config.properties
     ? [{ label: config.business.niche === "realestate" ? "Properties" : "Listings", href: "/properties" }]
     : []),
+  ...(features.productListings && config.products
+    ? [{ label: "Shop", href: "/products" }]
+    : []),
 ]
 
 export const metadata: Metadata = {

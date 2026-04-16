@@ -9,6 +9,7 @@ import { About } from "@/components/sections/About"
 import { Contact } from "@/components/sections/Contact"
 import { VehicleListings } from "@/components/sections/VehicleListings"
 import { PropertyListings } from "@/components/sections/PropertyListings"
+import { ProductListings } from "@/components/sections/ProductListings"
 
 export default function HomePage() {
   const config = getConfig()
@@ -26,6 +27,10 @@ export default function HomePage() {
 
       {features.propertyListings && config.properties && (
         <PropertyListings properties={config.properties} business={config.business} preview />
+      )}
+
+      {features.productListings && config.products && (
+        <ProductListings products={config.products} business={config.business} preview />
       )}
 
       {features.gallery && config.gallery && (

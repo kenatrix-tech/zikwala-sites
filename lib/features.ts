@@ -9,6 +9,7 @@ export interface Features {
   customDesign: boolean
   vehicleListings: boolean
   propertyListings: boolean
+  productListings: boolean
 }
 
 const TIER_FEATURES: Record<Tier, Features> = {
@@ -21,6 +22,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     customDesign: false,
     vehicleListings: false,
     propertyListings: false,
+    productListings: false,
   },
   standard: {
     gallery: true,
@@ -31,6 +33,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     customDesign: false,
     vehicleListings: true,
     propertyListings: true,
+    productListings: true,
   },
   pro: {
     gallery: true,
@@ -41,6 +44,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     customDesign: false,
     vehicleListings: true,
     propertyListings: true,
+    productListings: true,
   },
   premium: {
     gallery: true,
@@ -51,6 +55,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     customDesign: true,
     vehicleListings: true,
     propertyListings: true,
+    productListings: true,
   },
 }
 

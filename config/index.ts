@@ -24,6 +24,13 @@ import { config as demoBabysitting } from "./clients/demo-babysitting"
 import { config as demoEventplanning } from "./clients/demo-eventplanning"
 import { config as demoCardealership } from "./clients/demo-cardealership"
 import { config as debelaMengesha } from "./clients/debela-mengesha"
+import { config as bulchaRealEstate } from "./clients/bulcha-real-estate"
+import { config as abelCleaning } from "./clients/abel-cleaning"
+import { config as bezaBoutique } from "./clients/beza-boutique"
+import { config as lenaHartPhotography } from "./clients/lena-hart-photography"
+import { config as ariaBeautyStudio } from "./clients/aria-beauty-studio"
+import { config as peakComfortHvac } from "./clients/peak-comfort-hvac"
+import { config as aceAutoCare } from "./clients/ace-auto-care"
 
 // ── Production client configs (add real clients here) ────────────
 // import { config as sparkleCleaningConfig } from "./clients/sparkle-cleaning" 
@@ -55,6 +62,13 @@ const configs: Record<string, SiteConfig> = {
   // ── Production clients (add real clients here) ────────────
   // "sparkle-cleaning": sparkleCleaningConfig,
   "debela-mengesha": debelaMengesha,
+  "bulcha-real-estate": bulchaRealEstate,
+  "abel-cleaning": abelCleaning,
+  "beza-boutique": bezaBoutique,
+  "lena-hart-photography": lenaHartPhotography,
+  "aria-beauty-studio": ariaBeautyStudio,
+  "peak-comfort-hvac": peakComfortHvac,
+  "ace-auto-care": aceAutoCare,
 }
 
 /**

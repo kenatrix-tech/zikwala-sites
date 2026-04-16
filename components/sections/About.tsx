@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image"
 import { CheckCircle2 } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
@@ -8,6 +11,9 @@ interface AboutProps {
 }
 
 export function About({ about }: AboutProps) {
+  const [imgBroken, setImgBroken] = useState(false)
+  const showImage = about.image && !imgBroken
+
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden">
       <div
@@ -16,18 +22,19 @@ export function About({ about }: AboutProps) {
       />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className={`grid grid-cols-1 gap-16 items-center ${showImage ? "lg:grid-cols-2" : ""}`}>
 
           {/* Image side */}
-          {about.image && (
+          {showImage && (
             <AnimateIn>
               <div className="relative">
                 <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src={about.image}
+                    src={about.image!}
                     alt={about.title}
                     fill
                     className="object-cover"
+                    onError={() => setImgBroken(true)}
                   />
                 </div>
                 {/* Decorative accent box */}

@@ -19,6 +19,7 @@ export type Niche =
   | "babysitting"
   | "eventplanning"
   | "cardealership"
+  | "boutique"
 
 export type Tier = "basic" | "standard" | "pro" | "premium"
 
@@ -145,6 +146,23 @@ export interface SiteConfig {
     subtitle: string
     mapEmbed?: string      // Google Maps embed URL
     formEndpoint?: string  // e.g. mailto: or external form service
+  }
+
+  // ─── Product Listings (Standard+ / retail niches) ───────
+  products?: {
+    title: string
+    subtitle: string
+    items: {
+      id: string
+      name: string
+      description?: string
+      price: number
+      originalPrice?: number   // shows strikethrough + discount
+      image: string
+      category?: string        // e.g. "Shoes", "Tops", "Electronics"
+      badge?: string           // "New", "Best Seller", "Sale", "Low Stock"
+      inStock?: boolean        // defaults to true
+    }[]
   }
 
   // ─── Vehicle Listings (Standard+ / cardealership niche) ──
