@@ -38,7 +38,10 @@ BUCKET="demo.zikwala.com"
 PREFIX="${CLIENT_ID}"
 SITE_URL=""
 ZIKWALA_URL="https://zikwala.com"
-ZIKWALA_EMAIL="hello@zikwala.com"
+ZIKWALA_EMAIL="contact@kenatrix.com"
+ZIKWALA_PHONE="+1(571) 639-1098"
+FORM_ENDPOINT="https://api.zikwala.com/api/v1/public/contact/sendMessage"
+WEBSITE_ORDER_ENDPOINT="https://api.zikwala.com/api/v1/public/website"
 CF_ID="EACQJM4V4CO8W"
 REGION="us-east-1"
 SKIP_BUILD=false
@@ -52,6 +55,7 @@ while [ $# -gt 0 ]; do
     --site-url)     shift; SITE_URL=$1 ;;
     --zikwala-url)  shift; ZIKWALA_URL=$1 ;;
     --email)        shift; ZIKWALA_EMAIL=$1 ;;
+    --phone)        shift; ZIKWALA_PHONE=$1 ;;
     --cf-id)        shift; CF_ID=$1 ;;
     --region)       shift; REGION=$1 ;;
     --no-build)     SKIP_BUILD=true ;;
@@ -89,6 +93,9 @@ else
   NEXT_PUBLIC_SITE_URL="$SITE_URL" \
   NEXT_PUBLIC_ZIKWALA_URL="$ZIKWALA_URL" \
   NEXT_PUBLIC_ZIKWALA_EMAIL="$ZIKWALA_EMAIL" \
+  NEXT_PUBLIC_ZIKWALA_PHONE="$ZIKWALA_PHONE" \
+  NEXT_PUBLIC_FORM_ENDPOINT="$FORM_ENDPOINT" \
+  NEXT_PUBLIC_WEBSITE_ORDER_ENDPOINT="$WEBSITE_ORDER_ENDPOINT" \
   npm run build:clean
   echo "✓  Build complete"
 fi

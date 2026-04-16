@@ -3,6 +3,7 @@ import { CheckCircle2, ArrowRight, Star, Zap, Phone } from "lucide-react"
 import { getConfig } from "@/config"
 import { redirect } from "next/navigation"
 import { WebsiteOrderForm } from "@/components/WebsiteOrderForm"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Get Your Professional Website | Zikwala",
@@ -263,8 +264,8 @@ export default function GetStartedPage() {
 
                   {/* CTA */}
                   {plan.setupFee !== null ? (
-                    <a
-                      href={`/get-started?plan=${encodeURIComponent(plan.name)}#order-form`}
+                    <Link
+                      href={`/get-started/?plan=${encodeURIComponent(plan.name)}#order-form`}
                       className={`w-full text-center py-3 rounded-site font-bold text-sm
                         transition-all duration-200 hover:scale-105
                         ${plan.highlight
@@ -274,7 +275,7 @@ export default function GetStartedPage() {
                     >
                       Order {plan.name} Plan
                       <ArrowRight size={14} className="inline ml-1.5 -mt-0.5" />
-                    </a>
+                    </Link>
                   ) : (
                     <a
                       href={consultationLink()}
@@ -324,14 +325,14 @@ export default function GetStartedPage() {
                 <div className="text-3xl mb-4">{svc.icon}</div>
                 <h3 className="font-bold text-white mb-2">{svc.name}</h3>
                 <p className="text-white/55 text-sm leading-relaxed mb-5">{svc.description}</p>
-                <a
-                  href={`/get-started?plan=${encodeURIComponent(svc.name)}#order-form`}
+                <Link
+                  href={`/get-started/?plan=${encodeURIComponent(svc.name)}#order-form`}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-white/70 hover:text-white
                              border border-white/20 hover:border-white/50
                              px-4 py-2 rounded-full transition-all"
                 >
                   Get a Quote →
-                </a>
+                </Link>
               </div>
             ))}
           </div>
