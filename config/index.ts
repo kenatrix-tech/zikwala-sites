@@ -11,6 +11,8 @@ import { config as demoDecoration } from "./clients/demo-decoration"
 import { config as demoAutorepair } from "./clients/demo-autorepair"
 import { config as demoPainting } from "./clients/demo-painting"
 import { config as demoCatering } from "./clients/demo-catering"
+import { config as demoRestaurant } from "./clients/demo-restaurant"
+import { config as demoRestaurantEthiopian } from "./clients/demo-restaurant-ethiopian"
 import { config as demoBakery } from "./clients/demo-bakery"
 import { config as demoHvac } from "./clients/demo-hvac"
 import { config as demoElectrical } from "./clients/demo-electrical"
@@ -46,6 +48,8 @@ const configs: Record<string, SiteConfig> = {
   "demo-autorepair": demoAutorepair,
   "demo-painting": demoPainting,
   "demo-catering": demoCatering,
+  "demo-restaurant": demoRestaurant,
+  "demo-restaurant-ethiopian": demoRestaurantEthiopian,
   "demo-bakery": demoBakery,
   "demo-hvac": demoHvac,
   "demo-electrical": demoElectrical,

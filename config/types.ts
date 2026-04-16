@@ -7,6 +7,7 @@ export type Niche =
   | "autorepair"
   | "painting"
   | "catering"
+  | "restaurant"
   | "bakery"
   | "hvac"
   | "electrical"
@@ -202,6 +203,24 @@ export interface SiteConfig {
       sqft?: number
       image: string
       badge?: string          // e.g. "New Listing", "Price Reduced", "Open House"
+    }[]
+  }
+
+  // ─── Catering (restaurants, caterers, bakeries, etc.) ───
+  catering?: {
+    title: string
+    subtitle: string
+    serviceArea?: string          // e.g. "DC, MD & VA"
+    minimumNotice?: string        // e.g. "48 hours advance notice required"
+    eventTypes: string[]          // e.g. ["Weddings", "Corporate", "Birthdays"]
+    packages: {
+      name: string
+      description: string
+      priceFrom?: string          // e.g. "From $18/person" or "From $500"
+      minimumGuests?: number
+      features: string[]
+      badge?: string
+      highlight?: boolean
     }[]
   }
 

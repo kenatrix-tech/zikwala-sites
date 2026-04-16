@@ -21,7 +21,10 @@ const listingLinks: { label: string; href: string }[] = [
     ? [{ label: config.business.niche === "realestate" ? "Properties" : "Listings", href: "/properties" }]
     : []),
   ...(features.productListings && config.products
-    ? [{ label: "Shop", href: "/products" }]
+    ? [{ label: config.business.niche === "restaurant" ? "Menu" : "Shop", href: "/products" }]
+    : []),
+  ...(config.catering
+    ? [{ label: "Catering", href: "/catering" }]
     : []),
 ]
 
