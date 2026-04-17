@@ -1,0 +1,268 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+
+    <!-- ── Backgrounds ─────────────────────────────────── -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#0e0202"/>
+      <stop offset="40%"  stop-color="#6b1818"/>
+      <stop offset="75%"  stop-color="#7B1F1F"/>
+      <stop offset="100%" stop-color="#2d0c0c"/>
+    </linearGradient>
+
+    <!-- warm amber glow left (text area) -->
+    <radialGradient id="textGlow" cx="0.22" cy="0.5" r="0.48" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#C8922A" stop-opacity="0.22"/>
+      <stop offset="55%"  stop-color="#7B1F1F" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#7B1F1F" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- deep vignette -->
+    <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.75" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.6"/>
+    </radialGradient>
+
+    <!-- horizontal gold shimmer for borders -->
+    <linearGradient id="goldH" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#C8922A" stop-opacity="0"/>
+      <stop offset="20%"  stop-color="#C8922A" stop-opacity="0.85"/>
+      <stop offset="50%"  stop-color="#f0c060" stop-opacity="1"/>
+      <stop offset="80%"  stop-color="#C8922A" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#C8922A" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- cross radial glow -->
+    <radialGradient id="crossGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#C8922A" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#C8922A" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ── Repeating tilet border pattern ─────────────── -->
+    <pattern id="tilet" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+      <rect width="48" height="48" fill="none"/>
+      <!-- outer diamond -->
+      <polygon points="24,2 46,24 24,46 2,24" fill="none" stroke="#C8922A" stroke-width="1.2" opacity="0.75"/>
+      <!-- inner diamond -->
+      <polygon points="24,11 37,24 24,37 11,24" fill="none" stroke="#C8922A" stroke-width="0.7" opacity="0.45"/>
+      <!-- center jewel -->
+      <circle cx="24" cy="24" r="3.5" fill="#C8922A" opacity="0.65"/>
+    </pattern>
+
+    <!-- repeating dot-grid texture -->
+    <pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="1" fill="#C8922A" opacity="0.12"/>
+    </pattern>
+
+  </defs>
+
+  <!-- ══════════════════════════════════════════════════════
+       BASE LAYER
+  ══════════════════════════════════════════════════════ -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- subtle dot grid across whole canvas -->
+  <rect width="1920" height="1080" fill="url(#dots)"/>
+
+  <!-- warm left glow for text legibility -->
+  <rect width="1920" height="1080" fill="url(#textGlow)"/>
+
+  <!-- vignette -->
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       TOP BORDER BAND
+  ══════════════════════════════════════════════════════ -->
+  <rect x="0" y="0" width="1920" height="70" fill="#000000" opacity="0.45"/>
+  <rect x="0" y="0" width="1920" height="70" fill="url(#tilet)" opacity="0.42"/>
+
+  <!-- triple-line top cap -->
+  <rect x="0" y="0"  width="1920" height="2.5" fill="url(#goldH)"/>
+  <rect x="0" y="70" width="1920" height="2"   fill="url(#goldH)" opacity="0.9"/>
+  <rect x="0" y="74" width="1920" height="1"   fill="url(#goldH)" opacity="0.35"/>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       BOTTOM BORDER BAND
+  ══════════════════════════════════════════════════════ -->
+  <rect x="0" y="1010" width="1920" height="70" fill="#000000" opacity="0.45"/>
+  <rect x="0" y="1010" width="1920" height="70" fill="url(#tilet)" opacity="0.42"/>
+
+  <!-- triple-line bottom cap -->
+  <rect x="0" y="1077.5" width="1920" height="2.5" fill="url(#goldH)"/>
+  <rect x="0" y="1006"   width="1920" height="2"   fill="url(#goldH)" opacity="0.9"/>
+  <rect x="0" y="1003"   width="1920" height="1"   fill="url(#goldH)" opacity="0.35"/>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       LARGE ETHIOPIAN CROSS  (right-center, 72° tilted ring)
+  ══════════════════════════════════════════════════════ -->
+  <g transform="translate(1370,540)">
+
+    <!-- halo -->
+    <circle cx="0" cy="0" r="400" fill="url(#crossGlow)"/>
+    <!-- outer ring -->
+    <circle cx="0" cy="0" r="360" fill="none" stroke="#C8922A" stroke-width="1.2" opacity="0.18"/>
+    <circle cx="0" cy="0" r="340" fill="none" stroke="#C8922A" stroke-width="0.6" opacity="0.10"/>
+
+    <!-- cross body -->
+    <g opacity="0.17" fill="#C8922A">
+      <!-- vertical shaft -->
+      <rect x="-28" y="-330" width="56" height="660" rx="7"/>
+      <!-- horizontal beam -->
+      <rect x="-330" y="-28" width="660" height="56" rx="7"/>
+
+      <!-- stepped arm caps — top -->
+      <rect x="-52" y="-355" width="104" height="28" rx="5"/>
+      <rect x="-38" y="-383" width="76"  height="28" rx="4"/>
+
+      <!-- stepped arm caps — bottom -->
+      <rect x="-52" y="327" width="104" height="28" rx="5"/>
+      <rect x="-38" y="355" width="76"  height="28" rx="4"/>
+
+      <!-- stepped arm caps — left -->
+      <rect x="-355" y="-52" width="28" height="104" rx="5"/>
+      <rect x="-383" y="-38" width="28" height="76"  rx="4"/>
+
+      <!-- stepped arm caps — right -->
+      <rect x="327" y="-52" width="28" height="104" rx="5"/>
+      <rect x="355" y="-38" width="28" height="76"  rx="4"/>
+
+      <!-- center medallion -->
+      <rect x="-72" y="-72" width="144" height="144" rx="10"/>
+      <rect x="-56" y="-56" width="112" height="112" rx="8" fill="#7B1F1F"/>
+
+      <!-- arm cross-bars — vertical -->
+      <rect x="-48" y="-260" width="96" height="18" rx="3"/>
+      <rect x="-48" y="-200" width="96" height="18" rx="3"/>
+      <rect x="-48"  y="182" width="96" height="18" rx="3"/>
+      <rect x="-48"  y="242" width="96" height="18" rx="3"/>
+
+      <!-- arm cross-bars — horizontal -->
+      <rect x="-260" y="-48" width="18" height="96" rx="3"/>
+      <rect x="-200" y="-48" width="18" height="96" rx="3"/>
+      <rect x=" 182" y="-48" width="18" height="96" rx="3"/>
+      <rect x=" 242" y="-48" width="18" height="96" rx="3"/>
+    </g>
+  </g>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       SMALL SECONDARY CROSS  (upper-left, very faint)
+  ══════════════════════════════════════════════════════ -->
+  <g transform="translate(230,215)" opacity="0.07" fill="#C8922A">
+    <rect x="-12" y="-110" width="24" height="220" rx="3"/>
+    <rect x="-110" y="-12" width="220" height="24" rx="3"/>
+    <rect x="-22" y="-122" width="44" height="14" rx="2"/>
+    <rect x="-22"  y="108" width="44" height="14" rx="2"/>
+    <rect x="-122" y="-22" width="14" height="44" rx="2"/>
+    <rect x=" 108" y="-22" width="14" height="44" rx="2"/>
+    <rect x="-28" y="-28" width="56" height="56" rx="4"/>
+  </g>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       JEBENA (coffee pot) — far right, ultra-faint
+  ══════════════════════════════════════════════════════ -->
+  <g transform="translate(1790,640)" fill="#C8922A" opacity="0.085">
+    <!-- body -->
+    <ellipse cx="0" cy="30" rx="88" ry="105"/>
+    <!-- base ring -->
+    <rect x="-55" y="112" width="110" height="12" rx="5"/>
+    <!-- neck -->
+    <rect x="-16" y="-85" width="32" height="100" rx="9"/>
+    <!-- lip -->
+    <ellipse cx="0" cy="-85" rx="22" ry="9"/>
+    <!-- spout -->
+    <path d="M 22,-12 Q 76,-28 106,-55" stroke="#C8922A" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <!-- handle -->
+    <path d="M -46,-15 Q -118,35 -46,95" stroke="#C8922A" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <!-- steam -->
+    <path d="M -7,-88 Q -22,-128 -7,-168" stroke="#C8922A" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <path d="M  7,-88 Q  22,-128  7,-168" stroke="#C8922A" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <path d="M  0,-90 Q  -5,-140 0,-188 Q 5,-235 0,-275" stroke="#C8922A" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  </g>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       CORNER ORNAMENTS
+  ══════════════════════════════════════════════════════ -->
+
+  <!-- Top-left -->
+  <g transform="translate(24,88)" stroke="#C8922A" fill="none">
+    <polyline points="0,130 0,0 130,0" stroke-width="2.2" opacity="0.6"/>
+    <polyline points="12,95  12,12 95,12" stroke-width="0.9" opacity="0.35"/>
+    <circle   cx="0" cy="0" r="5.5" fill="#C8922A" stroke="none" opacity="0.7"/>
+    <polygon  points="32,0 52,20 32,40 12,20" fill="#C8922A" stroke="none" opacity="0.45"/>
+  </g>
+
+  <!-- Top-right -->
+  <g transform="translate(1896,88)" stroke="#C8922A" fill="none">
+    <polyline points="0,130 0,0 -130,0" stroke-width="2.2" opacity="0.6"/>
+    <polyline points="-12,95 -12,12 -95,12" stroke-width="0.9" opacity="0.35"/>
+    <circle   cx="0" cy="0" r="5.5" fill="#C8922A" stroke="none" opacity="0.7"/>
+    <polygon  points="-32,0 -52,20 -32,40 -12,20" fill="#C8922A" stroke="none" opacity="0.45"/>
+  </g>
+
+  <!-- Bottom-left -->
+  <g transform="translate(24,992)" stroke="#C8922A" fill="none">
+    <polyline points="0,-130 0,0 130,0" stroke-width="2.2" opacity="0.6"/>
+    <polyline points="12,-95  12,-12 95,-12" stroke-width="0.9" opacity="0.35"/>
+    <circle   cx="0" cy="0" r="5.5" fill="#C8922A" stroke="none" opacity="0.7"/>
+    <polygon  points="32,0 52,-20 32,-40 12,-20" fill="#C8922A" stroke="none" opacity="0.45"/>
+  </g>
+
+  <!-- Bottom-right -->
+  <g transform="translate(1896,992)" stroke="#C8922A" fill="none">
+    <polyline points="0,-130 0,0 -130,0" stroke-width="2.2" opacity="0.6"/>
+    <polyline points="-12,-95 -12,-12 -95,-12" stroke-width="0.9" opacity="0.35"/>
+    <circle   cx="0" cy="0" r="5.5" fill="#C8922A" stroke="none" opacity="0.7"/>
+    <polygon  points="-32,0 -52,-20 -32,-40 -12,-20" fill="#C8922A" stroke="none" opacity="0.45"/>
+  </g>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       VERTICAL DIVIDER HINT  (between text + visual halves)
+  ══════════════════════════════════════════════════════ -->
+  <line x1="880" y1="110" x2="880" y2="970"
+        stroke="#C8922A" stroke-width="0.6" opacity="0.10"
+        stroke-dasharray="6 14"/>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       HORIZONTAL ACCENT LINE  (left text area midpoint)
+  ══════════════════════════════════════════════════════ -->
+  <line x1="80"  y1="540" x2="580" y2="540" stroke="#C8922A" stroke-width="0.7" opacity="0.18"/>
+  <line x1="80"  y1="536" x2="340" y2="536" stroke="#C8922A" stroke-width="0.4" opacity="0.10"/>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       SCATTERED GOLD SPARKS
+  ══════════════════════════════════════════════════════ -->
+  <g fill="#C8922A">
+    <!-- left quarter -->
+    <circle cx="160"  cy="340" r="2.2" opacity="0.30"/>
+    <circle cx="310"  cy="275" r="1.5" opacity="0.22"/>
+    <circle cx="470"  cy="430" r="2.5" opacity="0.18"/>
+    <circle cx="590"  cy="295" r="1.5" opacity="0.28"/>
+    <circle cx="140"  cy="720" r="2"   opacity="0.22"/>
+    <circle cx="390"  cy="770" r="1.5" opacity="0.18"/>
+    <circle cx="540"  cy="810" r="2"   opacity="0.25"/>
+    <circle cx="680"  cy="680" r="1.5" opacity="0.15"/>
+    <!-- top strip (above band) — hidden by band but useful at edges -->
+    <circle cx="820"  cy="120" r="2"   opacity="0.28"/>
+    <circle cx="980"  cy="100" r="1.5" opacity="0.18"/>
+    <circle cx="1120" cy="130" r="2"   opacity="0.22"/>
+    <!-- right quarter -->
+    <circle cx="1610" cy="210" r="2"   opacity="0.18"/>
+    <circle cx="1760" cy="360" r="1.5" opacity="0.22"/>
+    <circle cx="1840" cy="185" r="2.2" opacity="0.18"/>
+    <circle cx="1660" cy="910" r="2"   opacity="0.18"/>
+    <circle cx="1810" cy="860" r="1.5" opacity="0.22"/>
+    <!-- bottom strip -->
+    <circle cx="720"  cy="960" r="2"   opacity="0.22"/>
+    <circle cx="1220" cy="975" r="1.5" opacity="0.18"/>
+    <circle cx="920"  cy="955" r="2"   opacity="0.25"/>
+  </g>
+
+</svg>

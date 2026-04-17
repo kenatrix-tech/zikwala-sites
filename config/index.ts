@@ -33,6 +33,7 @@ import { config as lenaHartPhotography } from "./clients/lena-hart-photography"
 import { config as ariaBeautyStudio } from "./clients/aria-beauty-studio"
 import { config as peakComfortHvac } from "./clients/peak-comfort-hvac"
 import { config as aceAutoCare } from "./clients/ace-auto-care"
+import { config as nazretEthiopianRestaurant } from "./clients/nazret-ethiopian-restaurant"
 
 // ── Production client configs (add real clients here) ────────────
 // import { config as sparkleCleaningConfig } from "./clients/sparkle-cleaning" 
@@ -73,6 +74,7 @@ const configs: Record<string, SiteConfig> = {
   "aria-beauty-studio": ariaBeautyStudio,
   "peak-comfort-hvac": peakComfortHvac,
   "ace-auto-care": aceAutoCare,
+  "nazret-ethiopian-restaurant": nazretEthiopianRestaurant,
 }
 
 /**

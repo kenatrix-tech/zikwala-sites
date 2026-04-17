@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Phone, Mail, MapPin } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
+import { LogoBrand } from "@/components/ui/LogoBrand"
 
 // Inline SVGs
 const SocialIcons = {
@@ -57,7 +58,7 @@ export function Footer({ business, nav, social }: FooterProps) {
 
           {/* Brand */}
           <div>
-            <h3 className="text-white text-xl font-bold mb-2">{business.name}</h3>
+            <div className="mb-2"><LogoBrand logo={business.logo} name={business.name} variant="footer" /></div>
             <p className="text-gray-400 text-sm mb-6">{business.tagline}</p>
 
             {social && (
