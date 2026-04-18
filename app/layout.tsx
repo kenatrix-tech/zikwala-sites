@@ -55,6 +55,19 @@ export default function RootLayout({
   const themeVars = buildThemeVars(config.theme)
   const fontUrl = getFontUrl(config.theme.font)
 
+  // Site is blocked — show nothing, no design visible
+  if (config.isActive === false) {
+    return (
+      <html lang="en">
+        <body className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+          <div className="text-center">
+            <p className="text-gray-600 text-sm">This site is not available.</p>
+          </div>
+        </body>
+      </html>
+    )
+  }
+
   return (
     <html lang="en">
       <head>

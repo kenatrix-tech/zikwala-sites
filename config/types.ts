@@ -59,6 +59,7 @@ export interface SiteConfig {
   // ─── Tier & Demo ─────────────────────────────────────────
   tier: Tier
   isDemo: boolean          // shows the "order your site" banner
+  isActive?: boolean       // false = entire site blocked (default true)
 
   // ─── Premium Features (Premium tier only) ────────────────
   features?: {

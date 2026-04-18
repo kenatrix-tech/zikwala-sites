@@ -24,6 +24,7 @@ export const config: SiteConfig = {
   },
   tier: "standard",
   isDemo: true,
+  isActive: false,
   seo: {
     title: "Debela Mengesha | Real Estate Agent in Phoenix, AZ",
     description:

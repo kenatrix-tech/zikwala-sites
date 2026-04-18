@@ -46,7 +46,8 @@ const PLANS = [
     monthly: 29,
     tagline: "Show what you offer",
     description: "Everything in Basic plus a gallery and listings page. Add and manage your own listings from your dashboard — no waiting, no calls to us.",
-    highlight: false,
+    highlight: true,
+    badge: "Most Popular",
     features: [
       "Everything in Basic",
       "Photo gallery — showcase your work",
@@ -70,8 +71,7 @@ const PLANS = [
     monthly: 49,
     tagline: "Grow your business",
     description: "Everything in Standard plus online booking, instant WhatsApp notifications, Google Analytics, and priority support.",
-    highlight: true,
-    badge: "Most Popular",
+    highlight: false,
     features: [
       "Everything in Standard",
       "Online booking — clients book appointments on your site",
