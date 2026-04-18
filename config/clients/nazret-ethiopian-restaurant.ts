@@ -25,7 +25,7 @@ export const config: SiteConfig = {
   },
 
   tier: "pro",
-  isDemo: false,
+  isDemo: true,
 
   seo: {
     title: "Nazret Ethiopian Restaurant | Authentic Ethiopian Food in Falls Church VA",

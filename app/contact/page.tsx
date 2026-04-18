@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { getConfig } from "@/config"
+import { getFeatures } from "@/lib/features"
 import { Contact } from "@/components/sections/Contact"
 
-const config = getConfig()
+const config   = getConfig()
+const features = getFeatures(config.tier)
 
 export const metadata: Metadata = {
   title: `Contact | ${config.business.name}`,
@@ -21,7 +23,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Contact contact={config.contact} business={config.business} />
+      <Contact contact={config.contact} business={config.business} whatsappInquiry={features.whatsappInquiry} />
     </>
   )
 }

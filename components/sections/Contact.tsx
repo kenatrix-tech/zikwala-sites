@@ -7,9 +7,10 @@ import type { SiteConfig } from "@/config/types"
 interface ContactProps {
   contact: SiteConfig["contact"]
   business: SiteConfig["business"]
+  whatsappInquiry?: boolean
 }
 
-export function Contact({ contact, business }: ContactProps) {
+export function Contact({ contact, business, whatsappInquiry = false }: ContactProps) {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
@@ -61,6 +62,15 @@ export function Contact({ contact, business }: ContactProps) {
       )
       window.location.href = `mailto:${business.email}?subject=${subject}&body=${body}`
       setSent(true)
+    }
+
+    // Pro+ — open WhatsApp with inquiry pre-filled after submission
+    if (whatsappInquiry && business.phone) {
+      const waText = encodeURIComponent(
+        `Hi, I'm ${name} — I just sent an inquiry from your website.\n\nMessage: ${message}\n\nEmail: ${email}${phone ? `\nPhone: ${phone}` : ""}`
+      )
+      const waNumber = business.phone.replace(/\D/g, "")
+      window.open(`https://wa.me/${waNumber}?text=${waText}`, "_blank")
     }
   }
 

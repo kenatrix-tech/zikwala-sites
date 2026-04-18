@@ -60,6 +60,26 @@ export interface SiteConfig {
   tier: Tier
   isDemo: boolean          // shows the "order your site" banner
 
+  // ─── Premium Features (Premium tier only) ────────────────
+  features?: {
+    /** Login / Signup — tenant, agent, or client auth (Premium) */
+    auth?: boolean
+    /** User dashboard — client manages their own content (Premium) */
+    userDashboard?: boolean
+    /** Dynamic property/vehicle/product listings managed via dashboard (Premium) */
+    dynamicListings?: boolean
+    /** Rental applications — tenants apply online (Premium / realestate) */
+    rentalApplications?: boolean
+    /** Online booking / appointment scheduling (Premium) */
+    onlineBooking?: boolean
+    /** Blog / news section with CMS (Premium) */
+    blog?: boolean
+    /** Live chat widget (Pro+) */
+    liveChat?: boolean
+    /** Email marketing / newsletter signup (Pro+) */
+    newsletter?: boolean
+  }
+
   // ─── SEO ─────────────────────────────────────────────────
   seo: {
     title: string
