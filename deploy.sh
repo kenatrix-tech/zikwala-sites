@@ -9,6 +9,7 @@
 #   --bucket <name>     S3 bucket name           (default: demo.zikwala.com)
 #   --prefix <path>     S3 subpath prefix        (default: <client-id>)
 #   --site-url <url>    NEXT_PUBLIC_SITE_URL      (default: https://<bucket>/<prefix>)
+#   --base-path <path>  Override basePath         (default: /<prefix> for demo, "" for client)
 #   --zikwala-url <url> NEXT_PUBLIC_ZIKWALA_URL   (default: https://zikwala.com)
 #   --email <email>     NEXT_PUBLIC_ZIKWALA_EMAIL (default: hello@zikwala.com)
 #   --cf-id <id>        CloudFront distribution ID for cache invalidation
@@ -16,13 +17,17 @@
 #   --no-build          Skip build, only sync existing out/ folder
 #   --force             Re-upload all files (not just changed ones)
 #   --setup             First-time bucket setup (create, policy, website hosting)
+#   --private           Mark bucket as private (OAC) — used with clients.zikwala.com
 #
-# Examples:
-#   ./deploy.sh demo-realestate                             # → demo.zikwala.com/demo-realestate/
+# Examples (demo):
+#   ./deploy.sh demo-realestate
 #   ./deploy.sh demo-realestate --force
-#   ./deploy.sh demo-realestate --no-build
-#   ./deploy.sh demo-realestate --bucket mybucket --prefix realestate
-#   ./deploy.sh demo-realestate --setup                     # first time only
+#
+# Examples (paying client with custom domain):
+#   ./deploy.sh bulcha-real-estate \
+#     --bucket clients.zikwala.com \
+#     --site-url https://bulcharealestate.com \
+#     --cf-id YOUR_CF_ID
 # ─────────────────────────────────────────────────────────────────────────────
 set -e
 
@@ -37,6 +42,7 @@ shift
 BUCKET="demo.zikwala.com"
 PREFIX="${CLIENT_ID}"
 SITE_URL=""
+BASE_PATH_OVERRIDE=""
 ZIKWALA_URL="https://zikwala.com"
 ZIKWALA_EMAIL="contact@kenatrix.com"
 ZIKWALA_PHONE="+1(571) 639-1098"
@@ -47,12 +53,14 @@ REGION="us-east-1"
 SKIP_BUILD=false
 FORCE=false
 SETUP=false
+PRIVATE=false
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --bucket)       shift; BUCKET=$1 ;;
     --prefix)       shift; PREFIX=$1 ;;
     --site-url)     shift; SITE_URL=$1 ;;
+    --base-path)    shift; BASE_PATH_OVERRIDE=$1 ;;
     --zikwala-url)  shift; ZIKWALA_URL=$1 ;;
     --email)        shift; ZIKWALA_EMAIL=$1 ;;
     --phone)        shift; ZIKWALA_PHONE=$1 ;;
@@ -61,12 +69,22 @@ while [ $# -gt 0 ]; do
     --no-build)     SKIP_BUILD=true ;;
     --force)        FORCE=true ;;
     --setup)        SETUP=true ;;
+    --private)      PRIVATE=true ;;
     *) echo "Unknown option: $1"; exit 1 ;;
   esac
   shift
 done
 
-BASE_PATH="/${PREFIX}"
+# Client bucket = no basePath (CloudFront origin path handles folder routing)
+# Demo bucket   = basePath set to /<prefix> (shared domain, path-based routing)
+if [ -n "$BASE_PATH_OVERRIDE" ]; then
+  BASE_PATH="$BASE_PATH_OVERRIDE"
+elif [ "$BUCKET" = "clients.zikwala.com" ]; then
+  BASE_PATH=""
+else
+  BASE_PATH="/${PREFIX}"
+fi
+
 if [ -z "$SITE_URL" ]; then
   SITE_URL="https://demo.zikwala.com/${PREFIX}"
 fi
@@ -112,23 +130,32 @@ if $SETUP; then
       --create-bucket-configuration LocationConstraint="$REGION"
   fi
 
-  aws s3api put-public-access-block --bucket "$BUCKET" \
-    --public-access-block-configuration \
-    "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+  if $PRIVATE; then
+    # Private bucket — block all public access, access via CloudFront OAC only
+    aws s3api put-public-access-block --bucket "$BUCKET" \
+      --public-access-block-configuration \
+      "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+    echo "✓  Bucket is private (attach OAC policy from CloudFront console)"
+  else
+    # Public bucket — static website hosting
+    aws s3api put-public-access-block --bucket "$BUCKET" \
+      --public-access-block-configuration \
+      "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
 
-  aws s3api put-bucket-policy --bucket "$BUCKET" --policy "{
-    \"Version\": \"2012-10-17\",
-    \"Statement\": [{
-      \"Effect\": \"Allow\",
-      \"Principal\": \"*\",
-      \"Action\": \"s3:GetObject\",
-      \"Resource\": \"arn:aws:s3:::${BUCKET}/*\"
-    }]
-  }"
+    aws s3api put-bucket-policy --bucket "$BUCKET" --policy "{
+      \"Version\": \"2012-10-17\",
+      \"Statement\": [{
+        \"Effect\": \"Allow\",
+        \"Principal\": \"*\",
+        \"Action\": \"s3:GetObject\",
+        \"Resource\": \"arn:aws:s3:::${BUCKET}/*\"
+      }]
+    }"
 
-  aws s3 website "s3://${BUCKET}" \
-    --index-document index.html \
-    --error-document 404.html
+    aws s3 website "s3://${BUCKET}" \
+      --index-document index.html \
+      --error-document 404.html
+  fi
 
   echo "✓  Bucket ready"
   echo ""
@@ -184,7 +211,8 @@ else
   S3_URL="http://${BUCKET}.s3-website.${REGION}.amazonaws.com"
 fi
 
+LIVE_URL="$SITE_URL"
 echo "┌─────────────────────────────────────────────┐"
-echo "  ✅  Live at: $S3_URL/$PREFIX/"
+echo "  ✅  Live at: $LIVE_URL"
 echo "└─────────────────────────────────────────────┘"
 echo ""

@@ -14,9 +14,9 @@ import {
 
 export async function generateStaticParams() {
   const config = getConfig()
-  if (!config.sellerSlug) return []
+  if (!config.sellerSlug) return [{ id: "_" }]
   const products = await fetchProductsBySeller(config.sellerSlug)
-  return products.map((p) => ({ id: String(p.productId) }))
+  return products.length ? products.map((p) => ({ id: String(p.productId) })) : [{ id: "_" }]
 }
 
 // ─── Metadata ────────────────────────────────────────────────────────────────

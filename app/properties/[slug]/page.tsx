@@ -17,9 +17,9 @@ import {
 
 export async function generateStaticParams() {
   const config = getConfig()
-  if (!config.sellerSlug) return []
+  if (!config.sellerSlug) return [{ slug: "_" }]
   const properties = await fetchPropertiesBySeller(config.sellerSlug)
-  return properties.map((p) => ({ slug: p.listingSlug }))
+  return properties.length ? properties.map((p) => ({ slug: p.listingSlug })) : [{ slug: "_" }]
 }
 
 // ─── Metadata ────────────────────────────────────────────────────────────────

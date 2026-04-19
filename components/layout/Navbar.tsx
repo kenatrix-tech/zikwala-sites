@@ -5,14 +5,16 @@ import Link from "next/link"
 import Image from "next/image"
 import { Menu, X, Phone } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
+import { ThemeToggle } from "@/components/ui/ThemeToggle"
 
 interface NavbarProps {
   business: SiteConfig["business"]
   nav: SiteConfig["nav"]
   extraLinks?: { label: string; href: string }[]
+  defaultDark?: boolean
 }
 
-export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
+export function Navbar({ business, nav, extraLinks = [], defaultDark = false }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [logoBroken, setLogoBroken] = useState(false)
@@ -36,8 +38,8 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm"
-          : "bg-white/80 backdrop-blur-sm"
+          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-sm"
+          : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm"
       }`}
     >
       {/* Brand accent line — visible only on scroll */}
@@ -63,12 +65,12 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
                   className="h-9 w-auto object-contain"
                   onError={() => setLogoBroken(true)}
                 />
-                <span className="text-base font-bold leading-tight text-gray-900">
+                <span className="text-base font-bold leading-tight text-gray-900 dark:text-white">
                   {shortName}
                 </span>
               </>
             ) : (
-              <span className="text-base font-bold leading-tight text-gray-900">
+              <span className="text-base font-bold leading-tight text-gray-900 dark:text-white">
                 {shortName}
               </span>
             )}
@@ -81,7 +83,7 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
                 key={link.href}
                 href={link.href}
                 className="text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200
-                  text-gray-600 hover:text-primary hover:bg-accent"
+                  text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-accent dark:hover:bg-white/10"
               >
                 {link.label}
               </Link>
@@ -95,12 +97,15 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
             {business.phone && (
               <a
                 href={`tel:${business.phone}`}
-                className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-primary transition-colors duration-200"
+                className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white transition-colors duration-200"
               >
                 <Phone size={14} />
                 {business.phone}
               </a>
             )}
+
+            {/* Dark mode toggle */}
+            <ThemeToggle defaultDark={defaultDark} />
 
             {/* CTA button */}
             <Link
@@ -114,7 +119,7 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
 
             {/* Mobile toggle */}
             <button
-              className="md:hidden p-2 rounded-lg text-gray-600 hover:text-primary hover:bg-accent transition-all"
+              className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-accent dark:hover:bg-white/10 transition-all"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
@@ -129,13 +134,13 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out
           ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
       >
-        <div className="bg-white/97 backdrop-blur-md border-t border-gray-100 shadow-xl">
+        <div className="bg-white/97 dark:bg-gray-900/97 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-xl">
           <nav className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
             {allLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-primary hover:bg-accent px-3 py-2.5 rounded-lg transition-all"
+                className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-accent dark:hover:bg-white/10 px-3 py-2.5 rounded-lg transition-all"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -146,7 +151,7 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
             {business.phone && (
               <a
                 href={`tel:${business.phone}`}
-                className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-accent px-3 py-2.5 rounded-lg transition-all"
+                className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-accent dark:hover:bg-white/10 px-3 py-2.5 rounded-lg transition-all"
                 onClick={() => setOpen(false)}
               >
                 <Phone size={14} />

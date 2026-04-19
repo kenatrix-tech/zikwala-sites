@@ -46,6 +46,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   }
 
+  if (!features.propertyListings && config.business.niche === "realestate" && config.soldListings) {
+    routes.push({
+      url: `${base}/sold/`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    })
+  }
+
   if (features.vehicleListings && config.vehicles) {
     routes.push({
       url: `${base}/vehicles/`,

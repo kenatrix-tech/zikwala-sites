@@ -77,9 +77,13 @@ export default function RootLayout({
     )
   }
 
+  const defaultDark = config.theme.darkMode
+
   return (
     <html lang="en">
       <head>
+        {/* Anti-flash: apply dark class before React hydrates */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var s=localStorage.getItem('theme');var d=${defaultDark ? "true" : "false"};if(s?s==='dark':d)document.documentElement.classList.add('dark')}catch(e){}})()` }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href={fontUrl} rel="stylesheet" />
@@ -88,7 +92,7 @@ export default function RootLayout({
         {config.isDemo && (
           <DemoBanner businessName={config.business.name} />
         )}
-        <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} />
+        <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} />
         <main>{children}</main>
         <Footer
           business={config.business}

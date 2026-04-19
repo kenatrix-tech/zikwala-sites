@@ -9,7 +9,7 @@ export const config: SiteConfig = {
     address: "9200 SE Sunnybrook Blvd #205",
     city: "Clackamas",
     state: "OR 97015",
-    logo: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/bulcha_logo.jpg",
+    logo: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha_logo.jpg",
     niche: "realestate",
   },
   theme: {
@@ -40,7 +40,7 @@ export const config: SiteConfig = {
       "homes for sale Portland Oregon",
       "Vancouver WA real estate",
     ],
-    ogImage: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/bulcha.jpg",
+    ogImage: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha.jpg",
   },
   nav: {
     links: [
@@ -59,7 +59,7 @@ export const config: SiteConfig = {
       "Top 10% on RMLS. Rookie of the Year. Trusted real estate expert across Greater Portland Metro, Oregon & Washington.",
     cta: { label: "Free Consultation", href: "/contact" },
     secondaryCta: { label: "View Sold Listings", href: "/sold" },
-    image: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/bulcha_hero_2.jpg",
+    image: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha_hero_2.jpg",
     badge: "🥇 Rookie of the Year",
     trustPoints: ["Top 10% on RMLS", "Licensed in OR & WA", "Keller Williams Portland Elite"],
     socialProof: { count: "Top 10%", label: "on RMLS — Greater Portland Metro" },
@@ -204,7 +204,7 @@ export const config: SiteConfig = {
       {
         heading: "Meet Wakjira G. Alamu",
         body: "Bulcha is a Keller Williams Realty Portland Elite agent serving the Greater Portland Metro area across Oregon and Washington. Recognized as Rookie of the Year and ranked in the Top 10% on RMLS, Bulcha brings energy, deep market knowledge, and genuine care to every transaction — whether you're buying your first home or selling your forever home.",
-        image: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/bulcha_hero_2.jpg",
+        image: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha_hero_2.jpg",
         highlights: [
           { label: "Licensed in", value: "OR & WA" },
           { label: "Brokerage", value: "KW Portland Elite" },
@@ -215,7 +215,7 @@ export const config: SiteConfig = {
       {
         heading: "My Commitment to You",
         body: "Real estate is one of the biggest decisions of your life — and I don't take that lightly. From Beaverton to Lake Oswego, from Portland's Pearl District to Vancouver, WA, I bring local expertise and honest guidance to every deal. My goal is simple: get you the best outcome, every time.",
-        image: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/bulch_reward2.jpg",
+        image: "https://cdn.zikwala.com/client/bulcha-real-estate/bulch_reward2.jpg",
       },
     ],
   },

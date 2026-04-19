@@ -17,9 +17,9 @@ import {
 
 export async function generateStaticParams() {
   const config = getConfig()
-  if (!config.sellerSlug) return []
+  if (!config.sellerSlug) return [{ id: "_" }]
   const vehicles = await fetchVehiclesBySeller(config.sellerSlug)
-  return vehicles.map((v) => ({ id: String(v.id) }))
+  return vehicles.length ? vehicles.map((v) => ({ id: String(v.id) })) : [{ id: "_" }]
 }
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
