@@ -130,15 +130,15 @@ export function Footer({ business, nav, social }: FooterProps) {
         </div>
 
         <div className="border-t border-white/10 pt-6 text-xs text-gray-500 flex justify-between">
-          <span>© {year} {business.name}</span>
           <a
             href="https://zikwala.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white transition"
+            className="text-gray-300 hover:text-white transition"
           >
-            Built with ❤️ by Zikwala
+            Powered by Zikwala
           </a>
+          <span>© {year} {business.name}</span>
         </div>
       </div>
     </footer>

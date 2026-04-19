@@ -280,6 +280,10 @@ export interface SiteConfig {
     }[]
   }
 
+  // ─── Sticky Contact Button ───────────────────────────────
+  /** "phone" = call only, "whatsapp" = WA only, "both" = stacked (default: "whatsapp") */
+  stickyContact?: "phone" | "whatsapp" | "both"
+
   // ─── Google Review ───────────────────────────────────────
   googleReviewUrl?: string   // e.g. https://g.page/r/{PLACE_ID}/review
 

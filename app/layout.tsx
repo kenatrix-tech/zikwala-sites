@@ -102,6 +102,7 @@ export default function RootLayout({
         <WhatsAppButton
           phone={config.business.phone}
           message={`Hi, I'm interested in ${config.business.name}'s services.`}
+          mode={config.stickyContact ?? "whatsapp"}
         />
       </body>
     </html>

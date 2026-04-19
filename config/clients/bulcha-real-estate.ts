@@ -225,6 +225,7 @@ export const config: SiteConfig = {
     mapEmbed: "https://maps.google.com/maps?q=9200+SE+Sunnybrook+Blvd+%23205,+Clackamas,+OR+97015&output=embed",
     formEndpoint: "mailto:bulchag@kw.com",
   },
+  stickyContact: "both",
   googleReviewUrl: "https://maps.app.goo.gl/Yyc5cuDxvEUZ9Pmv9",
   social: {
     facebook: "https://www.facebook.com/share/1Ca5iyQhwV/?mibextid=wwXIfr",
