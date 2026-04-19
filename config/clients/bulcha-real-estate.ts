@@ -23,12 +23,14 @@ export const config: SiteConfig = {
     darkMode: false,
   },
   tier: "basic",
-  isDemo: true,
+  isDemo: false,
   seo: {
     title: "Bulcha Real Estate | Keller Williams Portland Elite | OR & WA",
     description:
       "Top 10% on RMLS. Rookie of the Year. Buying or selling in Greater Portland Metro? Expert guidance across Oregon & Washington.",
     keywords: [
+      "real estate agent Clackamas OR",
+      "Clackamas Oregon realtor",
       "real estate agent Portland OR",
       "Portland Oregon realtor",
       "buy home Portland OR",
@@ -169,25 +171,22 @@ export const config: SiteConfig = {
     subtitle: "Trusted by buyers and sellers across Portland Metro",
     items: [
       {
-        name: "Rachel M.",
-        role: "First-time Buyer, Beaverton OR",
-        text: "Bulcha made the whole process so easy. As a first-time buyer I was nervous, but he explained everything clearly and got me a great deal.",
+        name: "Chali Hamda",
+        role: "Home Buyer, Portland Metro",
+        text: "Bulcha always answers his phone and takes the time to respond to all my questions. He never pressures you — he truly makes sure the house is a good fit before moving forward. Very honest and a great person. Highly recommend!",
         rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/testimonial-1.jpg",
       },
       {
-        name: "Kevin & Sara T.",
-        role: "Sellers, Lake Oswego OR",
-        text: "Listed on Thursday, had multiple offers by Sunday, and sold above asking. Bulcha's marketing strategy was outstanding.",
+        name: "Asrat Kahissay",
+        role: "Home Buyer, Portland Metro",
+        text: "Bulcha Real Estate was amazing to work with. Very professional and an excellent negotiator. Bulcha negotiated the price and closing costs in my favor and guided me smoothly through the entire process. Highly recommend!",
         rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/testimonial-2.jpg",
       },
       {
-        name: "Amir H.",
-        role: "Investor, Vancouver WA",
-        text: "Helped me find a great investment property across the border in Vancouver. Knows both the OR and WA markets extremely well.",
+        name: "Medasso Gemeda",
+        role: "Client, Portland Metro",
+        text: "Bulcha Real Estate is knowledgeable, customer focused, well organized, answers your questions on time and walks with you through every step and challenge, guiding you in the right direction. If you want to buy or sell property in this area, Bulcha Real Estate is your best choice!",
         rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/testimonial-3.jpg",
       },
     ],
   },
@@ -203,7 +202,7 @@ export const config: SiteConfig = {
     title: "About Bulcha",
     sections: [
       {
-        heading: "Meet Bulcha Gudina",
+        heading: "Meet Wakjira G. Alamu",
         body: "Bulcha is a Keller Williams Realty Portland Elite agent serving the Greater Portland Metro area across Oregon and Washington. Recognized as Rookie of the Year and ranked in the Top 10% on RMLS, Bulcha brings energy, deep market knowledge, and genuine care to every transaction — whether you're buying your first home or selling your forever home.",
         image: "https://cdn.zikwala.com/demo/realestate/bulcha-real-estate/bulcha_hero_2.jpg",
         highlights: [
