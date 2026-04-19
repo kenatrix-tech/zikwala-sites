@@ -4,18 +4,22 @@ import { AnimateIn } from "@/components/ui/AnimateIn"
 
 interface GalleryProps {
   gallery: NonNullable<SiteConfig["gallery"]>
+  /** Hide the internal title/subtitle — use when the page already has its own header */
+  hideHeader?: boolean
 }
 
-export function Gallery({ gallery }: GalleryProps) {
+export function Gallery({ gallery, hideHeader = false }: GalleryProps) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimateIn className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            {gallery.title}
-          </h2>
-          <p className="text-gray-500 text-lg">{gallery.subtitle}</p>
-        </AnimateIn>
+        {!hideHeader && (
+          <AnimateIn className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              {gallery.title}
+            </h2>
+            <p className="text-gray-500 text-lg">{gallery.subtitle}</p>
+          </AnimateIn>
+        )}
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {gallery.images.map((img, i) => (

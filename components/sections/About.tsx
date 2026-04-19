@@ -10,78 +10,143 @@ interface AboutProps {
   about: SiteConfig["about"]
 }
 
-export function About({ about }: AboutProps) {
-  const [imgBroken, setImgBroken] = useState(false)
-  const showImage = about.image && !imgBroken
+type Section = NonNullable<SiteConfig["about"]["sections"]>[0]
+
+function SectionImage({ src, alt }: { src: string; alt: string }) {
+  const [broken, setBroken] = useState(false)
+  if (broken) return null
 
   return (
-    <section className="py-24 bg-gray-50 relative overflow-hidden">
+    <div className="relative">
+      {/* Decorative accents behind the image */}
       <div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ background: "var(--color-accent)" }}
+        className="absolute -bottom-5 -right-5 w-44 h-44 rounded-2xl -z-10 opacity-20"
+        style={{ background: "var(--color-primary)" }}
+      />
+      <div
+        className="absolute -top-5 -left-5 w-28 h-28 rounded-2xl -z-10 opacity-10"
+        style={{ background: "var(--color-secondary)" }}
+      />
+
+      <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover"
+          onError={() => setBroken(true)}
+        />
+      </div>
+    </div>
+  )
+}
+
+function SectionText({
+  section,
+  isFirst,
+}: {
+  section: Section
+  isFirst: boolean
+}) {
+  return (
+    <div>
+      {isFirst && (
+        <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-4">
+          About
+        </span>
+      )}
+
+      {section.heading && (
+        <h2
+          className={`font-bold text-gray-900 leading-tight mb-6 ${
+            isFirst ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
+          }`}
+        >
+          {section.heading}
+        </h2>
+      )}
+
+      <p className="text-gray-500 text-lg leading-relaxed mb-10">
+        {section.body}
+      </p>
+
+      {section.highlights && section.highlights.length > 0 && (
+        <div className="grid grid-cols-2 gap-4">
+          {section.highlights.map((h) => (
+            <div
+              key={h.label}
+              className="flex items-start gap-3 bg-white rounded-xl p-4 border border-gray-100 shadow-sm"
+            >
+              <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" />
+              <div>
+                <div className="text-xs text-gray-400 font-medium mb-0.5">{h.label}</div>
+                <div className="text-gray-800 font-semibold text-sm">{h.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function About({ about }: AboutProps) {
+  // Normalize legacy format → sections array so the component has one render path
+  const sections: Section[] = about.sections ??
+    (about.story
+      ? [{ heading: undefined, body: about.story, image: about.image, highlights: about.highlights }]
+      : [])
+
+  return (
+    <section className="relative overflow-hidden bg-gray-50">
+      {/* Decorative ambient blob */}
+      <div
+        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-10 blur-3xl pointer-events-none"
+        style={{ background: "var(--color-primary)" }}
       />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`grid grid-cols-1 gap-16 items-center ${showImage ? "lg:grid-cols-2" : ""}`}>
+        {sections.map((section, i) => {
+          const reversed = i % 2 === 1   // even → image left; odd → image right
+          const hasImage = !!section.image
 
-          {/* Image side */}
-          {showImage && (
-            <AnimateIn>
-              <div className="relative">
-                <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
-                    src={about.image!}
-                    alt={about.title}
-                    fill
-                    className="object-cover"
-                    onError={() => setImgBroken(true)}
-                  />
-                </div>
-                {/* Decorative accent box */}
-                <div
-                  className="absolute -bottom-6 -right-6 w-48 h-48 rounded-2xl -z-10 opacity-30"
-                  style={{ background: "var(--color-primary)" }}
-                />
-                {/* Experience badge */}
-                <div className="absolute -left-6 bottom-12 bg-white rounded-2xl shadow-xl px-5 py-4 border border-gray-100">
-                  <div className="text-3xl font-bold text-gradient mb-0.5">
-                    {about.highlights[0]?.value}
-                  </div>
-                  <div className="text-xs text-gray-500 font-medium">{about.highlights[0]?.label}</div>
-                </div>
-              </div>
-            </AnimateIn>
-          )}
+          return (
+            <div
+              key={i}
+              className={`py-20 ${i > 0 ? "border-t border-gray-200" : ""}`}
+            >
+              <div
+                className={`grid grid-cols-1 items-center gap-14 ${
+                  hasImage ? "lg:grid-cols-2" : "max-w-3xl"
+                }`}
+              >
+                {/* Image */}
+                {hasImage && (
+                  <AnimateIn
+                    className={`order-1 ${reversed ? "lg:order-2" : "lg:order-1"}`}
+                  >
+                    <SectionImage
+                      src={section.image!}
+                      alt={section.heading ?? about.title}
+                    />
+                  </AnimateIn>
+                )}
 
-          {/* Text side */}
-          <AnimateIn delay={150}>
-            <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-4">
-              About Us
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-              {about.title}
-            </h2>
-            <p className="text-gray-500 text-lg leading-relaxed mb-10">
-              {about.story}
-            </p>
-
-            {/* Highlights grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {about.highlights.map((h) => (
-                <div
-                  key={h.label}
-                  className="flex items-start gap-3 bg-white rounded-xl p-4 border border-gray-100 shadow-sm"
+                {/* Text */}
+                <AnimateIn
+                  delay={150}
+                  className={
+                    hasImage
+                      ? `order-2 ${reversed ? "lg:order-1" : "lg:order-2"}`
+                      : ""
+                  }
                 >
-                  <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-xs text-gray-400 font-medium mb-0.5">{h.label}</div>
-                    <div className="text-gray-800 font-semibold text-sm">{h.value}</div>
-                  </div>
-                </div>
-              ))}
+                  <SectionText section={section} isFirst={i === 0} />
+                </AnimateIn>
+              </div>
             </div>
-          </AnimateIn>
-        </div>
+          )
+        })}
       </div>
     </section>
   )

@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { Phone, MessageCircle, Gauge, Fuel, Settings2, CheckCircle2, ArrowRight } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
@@ -168,27 +169,40 @@ export function VehicleListings({ vehicles, business, preview = false }: Props) 
 
                   {/* CTAs */}
                   {!v.sold && (
-                    <div className="flex gap-2">
-                      <a
-                        href={`tel:${business.phone}`}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5
-                                   bg-primary text-white font-semibold text-sm py-2.5 rounded-site
-                                   hover:opacity-90 transition-opacity"
-                      >
-                        <Phone size={14} />
-                        Call
-                      </a>
-                      <a
-                        href={whatsappLink(business.phone, v)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-1.5
-                                   bg-[#25D366] text-white font-semibold text-sm py-2.5 rounded-site
-                                   hover:opacity-90 transition-opacity"
-                      >
-                        <MessageCircle size={14} />
-                        WhatsApp
-                      </a>
+                    <div className="flex flex-col gap-2">
+                      {v.slug && (
+                        <Link
+                          href={`/vehicles/${v.slug}`}
+                          className="w-full inline-flex items-center justify-center gap-1.5
+                                     border border-primary text-primary font-semibold text-sm
+                                     py-2 rounded-site hover:bg-primary hover:text-white transition-all"
+                        >
+                          View Details
+                          <ArrowRight size={13} />
+                        </Link>
+                      )}
+                      <div className="flex gap-2">
+                        <a
+                          href={`tel:${business.phone}`}
+                          className="flex-1 inline-flex items-center justify-center gap-1.5
+                                     bg-primary text-white font-semibold text-sm py-2.5 rounded-site
+                                     hover:opacity-90 transition-opacity"
+                        >
+                          <Phone size={14} />
+                          Call
+                        </a>
+                        <a
+                          href={whatsappLink(business.phone, v)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5
+                                     bg-[#25D366] text-white font-semibold text-sm py-2.5 rounded-site
+                                     hover:opacity-90 transition-opacity"
+                        >
+                          <MessageCircle size={14} />
+                          WhatsApp
+                        </a>
+                      </div>
                     </div>
                   )}
                   {v.sold && (

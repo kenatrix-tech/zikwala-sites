@@ -14,13 +14,22 @@ const features = getFeatures(config.tier)
 
 // Auto-inject listing pages into nav based on active features + data
 const listingLinks: { label: string; href: string }[] = [
-  ...(features.vehicleListings && config.vehicles
+  ...(features.vehicleListings && (config.vehicles || config.sellerSlug)
     ? [{ label: "Inventory", href: "/vehicles" }]
     : []),
-  ...(features.propertyListings && config.properties
-    ? [{ label: config.business.niche === "realestate" ? "Properties" : "Listings", href: "/properties" }]
+  // Standard+ real estate: dynamic property listings page
+  ...(features.propertyListings && config.business.niche === "realestate" && (config.properties || config.sellerSlug)
+    ? [{ label: "Properties", href: "/properties" }]
     : []),
-  ...(features.productListings && config.products
+  // Standard+ non-realestate: generic listings page
+  ...(features.propertyListings && config.business.niche !== "realestate" && (config.properties || config.sellerSlug)
+    ? [{ label: "Listings", href: "/properties" }]
+    : []),
+  // Basic real estate: sold listings portfolio (no feature gate — always visible)
+  ...(!features.propertyListings && config.business.niche === "realestate" && config.soldListings
+    ? [{ label: "Sold Listings", href: "/sold" }]
+    : []),
+  ...(features.productListings && (config.products || config.sellerSlug)
     ? [{ label: config.business.niche === "restaurant" ? "Menu" : "Shop", href: "/products" }]
     : []),
   ...(config.catering

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Phone, ArrowRight, Tag } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
@@ -159,30 +160,43 @@ export function ProductListings({ products, business, preview = false }: Props) 
 
                     {/* CTAs */}
                     {!outOfStock ? (
-                      <div className="flex gap-2">
-                        <a
-                          href={whatsappLink(business.phone, product)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-1.5
-                                     text-white font-semibold text-sm py-2.5 rounded-site
-                                     transition-all hover:scale-[1.03] hover:shadow-md"
-                          style={{
-                            background: "linear-gradient(135deg, #5BBF7A 0%, #3EA85E 100%)",
-                            boxShadow: "0 2px 8px rgba(62,168,94,0.35)",
-                          }}
-                        >
-                          <WhatsAppIcon size={14} />
-                          Order
-                        </a>
-                        <a
-                          href={`tel:${business.phone}`}
-                          className="inline-flex items-center justify-center
-                                     bg-primary text-white font-semibold text-sm px-4 py-2.5 rounded-site
-                                     hover:opacity-90 transition-opacity"
-                        >
-                          <Phone size={14} />
-                        </a>
+                      <div className="flex flex-col gap-2">
+                        {product.slug && (
+                          <Link
+                            href={`/products/${product.slug}`}
+                            className="w-full inline-flex items-center justify-center gap-1.5
+                                       border border-primary text-primary font-semibold text-sm
+                                       py-2 rounded-site hover:bg-primary hover:text-white transition-all"
+                          >
+                            View Details
+                            <ArrowRight size={13} />
+                          </Link>
+                        )}
+                        <div className="flex gap-2">
+                          <a
+                            href={whatsappLink(business.phone, product)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center gap-1.5
+                                       text-white font-semibold text-sm py-2.5 rounded-site
+                                       transition-all hover:scale-[1.03] hover:shadow-md"
+                            style={{
+                              background: "linear-gradient(135deg, #5BBF7A 0%, #3EA85E 100%)",
+                              boxShadow: "0 2px 8px rgba(62,168,94,0.35)",
+                            }}
+                          >
+                            <WhatsAppIcon size={14} />
+                            Order
+                          </a>
+                          <a
+                            href={`tel:${business.phone}`}
+                            className="inline-flex items-center justify-center
+                                       bg-primary text-white font-semibold text-sm px-4 py-2.5 rounded-site
+                                       hover:opacity-90 transition-opacity"
+                          >
+                            <Phone size={14} />
+                          </a>
+                        </div>
                       </div>
                     ) : (
                       <p className="text-sm text-gray-400 font-medium text-center py-1">

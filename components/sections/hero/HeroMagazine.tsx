@@ -48,6 +48,7 @@ export function HeroMagazine({ hero, business }: HeroProps) {
           alt={hero.heading}
           fill
           className="object-cover"
+          style={{ objectPosition: hero.imagePosition ?? "center" }}
           priority
         />
 

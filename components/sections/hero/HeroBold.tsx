@@ -22,7 +22,8 @@ export function HeroBold({ hero, business }: HeroProps) {
           src={hero.image}
           alt={hero.heading}
           fill
-          className="object-cover object-center"
+          className="object-cover"
+          style={{ objectPosition: hero.imagePosition ?? "center" }}
           priority
         />
         {/* Gradient — stronger at bottom for text readability */}
@@ -48,6 +49,7 @@ export function HeroBold({ hero, business }: HeroProps) {
         alt={hero.heading}
         fill
         className="hidden lg:block object-cover"
+        style={{ objectPosition: hero.imagePosition ?? "center" }}
         priority
       />
       <div className="hidden lg:block absolute inset-0 bg-gradient-to-l from-black/20 via-black/10 to-transparent" />

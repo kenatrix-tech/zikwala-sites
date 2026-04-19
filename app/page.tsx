@@ -3,6 +3,7 @@ import { getFeatures } from "@/lib/features"
 import { Hero } from "@/components/sections/Hero"
 import { Services } from "@/components/sections/Services"
 import { Gallery } from "@/components/sections/Gallery"
+import { SoldListings } from "@/components/sections/SoldListings"
 import { Stats } from "@/components/sections/Stats"
 import { Testimonials } from "@/components/sections/Testimonials"
 import { About } from "@/components/sections/About"
@@ -33,8 +34,12 @@ export default function HomePage() {
         <ProductListings products={config.products} business={config.business} preview />
       )}
 
-      {features.gallery && config.gallery && (
+      {features.gallery && config.gallery && !config.soldListings && (
         <Gallery gallery={config.gallery} />
+      )}
+
+      {features.gallery && config.soldListings && (
+        <SoldListings soldListings={config.soldListings} business={config.business} />
       )}
 
       {features.stats && config.stats && (

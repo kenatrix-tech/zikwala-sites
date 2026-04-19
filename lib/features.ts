@@ -26,10 +26,10 @@ export interface Features {
 
 const TIER_FEATURES: Record<Tier, Features> = {
   basic: {
-    // landing page only — hero, services, about, contact
-    gallery:             false,
-    testimonials:        false,
-    stats:               false,
+    // landing page + credibility — hero, services, about, contact, gallery, testimonials, stats
+    gallery:             true,   // static past work / sold gallery
+    testimonials:        true,   // client reviews + Google Review link
+    stats:               true,   // achievements bar
     propertyListings:    false,
     productListings:     false,
     vehicleListings:     false,

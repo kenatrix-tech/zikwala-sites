@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { getConfig } from "@/config"
 import { getFeatures } from "@/lib/features"
 import { PropertyListings } from "@/components/sections/PropertyListings"
+import { fetchPropertiesBySeller, adaptProperties } from "@/lib/kenatrix"
 
 export function generateMetadata(): Metadata {
   const config = getConfig()
@@ -12,25 +13,37 @@ export function generateMetadata(): Metadata {
   }
 }
 
-export default function PropertiesPage() {
+export default async function PropertiesPage() {
   const config = getConfig()
   const features = getFeatures(config.tier)
 
-  if (!features.propertyListings || !config.properties) redirect("/")
+  if (!features.propertyListings || (!config.properties && !config.sellerSlug)) redirect("/")
+
+  let properties = config.properties
+
+  // Fetch from Kenatrix API when sellerSlug is configured
+  if (config.sellerSlug) {
+    const apiItems = await fetchPropertiesBySeller(config.sellerSlug)
+    if (apiItems.length > 0) {
+      properties = adaptProperties(apiItems, config.properties)
+    }
+  }
+
+  if (!properties) redirect("/")
 
   return (
     <>
       <section className="bg-accent py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            {config.properties.title}
+            {properties.title}
           </h1>
-          <p className="text-gray-500 text-lg">{config.properties.subtitle}</p>
+          <p className="text-gray-500 text-lg">{properties.subtitle}</p>
         </div>
       </section>
 
       <PropertyListings
-        properties={config.properties}
+        properties={properties}
         business={config.business}
       />
     </>

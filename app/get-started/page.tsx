@@ -25,6 +25,7 @@ const PLANS = [
       "Professional 5-page website",
       "Show up on Google — SEO basics included",
       "WhatsApp button — customers reach you instantly",
+      "Photo gallery — showcase past work",
       "Testimonials & Google Review link",
       "Stats & achievements section",
       "Contact form — inquiries go straight to your email",
@@ -32,7 +33,6 @@ const PLANS = [
       "Free SSL (https://) + domain setup",
     ],
     notIncluded: [
-      "Photo gallery",
       "Listings — properties, vehicles, or products",
       "Online booking",
       "WhatsApp inquiry notifications",

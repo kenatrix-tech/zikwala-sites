@@ -51,17 +51,22 @@ export function Navbar({ business, nav, extraLinks = [] }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
 
-          {/* Logo — show image if available, fall back to text name */}
+          {/* Logo — image (+ name beside it) if available, fall back to text name */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             {business.logo && !logoBroken ? (
-              <Image
-                src={business.logo}
-                alt={shortName}
-                width={120}
-                height={36}
-                className="h-9 w-auto object-contain"
-                onError={() => setLogoBroken(true)}
-              />
+              <>
+                <Image
+                  src={business.logo}
+                  alt={shortName}
+                  width={120}
+                  height={36}
+                  className="h-9 w-auto object-contain"
+                  onError={() => setLogoBroken(true)}
+                />
+                <span className="text-base font-bold leading-tight text-gray-900">
+                  {shortName}
+                </span>
+              </>
             ) : (
               <span className="text-base font-bold leading-tight text-gray-900">
                 {shortName}

@@ -98,6 +98,7 @@ export function HeroSplit({ hero, business }: HeroProps) {
                 alt={hero.heading}
                 fill
                 className="object-cover"
+                style={{ objectPosition: hero.imagePosition ?? "center" }}
                 priority
               />
               {/* Gradient for text readability */}

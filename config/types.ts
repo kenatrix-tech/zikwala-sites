@@ -61,6 +61,10 @@ export interface SiteConfig {
   isDemo: boolean          // shows the "order your site" banner
   isActive?: boolean       // false = entire site blocked (default true)
 
+  // ─── Zikwala Marketplace Integration ─────────────────────
+  /** Zikwala marketplace seller slug — enables dynamic listings from Kenatrix API */
+  sellerSlug?: string
+
   // ─── Premium Features (Premium tier only) ────────────────
   features?: {
     /** Login / Signup — tenant, agent, or client auth (Premium) */
@@ -115,6 +119,8 @@ export interface SiteConfig {
      * magazine — image-forward 60/40, editorial text column right
      */
     variant?: "split" | "centered" | "minimal" | "bold" | "magazine"
+    /** CSS object-position for the hero image — e.g. "center", "top", "center 25%" */
+    imagePosition?: string
   }
 
   // ─── Services Section ────────────────────────────────────
@@ -157,9 +163,17 @@ export interface SiteConfig {
   // ─── About Section ───────────────────────────────────────
   about: {
     title: string
-    story: string
+    // ─── Legacy single-section (auto-normalized by component) ───
+    story?: string
     image?: string
-    highlights: { label: string; value: string }[]
+    highlights?: { label: string; value: string }[]
+    // ─── Multi-section alternating layout ───────────────────────
+    sections?: {
+      heading?: string     // h2 within the section
+      body: string
+      image?: string
+      highlights?: { label: string; value: string }[]
+    }[]
   }
 
   // ─── Contact Section ─────────────────────────────────────
@@ -184,6 +198,7 @@ export interface SiteConfig {
       category?: string        // e.g. "Shoes", "Tops", "Electronics"
       badge?: string           // "New", "Best Seller", "Sale", "Low Stock"
       inStock?: boolean        // defaults to true
+      slug?: string            // productId (string) for detail page — set when data comes from Kenatrix API
     }[]
   }
 
@@ -204,6 +219,7 @@ export interface SiteConfig {
       image: string
       badge?: string          // e.g. "Certified", "Hot Deal", "New Arrival"
       sold?: boolean
+      slug?: string           // vehicleId (string) for detail page — set when data comes from Kenatrix API
     }[]
   }
 
@@ -224,6 +240,7 @@ export interface SiteConfig {
       sqft?: number
       image: string
       badge?: string          // e.g. "New Listing", "Price Reduced", "Open House"
+      slug?: string           // listingSlug for detail page — set when data comes from Kenatrix API
     }[]
   }
 
@@ -245,6 +262,24 @@ export interface SiteConfig {
     }[]
   }
 
+  // ─── Sold Listings Portfolio (realestate, Basic+) ────────
+  /** Static portfolio of past sales — shown on /sold page, no feature gate */
+  soldListings?: {
+    title: string
+    subtitle: string
+    items: {
+      image: string
+      address: string
+      city: string
+      price: number
+      type: "House" | "Condo" | "Townhouse" | "Apartment" | "Land" | "Commercial"
+      bedrooms?: number
+      bathrooms?: number
+      sqft?: number
+      soldYear?: number   // e.g. 2024
+    }[]
+  }
+
   // ─── Google Review ───────────────────────────────────────
   googleReviewUrl?: string   // e.g. https://g.page/r/{PLACE_ID}/review
 
@@ -255,5 +290,6 @@ export interface SiteConfig {
     twitter?: string
     linkedin?: string
     youtube?: string
+    tiktok?: string
   }
 }
