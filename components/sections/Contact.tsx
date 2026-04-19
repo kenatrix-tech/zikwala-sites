@@ -75,7 +75,7 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
   }
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-white dark:bg-gray-900 relative overflow-hidden">
       {/* Background decoration */}
       <div
         className="absolute inset-0 opacity-40 pointer-events-none"
@@ -90,10 +90,10 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-3">
             Get In Touch
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             {contact.title}
           </h2>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">{contact.subtitle}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">{contact.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -162,64 +162,64 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
           {/* Form — 3 cols */}
           <div className="lg:col-span-3">
             {sent ? (
-              <div className="h-full flex items-center justify-center bg-gray-50 rounded-2xl border border-gray-100 p-12 text-center">
+              <div className="h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-12 text-center">
                 <div>
                   <div className="text-5xl mb-4">🎉</div>
-                  <h3 className="font-bold text-gray-900 text-xl mb-2">Message Sent!</h3>
-                  <p className="text-gray-500 text-sm">We&apos;ll get back to you within 24 hours.</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-xl mb-2">Message Sent!</h3>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">We&apos;ll get back to you within 24 hours.</p>
                 </div>
               </div>
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 space-y-5"
+                className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-xl p-8 space-y-5"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                       Full Name *
                     </label>
                     <input
                       name="name"
                       required
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                       style={{ "--tw-ring-color": "var(--color-primary)" } as React.CSSProperties}
                       placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                       Phone
                     </label>
                     <input
                       name="phone"
                       type="tel"
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all"
+                      className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all"
                       placeholder="Your phone"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                     Email *
                   </label>
                   <input
                     name="email"
                     type="email"
                     required
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all"
+                    className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all"
                     placeholder="your@email.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                     Message *
                   </label>
                   <textarea
                     name="message"
                     required
                     rows={5}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all resize-none"
+                    className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all resize-none"
                     placeholder="Tell us how we can help..."
                   />
                 </div>

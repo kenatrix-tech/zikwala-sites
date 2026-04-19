@@ -28,6 +28,10 @@ function handler(event) {
   var host = request.headers.host.value;
   var uri = request.uri;
 
+  // Remove Range header — prevents 206 Partial Content responses that
+  // break social media scrapers (Facebook, LinkedIn, etc.)
+  delete request.headers["range"];
+
   var folder = CLIENT_MAP[host];
 
   if (folder) {

@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Phone, Mail, MapPin } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
@@ -69,15 +71,15 @@ export function Footer({ business, nav, social }: FooterProps) {
             {social && (
               <div className="flex gap-3">
                 {[
-                  { key: "facebook" as const, href: social.facebook },
-                  { key: "instagram" as const, href: social.instagram },
-                  { key: "tiktok" as const, href: social.tiktok },
-                  { key: "linkedin" as const, href: social.linkedin },
-                  { key: "twitter" as const, href: social.twitter },
-                  { key: "youtube" as const, href: social.youtube },
+                  { key: "facebook" as const, href: social.facebook,  color: "#1877F2" },
+                  { key: "instagram" as const, href: social.instagram, color: "#E1306C" },
+                  { key: "tiktok" as const,    href: social.tiktok,    color: "#010101" },
+                  { key: "linkedin" as const,  href: social.linkedin,  color: "#0A66C2" },
+                  { key: "twitter" as const,   href: social.twitter,   color: "#000000" },
+                  { key: "youtube" as const,   href: social.youtube,   color: "#FF0000" },
                 ]
                   .filter((s) => s.href)
-                  .map(({ key, href }) => {
+                  .map(({ key, href, color }) => {
                     const Icon = SocialIcons[key]
                     return (
                       <a
@@ -85,7 +87,9 @@ export function Footer({ business, nav, social }: FooterProps) {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-lg bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center transition"
+                        className="w-9 h-9 rounded-lg bg-white/10 text-gray-300 flex items-center justify-center transition-all hover:scale-110 hover:text-white"
+                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = color)}
+                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = "")}
                       >
                         <Icon />
                       </a>
