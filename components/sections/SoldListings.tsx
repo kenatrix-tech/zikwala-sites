@@ -120,15 +120,13 @@ export function SoldListings({ soldListings, business, hideHeader = false }: Pro
 
                   {/* CTA */}
                   <a
-                    href={whatsappLink(business.phone, item)}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`tel:${business.phone}`}
                     className="w-full inline-flex items-center justify-center gap-1.5
                                bg-primary text-white font-semibold text-sm py-2.5 rounded-site
                                hover:opacity-90 transition-opacity"
                   >
                     <Phone size={13} />
-                    Find me something similar
+                    Get a Free Consultation
                   </a>
                 </div>
 

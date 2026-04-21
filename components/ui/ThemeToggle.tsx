@@ -12,9 +12,19 @@ export function ThemeToggle({ defaultDark }: ThemeToggleProps) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Read saved preference or fall back to config default
     const saved = localStorage.getItem("theme")
-    const isDark = saved ? saved === "dark" : defaultDark
+    let isDark: boolean
+    if (saved) {
+      // Respect manual user preference
+      isDark = saved === "dark"
+    } else if (defaultDark) {
+      // Config explicitly sets dark mode
+      isDark = true
+    } else {
+      // Auto: dark from 7pm to 7am
+      const hour = new Date().getHours()
+      isDark = hour >= 19 || hour < 7
+    }
     setDark(isDark)
     document.documentElement.classList.toggle("dark", isDark)
     setMounted(true)
