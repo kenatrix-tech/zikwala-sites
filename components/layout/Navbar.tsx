@@ -56,24 +56,26 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false }: 
           {/* Logo — image (+ name beside it) if available, fall back to text name */}
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             {business.logo && !logoBroken ? (
-              <>
-                <Image
-                  src={business.logo}
-                  alt={shortName}
-                  width={120}
-                  height={36}
-                  className="h-9 w-auto object-contain"
-                  onError={() => setLogoBroken(true)}
-                />
-                <span className="text-base font-bold leading-tight text-gray-900 dark:text-white">
-                  {shortName}
-                </span>
-              </>
+              <Image
+                src={business.logo}
+                alt={shortName}
+                width={120}
+                height={36}
+                className="h-9 w-auto object-contain"
+                onError={() => setLogoBroken(true)}
+              />
             ) : (
-              <span className="text-base font-bold leading-tight text-gray-900 dark:text-white">
-                {shortName}
+              <span
+                className="flex items-center justify-center h-9 w-9 rounded-lg text-sm font-bold shrink-0"
+                style={{ background: "var(--color-primary)", color: "var(--color-on-primary)" }}
+                aria-hidden="true"
+              >
+                {shortName.charAt(0).toUpperCase()}
               </span>
             )}
+            <span className="text-base font-bold leading-tight text-gray-900 dark:text-white">
+              {shortName}
+            </span>
           </Link>
 
           {/* Desktop Nav */}

@@ -27,6 +27,7 @@ import { config as demoEventplanning } from "./clients/demo-eventplanning"
 import { config as demoCardealership } from "./clients/demo-cardealership"
 import { config as debelaMengesha } from "./clients/debela-mengesha"
 import { config as bulchaRealEstate } from "./clients/bulcha-real-estate"
+import { config as zikwalaAgency } from "./clients/zikwala-agency"
 import { config as abelCleaning } from "./clients/abel-cleaning"
 import { config as bezaBoutique } from "./clients/beza-boutique"
 import { config as lenaHartPhotography } from "./clients/lena-hart-photography"
@@ -34,6 +35,10 @@ import { config as ariaBeautyStudio } from "./clients/aria-beauty-studio"
 import { config as peakComfortHvac } from "./clients/peak-comfort-hvac"
 import { config as aceAutoCare } from "./clients/ace-auto-care"
 import { config as nazretEthiopianRestaurant } from "./clients/nazret-ethiopian-restaurant"
+import { config as markRealEstate } from "./clients/mark-real-estate"
+import { config as tadesseLaw } from "./clients/tadesse-law"
+import { config as flowproPlumbing } from "./clients/flowpro-plumbing"
+import { config as fixrightHandyman } from "./clients/fixright-handyman"
 
 // ── Production client configs (add real clients here) ────────────
 // import { config as sparkleCleaningConfig } from "./clients/sparkle-cleaning" 
@@ -68,6 +73,7 @@ const configs: Record<string, SiteConfig> = {
   // "sparkle-cleaning": sparkleCleaningConfig,
   "debela-mengesha": debelaMengesha,
   "bulcha-real-estate": bulchaRealEstate,
+  "zikwala-agency": zikwalaAgency,
   "abel-cleaning": abelCleaning,
   "beza-boutique": bezaBoutique,
   "lena-hart-photography": lenaHartPhotography,
@@ -75,6 +81,10 @@ const configs: Record<string, SiteConfig> = {
   "peak-comfort-hvac": peakComfortHvac,
   "ace-auto-care": aceAutoCare,
   "nazret-ethiopian-restaurant": nazretEthiopianRestaurant,
+  "mark-real-estate": markRealEstate,
+  "tadesse-law": tadesseLaw,
+  "flowpro-plumbing": flowproPlumbing,
+  "fixright-handyman": fixrightHandyman,
 }
 
 /**

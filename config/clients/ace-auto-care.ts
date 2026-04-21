@@ -55,7 +55,7 @@ export const config: SiteConfig = {
       "ASE-certified mechanics serving Chicago, IL since 2010. Honest pricing, fast turnaround, and quality work — guaranteed.",
     cta: { label: "Book a Service", href: "/contact" },
     secondaryCta: { label: "Our Services", href: "/services" },
-    image: "https://cdn.zikwala.com/demo/autorepair/hero.jpg",
+    image: "/clients/ace-auto-care/hero.svg",
     badge: "ASE Certified",
     trustPoints: ["ASE-Certified Mechanics", "Honest Flat-Rate Pricing", "Same-Day Service"],
     socialProof: { count: "2,000+", label: "vehicles serviced in Chicago" },

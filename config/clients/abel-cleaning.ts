@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Professional cleaning services for homes and offices across Dallas, TX. Eco-friendly, reliable, and satisfaction guaranteed.",
     cta: { label: "Get a Free Quote", href: "/contact" },
     secondaryCta: { label: "Our Services", href: "/services" },
-    image: "https://cdn.zikwala.com/demo/cleaning/hero.jpg",
+    image: "/clients/abel-cleaning/hero.svg",
     badge: "Serving Dallas Since 2015",
     trustPoints: ["Eco-Friendly Products", "Insured & Bonded", "Satisfaction Guaranteed"],
     socialProof: { count: "500+", label: "homes cleaned across Dallas" },

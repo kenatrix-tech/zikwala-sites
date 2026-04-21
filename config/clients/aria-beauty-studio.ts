@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Houston's go-to studio for hair, nails, and skincare. Expert stylists, relaxing atmosphere, results you'll love.",
     cta: { label: "Book Appointment", href: "/contact" },
     secondaryCta: { label: "View Services", href: "/services" },
-    image: "https://cdn.zikwala.com/demo/beauty/hero.jpg",
+    image: "/clients/aria-beauty-studio/hero.svg",
     badge: "Houston's Favorite Studio",
     trustPoints: ["Walk-ins Welcome", "Expert Stylists", "Online Booking"],
     socialProof: { count: "1,200+", label: "happy clients served in Houston" },

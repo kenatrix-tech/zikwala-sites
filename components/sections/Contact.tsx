@@ -10,9 +10,32 @@ interface ContactProps {
   whatsappInquiry?: boolean
 }
 
+type Errors = { name?: string; email?: string; phone?: string; message?: string }
+
+function validate(name: string, email: string, phone: string, message: string): Errors {
+  const errs: Errors = {}
+  if (!name.trim() || name.trim().length < 2)
+    errs.name = "Please enter your full name."
+  if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    errs.email = "Please enter a valid email address."
+  if (!phone.trim())
+    errs.phone = "Please enter your phone number."
+  else if (!/^[\d\s\-\+\(\)]{7,15}$/.test(phone.trim()))
+    errs.phone = "Please enter a valid phone number."
+  if (!message.trim())
+    errs.message = "Please enter a message."
+  return errs
+}
+
 export function Contact({ contact, business, whatsappInquiry = false }: ContactProps) {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [errors, setErrors] = useState<Errors>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+
+  function handleBlur(field: string) {
+    setTouched(t => ({ ...t, [field]: true }))
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -23,6 +46,14 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
     const phone   = data.get("phone") as string
     const email   = data.get("email") as string
     const message = data.get("message") as string
+
+    const errs = validate(name, email, phone, message)
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs)
+      setTouched({ name: true, email: true, phone: true, message: true })
+      return
+    }
+    setErrors({})
 
     // Priority: 1) Kenatrix Core endpoint, 2) any other https endpoint, 3) mailto fallback
     const endpoint =
@@ -181,22 +212,25 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
                     </label>
                     <input
                       name="name"
-                      required
-                      className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${touched.name && errors.name ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
                       style={{ "--tw-ring-color": "var(--color-primary)" } as React.CSSProperties}
                       placeholder="Your name"
+                      onBlur={() => handleBlur("name")}
                     />
+                    {touched.name && errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-                      Phone
+                      Phone *
                     </label>
                     <input
                       name="phone"
                       type="tel"
-                      className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all"
+                      className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${touched.phone && errors.phone ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
                       placeholder="Your phone"
+                      onBlur={() => handleBlur("phone")}
                     />
+                    {touched.phone && errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </div>
                 </div>
                 <div>
@@ -206,10 +240,11 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
                   <input
                     name="email"
                     type="email"
-                    required
-                    className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all"
+                    className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${touched.email && errors.email ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
                     placeholder="your@email.com"
+                    onBlur={() => handleBlur("email")}
                   />
+                  {touched.email && errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
@@ -217,11 +252,12 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
                   </label>
                   <textarea
                     name="message"
-                    required
                     rows={5}
-                    className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all resize-none"
+                    className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all resize-none ${touched.message && errors.message ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
                     placeholder="Tell us how we can help..."
+                    onBlur={() => handleBlur("message")}
                   />
+                  {touched.message && errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
                 <button
                   type="submit"

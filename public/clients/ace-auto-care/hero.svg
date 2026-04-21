@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="800" viewBox="0 0 1440 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#111111"/>
+      <stop offset="60%"  stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#222222"/>
+    </linearGradient>
+    <radialGradient id="spotlight" cx="70%" cy="20%" r="60%">
+      <stop offset="0%"   stop-color="#C0392B" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C0392B" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#C0392B" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#C0392B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="800" fill="url(#bg)"/>
+  <!-- Red spotlight -->
+  <rect width="1440" height="800" fill="url(#spotlight)"/>
+
+  <!-- Large gear shapes (hexagon outlines) -->
+  <!-- Gear 1 - large, right center -->
+  <polygon points="1100,160 1180,200 1200,280 1160,350 1080,360 1020,320 1000,240 1040,170"
+           fill="none" stroke="#C0392B" stroke-width="1.5" stroke-opacity="0.22"/>
+  <polygon points="1100,140 1192,184 1216,276 1172,360 1080,376 1008,332 984,240 1028,156"
+           fill="none" stroke="#C0392B" stroke-width="1" stroke-opacity="0.12"/>
+  <circle cx="1100" cy="260" r="40" fill="none" stroke="#C0392B" stroke-width="1.5" stroke-opacity="0.20"/>
+  <circle cx="1100" cy="260" r="20" fill="#C0392B" fill-opacity="0.08"/>
+
+  <!-- Gear 2 - medium, bottom right -->
+  <polygon points="1300,520 1360,548 1376,612 1340,664 1272,668 1228,636 1224,572 1260,528"
+           fill="none" stroke="#C0392B" stroke-width="1.2" stroke-opacity="0.18"/>
+  <circle cx="1300" cy="596" r="28" fill="none" stroke="#C0392B" stroke-width="1.2" stroke-opacity="0.18"/>
+  <circle cx="1300" cy="596" r="12" fill="#C0392B" fill-opacity="0.07"/>
+
+  <!-- Gear 3 - small, top right -->
+  <polygon points="1360,80 1400,100 1412,144 1388,180 1344,184 1312,160 1308,116 1332,84"
+           fill="none" stroke="#C0392B" stroke-width="1" stroke-opacity="0.16"/>
+  <circle cx="1360" cy="132" r="20" fill="none" stroke="#C0392B" stroke-width="1" stroke-opacity="0.16"/>
+
+  <!-- Concentric rings (speedometer) -->
+  <circle cx="960" cy="580" r="160" fill="none" stroke="#C0392B" stroke-width="1"   stroke-opacity="0.12"/>
+  <circle cx="960" cy="580" r="130" fill="none" stroke="#C0392B" stroke-width="1"   stroke-opacity="0.10"/>
+  <circle cx="960" cy="580" r="100" fill="none" stroke="#C0392B" stroke-width="1.5" stroke-opacity="0.14"/>
+  <circle cx="960" cy="580" r="60"  fill="none" stroke="#C0392B" stroke-width="1"   stroke-opacity="0.12"/>
+  <circle cx="960" cy="580" r="24"  fill="#C0392B" fill-opacity="0.12"/>
+
+  <!-- Speed needle -->
+  <line x1="960" y1="580" x2="1060" y2="480" stroke="#C0392B" stroke-width="2" stroke-opacity="0.30" stroke-linecap="round"/>
+
+  <!-- Grid lines (workshop floor feel) -->
+  <line x1="600" y1="0"    x2="600"  y2="800" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="800" y1="0"    x2="800"  y2="800" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="1000" y1="0"   x2="1000" y2="800" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="1200" y1="0"   x2="1200" y2="800" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="1400" y1="0"   x2="1400" y2="800" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="500" y1="200"  x2="1440" y2="200" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="500" y1="400"  x2="1440" y2="400" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+  <line x1="500" y1="600"  x2="1440" y2="600" stroke="white" stroke-width="0.5" stroke-opacity="0.04"/>
+
+  <!-- Small accent dots -->
+  <circle cx="780"  cy="200" r="4"  fill="#C0392B" fill-opacity="0.35"/>
+  <circle cx="820"  cy="180" r="3"  fill="#C0392B" fill-opacity="0.25"/>
+  <circle cx="760"  cy="220" r="2"  fill="#C0392B" fill-opacity="0.20"/>
+  <circle cx="1200" cy="400" r="4"  fill="#C0392B" fill-opacity="0.30"/>
+
+  <!-- Red horizon line -->
+  <rect x="500" y="398" width="940" height="2" fill="#C0392B" fill-opacity="0.18" rx="1"/>
+
+  <!-- Glow center -->
+  <ellipse cx="1100" cy="260" rx="120" ry="120" fill="url(#glow)"/>
+</svg>

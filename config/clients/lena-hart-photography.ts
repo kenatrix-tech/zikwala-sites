@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Wedding, portrait, and lifestyle photography across Austin, TX. Natural light. Genuine moments. Timeless results.",
     cta: { label: "Book a Session", href: "/contact" },
     secondaryCta: { label: "View Portfolio", href: "/gallery" },
-    image: "https://cdn.zikwala.com/demo/photography/lena-hart/hero.jpg",
+    image: "/clients/lena-hart-photography/hero.svg",
     badge: "Based in Austin, TX",
     trustPoints: ["200+ Weddings Captured", "Natural Light Specialist", "Same-Week Previews"],
     socialProof: { count: "200+", label: "couples & families photographed" },

@@ -186,8 +186,19 @@ fi
 echo "✓  Synced"
 echo ""
 
-# ── 3b. Copy 404.html to bucket root (S3 website error doc must be at root) ──
-if aws s3 ls "s3://${BUCKET}/${PREFIX}/404.html" > /dev/null 2>&1; then
+# ── 3b. Sync /clients/ assets to bucket root (images use absolute paths) ──────
+# Hero images, SVGs and other public/clients/* assets are referenced as
+# absolute URLs (/clients/<id>/hero.jpg) so they must live at the bucket
+# root, not nested under the client prefix.
+if [ -d "out/clients" ]; then
+  aws s3 sync out/clients/ "s3://${BUCKET}/clients/" \
+    --cache-control "public,max-age=86400"
+  echo "✓  /clients/ assets synced to bucket root"
+  echo ""
+fi
+
+# ── 3c. Copy 404.html to bucket root (S3 website error doc must be at root) ──
+if aws s3 ls "s3://${BUCKET}/${PREFIX}/404/index.html" > /dev/null 2>&1 || aws s3 ls "s3://${BUCKET}/${PREFIX}/404.html" > /dev/null 2>&1; then
   aws s3 cp "s3://${BUCKET}/${PREFIX}/404.html" "s3://${BUCKET}/404.html" \
     --cache-control "no-cache" > /dev/null
   echo "✓  404.html copied to bucket root"
