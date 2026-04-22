@@ -180,8 +180,10 @@ export interface SiteConfig {
   contact: {
     title: string
     subtitle: string
-    mapEmbed?: string      // Google Maps embed URL
-    formEndpoint?: string  // e.g. mailto: or external form service
+    mapEmbed?: string           // Google Maps embed URL
+    formEndpoint?: string       // e.g. mailto: or external form service
+    notifyEmail?: string        // email to notify on new lead
+    telegramChatId?: string     // Telegram numeric chat ID for lead notifications
   }
 
   // ─── Product Listings (Standard+ / retail niches) ───────

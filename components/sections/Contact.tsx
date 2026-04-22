@@ -55,44 +55,33 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
     }
     setErrors({})
 
-    // Priority: 1) Kenatrix Core endpoint, 2) any other https endpoint, 3) mailto fallback
-    const endpoint =
-      process.env.NEXT_PUBLIC_FORM_ENDPOINT ??
-      (contact.formEndpoint?.startsWith("https://") ? contact.formEndpoint : null)
+    const apiBase = (process.env.NEXT_PUBLIC_KENATRIX_API_URL ?? "https://api.zikwala.com").replace(/\/$/, "")
+    const endpoint = `${apiBase}/api/v1/public/contact/notify-lead`
 
-    if (endpoint) {
-      setSubmitting(true)
-      try {
-        // Map to ContactUsDto (Kenatrix Core)
-        await fetch(endpoint, {
-          method: "POST",
-          body: JSON.stringify({
-            name,
-            phone,
-            email,
-            details: message,
-            clientId: process.env.NEXT_PUBLIC_CLIENT_ID ?? "unknown",
-            appName:  business.name,
-            type:     "WEBSITE_INQUIRY",
-            reason:   "Contact Us",
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
-        })
-        setSent(true)
-      } finally {
-        setSubmitting(false)
-      }
-    } else {
-      // Last resort — mailto
-      const subject = encodeURIComponent(`Website inquiry from ${name}`)
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
-      )
-      window.location.href = `mailto:${business.email}?subject=${subject}&body=${body}`
+    setSubmitting(true)
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          details:          message,
+          clientId:         process.env.NEXT_PUBLIC_CLIENT_ID ?? "unknown",
+          appName:          business.name,
+          type:             "WEBSITE_INQUIRY",
+          reason:           "Contact Us",
+          notifyEmail:      contact.notifyEmail ?? business.email,
+          telegramChatId:   contact.telegramChatId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+      })
       setSent(true)
+    } finally {
+      setSubmitting(false)
     }
 
     // Pro+ — open WhatsApp with inquiry pre-filled after submission
