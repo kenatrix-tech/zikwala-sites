@@ -22,6 +22,7 @@ export function HeroBold({ hero, business }: HeroProps) {
           src={hero.image}
           alt={hero.heading}
           fill
+          sizes="100vw"
           className="object-cover"
           style={{ objectPosition: hero.imagePosition ?? "center" }}
           priority
@@ -48,6 +49,7 @@ export function HeroBold({ hero, business }: HeroProps) {
         src={hero.image}
         alt={hero.heading}
         fill
+        sizes="50vw"
         className="hidden lg:block object-cover"
         style={{ objectPosition: hero.imagePosition ?? "center" }}
         priority

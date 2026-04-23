@@ -13,11 +13,11 @@ export function HeroMinimal({ hero, business }: HeroProps) {
     <section className="relative overflow-hidden py-28 md:py-40" style={{ background: "var(--color-surface)" }}>
       {/* Decorative blobs */}
       <div
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-3xl pointer-events-none"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-2xl pointer-events-none"
         style={{ background: "var(--color-primary)" }}
       />
       <div
-        className="absolute bottom-0 -left-20 w-72 h-72 rounded-full opacity-[0.05] blur-2xl pointer-events-none"
+        className="absolute bottom-0 -left-20 w-72 h-72 rounded-full opacity-[0.05] blur-xl pointer-events-none"
         style={{ background: "var(--color-secondary)" }}
       />
 

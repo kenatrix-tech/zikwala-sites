@@ -40,7 +40,7 @@ export const config: SiteConfig = {
       "homes for sale Portland Oregon",
       "Vancouver WA real estate",
     ],
-    ogImage: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha.jpg",
+    ogImage: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha_hero_2.jpg",
   },
   nav: {
     links: [

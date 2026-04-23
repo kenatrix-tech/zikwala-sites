@@ -14,11 +14,11 @@ export function HeroSplit({ hero, business }: HeroProps) {
     <section className="relative overflow-hidden bg-white">
       {/* Background gradient blobs */}
       <div
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl pointer-events-none"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 blur-2xl pointer-events-none"
         style={{ background: "var(--color-primary)" }}
       />
       <div
-        className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full opacity-10 blur-3xl pointer-events-none"
+        className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full opacity-10 blur-2xl pointer-events-none"
         style={{ background: "var(--color-secondary)" }}
       />
 
@@ -91,12 +91,13 @@ export function HeroSplit({ hero, business }: HeroProps) {
           </AnimateIn>
 
           {/* Right — Image */}
-          <AnimateIn className="order-1 lg:order-2 relative" delay={150}>
+          <div className="order-1 lg:order-2 relative">
             <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src={hero.image}
                 alt={hero.heading}
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
                 style={{ objectPosition: hero.imagePosition ?? "center" }}
                 priority
@@ -116,7 +117,7 @@ export function HeroSplit({ hero, business }: HeroProps) {
                 </p>
               </div>
             </div>
-          </AnimateIn>
+          </div>
         </div>
       </div>
     </section>

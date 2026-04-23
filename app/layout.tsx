@@ -45,14 +45,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: config.seo.title,
     description: config.seo.description,
-    images: [config.seo.ogImage],
+    images: [{ url: config.seo.ogImage, width: 1200, height: 630, alt: config.seo.title }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: config.seo.title,
     description: config.seo.description,
-    images: [config.seo.ogImage],
+    images: [{ url: config.seo.ogImage, width: 1200, height: 630, alt: config.seo.title }],
   },
 }
 
@@ -84,8 +84,12 @@ export default function RootLayout({
       <head>
         {/* Anti-flash: apply dark class before React hydrates */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var s=localStorage.getItem('theme');var d=${defaultDark ? "true" : "false"};if(s?s==='dark':d)document.documentElement.classList.add('dark')}catch(e){}})()` }} />
+        {/* Preload hero image early — biggest LCP win on static export (unoptimized images skip Next.js preload injection) */}
+        <link rel="preload" as="image" href={config.hero.image} fetchPriority="high" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload font CSS so it's ready before the stylesheet link is parsed */}
+        <link rel="preload" as="style" href={fontUrl} />
         <link href={fontUrl} rel="stylesheet" />
       </head>
       <body style={themeVars}>

@@ -42,11 +42,12 @@ export function HeroMagazine({ hero, business }: HeroProps) {
     <section className="min-h-screen flex flex-col lg:grid lg:grid-cols-[3fr_2fr] overflow-hidden">
 
       {/* ── Left: image panel — first in DOM so it's on top on mobile ── */}
-      <AnimateIn className="relative h-72 sm:h-80 lg:h-auto">
+      <div className="relative h-72 sm:h-80 lg:h-auto">
         <Image
           src={hero.image}
           alt={hero.heading}
           fill
+          sizes="(max-width: 1024px) 100vw, 60vw"
           className="object-cover"
           style={{ objectPosition: hero.imagePosition ?? "center" }}
           priority
@@ -59,17 +60,17 @@ export function HeroMagazine({ hero, business }: HeroProps) {
 
         {/* Text overlay — bottom of image, mobile and desktop */}
         <AnimateIn delay={200} className="absolute bottom-0 left-0 right-0 px-6 pb-6 lg:px-8 lg:pb-8">
-          <p className="text-white/60 text-[10px] font-bold tracking-[0.3em] uppercase mb-1.5">
+          <p className="text-white/90 text-[10px] font-bold tracking-[0.3em] uppercase mb-1.5">
             {categoryLabel}
           </p>
           <p className="text-white font-bold text-xl lg:text-2xl leading-snug">
             {business.name}
           </p>
-          <p className="text-white/65 text-sm mt-1 leading-snug line-clamp-1">
+          <p className="text-white/90 text-sm mt-1 leading-snug line-clamp-1">
             {hero.subheading}
           </p>
         </AnimateIn>
-      </AnimateIn>
+      </div>
 
       {/* ── Right: editorial text panel ── */}
       <div className="relative bg-white flex flex-col justify-between

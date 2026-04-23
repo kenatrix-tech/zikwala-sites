@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
@@ -11,9 +12,16 @@ interface HeroProps {
 export function HeroCentered({ hero, business }: HeroProps) {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center text-white overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${hero.image})` }}
+      className="relative min-h-screen flex flex-col items-center justify-center text-white overflow-hidden"
     >
+      <Image
+        src={hero.image}
+        alt={hero.heading}
+        fill
+        sizes="100vw"
+        className="object-cover object-center"
+        priority
+      />
       {/* Layered overlay — lighter at top (shows image), darker toward center/bottom */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/55 to-black/80" />
       {/* Subtle vignette ring for depth */}

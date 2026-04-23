@@ -87,11 +87,12 @@ export function Footer({ business, nav, social }: FooterProps) {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${business.name} on ${key.charAt(0).toUpperCase() + key.slice(1)}`}
                         className="w-9 h-9 rounded-lg bg-white/10 text-gray-300 flex items-center justify-center transition-all hover:scale-110 hover:text-white"
                         onMouseEnter={e => (e.currentTarget.style.backgroundColor = color)}
                         onMouseLeave={e => (e.currentTarget.style.backgroundColor = "")}
                       >
-                        <Icon />
+                        <Icon aria-hidden="true" />
                       </a>
                     )
                   })}

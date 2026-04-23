@@ -58,7 +58,7 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false }: 
             {business.logo && !logoBroken ? (
               <Image
                 src={business.logo}
-                alt={shortName}
+                alt=""
                 width={120}
                 height={36}
                 className="h-9 w-auto object-contain"
