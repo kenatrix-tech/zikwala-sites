@@ -1,7 +1,17 @@
+import type { Metadata } from "next"
 import { getConfig } from "@/config"
 import { redirect } from "next/navigation"
 import { CheckCircle2, ArrowRight, MapPin, Clock, Users } from "lucide-react"
 import Link from "next/link"
+
+export function generateMetadata(): Metadata {
+  const { business, catering } = getConfig()
+  const stateCode = business.state.split(" ")[0]
+  return {
+    title: `${catering?.title ?? "Catering"} | ${business.name} | ${business.city}, ${stateCode}`,
+    description: `${catering?.subtitle ?? `Professional catering services by ${business.name}`} in ${business.city}, ${stateCode}. ${business.tagline}`,
+  }
+}
 
 export default function CateringPage() {
   const config = getConfig()

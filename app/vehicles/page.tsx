@@ -8,8 +8,8 @@ import { fetchVehiclesBySeller, adaptVehicles } from "@/lib/kenatrix"
 export function generateMetadata(): Metadata {
   const config = getConfig()
   return {
-    title: `Inventory | ${config.business.name}`,
-    description: `Browse available vehicles at ${config.business.name} in ${config.business.city}, ${config.business.state}.`,
+    title: `Vehicle Inventory | ${config.business.name} | ${config.business.city}, ${config.business.state.split(" ")[0]}`,
+    description: `Browse available vehicles at ${config.business.name} in ${config.business.city}, ${config.business.state.split(" ")[0]}. ${config.business.tagline}`,
   }
 }
 

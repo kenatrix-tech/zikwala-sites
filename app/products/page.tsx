@@ -8,8 +8,8 @@ import { fetchProductsBySeller, adaptProducts } from "@/lib/kenatrix"
 export function generateMetadata(): Metadata {
   const config = getConfig()
   return {
-    title: `Shop | ${config.business.name}`,
-    description: `Browse products from ${config.business.name} in ${config.business.city}, ${config.business.state}.`,
+    title: `Shop | ${config.business.name} | ${config.business.city}, ${config.business.state.split(" ")[0]}`,
+    description: `Browse products from ${config.business.name} in ${config.business.city}, ${config.business.state.split(" ")[0]}. ${config.business.tagline}`,
   }
 }
 

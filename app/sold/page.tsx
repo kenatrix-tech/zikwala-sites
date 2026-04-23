@@ -6,8 +6,8 @@ import { SoldListings } from "@/components/sections/SoldListings"
 export function generateMetadata(): Metadata {
   const config = getConfig()
   return {
-    title: `Sold Listings | ${config.business.name}`,
-    description: `Past sales and closed transactions by ${config.business.name} in ${config.business.city}, ${config.business.state}.`,
+    title: `Sold Listings | ${config.business.name} | ${config.business.city}, ${config.business.state.split(" ")[0]}`,
+    description: `Homes sold by ${config.business.name} across ${config.business.city} and surrounding areas. A proven track record of successful closings.`,
   }
 }
 

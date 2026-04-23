@@ -7,9 +7,13 @@ import { getFeatures } from "@/lib/features"
 const config = getConfig()
 const features = getFeatures(config.tier)
 
-export const metadata: Metadata = {
-  title: `About | ${config.business.name}`,
-  description: `Learn more about ${config.business.name} — ${config.business.tagline}`,
+export function generateMetadata(): Metadata {
+  const { business } = getConfig()
+  const stateCode = business.state.split(" ")[0]
+  return {
+    title: `About ${business.name} | Real Estate Agent | ${business.city}, ${stateCode}`,
+    description: `Meet ${business.name} — ${business.tagline}. Serving buyers, sellers, and investors across ${business.city} and surrounding areas with expert guidance and proven results.`,
+  }
 }
 
 export default function AboutPage() {

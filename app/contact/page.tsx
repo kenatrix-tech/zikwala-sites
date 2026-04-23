@@ -3,13 +3,17 @@ import { getConfig } from "@/config"
 import { getFeatures } from "@/lib/features"
 import { Contact } from "@/components/sections/Contact"
 
+export function generateMetadata(): Metadata {
+  const { business } = getConfig()
+  const stateCode = business.state.split(" ")[0]
+  return {
+    title: `Contact ${business.name} | ${business.city}, ${stateCode}`,
+    description: `Contact ${business.name} in ${business.city}, ${stateCode}. Call, email, or send a message — we respond within 24 hours.`,
+  }
+}
+
 const config   = getConfig()
 const features = getFeatures(config.tier)
-
-export const metadata: Metadata = {
-  title: `Contact | ${config.business.name}`,
-  description: `Get in touch with ${config.business.name} in ${config.business.city}, ${config.business.state}.`,
-}
 
 export default function ContactPage() {
   return (

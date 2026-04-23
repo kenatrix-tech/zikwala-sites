@@ -3,12 +3,16 @@ import { getConfig } from "@/config"
 import { Services } from "@/components/sections/Services"
 import { Contact } from "@/components/sections/Contact"
 
-const config = getConfig()
-
-export const metadata: Metadata = {
-  title: `Services | ${config.business.name}`,
-  description: `Explore all services offered by ${config.business.name} in ${config.business.city}, ${config.business.state}.`,
+export function generateMetadata(): Metadata {
+  const { business, services } = getConfig()
+  const stateCode = business.state.split(" ")[0]
+  return {
+    title: `${services.title} | ${business.name} | ${business.city}, ${stateCode}`,
+    description: `${services.subtitle} — ${business.name} serving ${business.city}, ${stateCode}. ${business.tagline}`,
+  }
 }
+
+const config = getConfig()
 
 export default function ServicesPage() {
   return (

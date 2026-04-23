@@ -8,8 +8,8 @@ import { fetchPropertiesBySeller, adaptProperties } from "@/lib/kenatrix"
 export function generateMetadata(): Metadata {
   const config = getConfig()
   return {
-    title: `Listings | ${config.business.name}`,
-    description: `Browse available properties with ${config.business.name} in ${config.business.city}, ${config.business.state}.`,
+    title: `Properties for Sale & Rent | ${config.business.name} | ${config.business.city}, ${config.business.state.split(" ")[0]}`,
+    description: `Browse homes for sale and rent with ${config.business.name} in ${config.business.city}, ${config.business.state.split(" ")[0]}. Expert real estate guidance at every step.`,
   }
 }
 

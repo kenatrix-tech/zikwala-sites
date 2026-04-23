@@ -4,12 +4,17 @@ import { getFeatures } from "@/lib/features"
 import { Gallery } from "@/components/sections/Gallery"
 import Link from "next/link"
 
+export function generateMetadata(): Metadata {
+  const { business } = getConfig()
+  const stateCode = business.state.split(" ")[0]
+  return {
+    title: `Gallery | ${business.name} | ${business.city}, ${stateCode}`,
+    description: `View the work and portfolio of ${business.name} in ${business.city}, ${stateCode}. ${business.tagline}`,
+  }
+}
+
 const config = getConfig()
 const features = getFeatures(config.tier)
-
-export const metadata: Metadata = {
-  title: `Gallery | ${config.business.name}`,
-  description: `View our work and portfolio at ${config.business.name}.`,
 }
 
 export default function GalleryPage() {

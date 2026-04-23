@@ -225,8 +225,8 @@ export const config: SiteConfig = {
     title: "About Bulcha",
     sections: [
       {
-        heading: "Meet Wakjira G. Alamu",
-        body: "Bulcha is a Keller Williams Realty Portland Elite agent serving the Greater Portland Metro area across Oregon and Washington. Recognized as Rookie of the Year and ranked in the Top 10% on RMLS, Bulcha brings energy, deep market knowledge, and genuine care to every transaction — whether you're buying your first home or selling your forever home.",
+        heading: 'Meet Wakjira "Bulcha" Alamu',
+        body: "I'm a real estate professional delivering a results-driven experience across Oregon and Washington — grounded in precision, strategy, and a genuine commitment to helping clients make confident, well-informed decisions.\n\nBefore real estate, I earned a Bachelor's in Computer Technology and built my career with industry leaders like Intel. That background gave me sharp analytical thinking, attention to detail, and the ability to navigate complex transactions — skills that translate directly into a seamless, high-level experience for every client.",
         image: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha_hero_2.jpg",
         highlights: [
           { label: "Licensed in", value: "OR & WA" },
@@ -237,7 +237,7 @@ export const config: SiteConfig = {
       },
       {
         heading: "My Commitment to You",
-        body: "Real estate is one of the biggest decisions of your life — and I don't take that lightly. From Beaverton to Lake Oswego, from Portland's Pearl District to Vancouver, WA, I bring local expertise and honest guidance to every deal. My goal is simple: get you the best outcome, every time.",
+        body: "In today's competitive market, I position my clients to succeed through thoughtful negotiation, clear communication, and deep market insight — whether you're buying, selling, or investing.\n\nFluent in English, Amharic, and Afaan Oromo, I serve a diverse clientele with clarity and cultural understanding, ensuring every client feels fully supported. Real estate is a significant life decision — I guide that process with professionalism, discretion, and a standard of service that reflects excellence.",
         image: "https://cdn.zikwala.com/client/bulcha-real-estate/bulch_reward2.jpg",
       },
     ],

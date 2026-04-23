@@ -42,6 +42,10 @@ export const metadata: Metadata = {
   title: config.seo.title,
   description: config.seo.description,
   keywords: config.seo.keywords,
+  icons: {
+    icon: config.business.logo,
+    apple: config.business.logo,
+  },
   openGraph: {
     title: config.seo.title,
     description: config.seo.description,
