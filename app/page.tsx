@@ -8,6 +8,11 @@ import { Stats } from "@/components/sections/Stats"
 import { Testimonials } from "@/components/sections/Testimonials"
 import { About } from "@/components/sections/About"
 import { Contact } from "@/components/sections/Contact"
+import { MortgageCalculator } from "@/components/sections/MortgageCalculator"
+import { HomeValuation } from "@/components/sections/HomeValuation"
+import { HowItWorks } from "@/components/sections/HowItWorks"
+import { AreasServed } from "@/components/sections/AreasServed"
+import { FAQ } from "@/components/sections/FAQ"
 import { VehicleListings } from "@/components/sections/VehicleListings"
 import { PropertyListings } from "@/components/sections/PropertyListings"
 import { ProductListings } from "@/components/sections/ProductListings"
@@ -50,7 +55,25 @@ export default function HomePage() {
         <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
       )}
 
+      {config.howItWorks && <HowItWorks />}
+
       <About about={config.about} />
+
+      {config.homeValuation && (
+        <HomeValuation business={config.business} contact={config.contact} />
+      )}
+
+      {config.mortgageCalculator && config.business.niche === "realestate" && (
+        <MortgageCalculator nav={config.nav} business={config.business} />
+      )}
+
+      {config.areasServed && config.areasServed.length > 0 && (
+        <AreasServed areasServed={config.areasServed} business={config.business} />
+      )}
+
+      {config.faq && config.faq.length > 0 && (
+        <FAQ faq={config.faq} />
+      )}
 
       <Contact contact={config.contact} business={config.business} />
     </>

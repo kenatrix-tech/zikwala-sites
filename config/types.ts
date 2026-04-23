@@ -282,6 +282,24 @@ export interface SiteConfig {
     }[]
   }
 
+  // ─── Mortgage Calculator ─────────────────────────────────
+  /** Show a mortgage calculator section — real estate niche only */
+  mortgageCalculator?: boolean
+
+  // ─── Home Valuation Form ─────────────────────────────────
+  /** Show a "What's My Home Worth?" lead form — real estate niche only */
+  homeValuation?: boolean
+
+  // ─── How It Works ────────────────────────────────────────
+  /** Show a buyer/seller process section — real estate niche only */
+  howItWorks?: boolean
+
+  // ─── Areas Served ────────────────────────────────────────
+  areasServed?: { name: string; description?: string }[]
+
+  // ─── FAQ ─────────────────────────────────────────────────
+  faq?: { question: string; answer: string }[]
+
   // ─── Sticky Contact Button ───────────────────────────────
   /** "phone" = call only, "whatsapp" = WA only, "both" = stacked (default: "whatsapp") */
   stickyContact?: "phone" | "whatsapp" | "both"
