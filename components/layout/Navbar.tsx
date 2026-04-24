@@ -62,6 +62,7 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false }: 
                 width={120}
                 height={36}
                 className="h-9 w-auto object-contain"
+                priority
                 onError={() => setLogoBroken(true)}
               />
             ) : (

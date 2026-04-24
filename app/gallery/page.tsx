@@ -15,7 +15,6 @@ export function generateMetadata(): Metadata {
 
 const config = getConfig()
 const features = getFeatures(config.tier)
-}
 
 export default function GalleryPage() {
   if (!features.gallery || !config.gallery) {

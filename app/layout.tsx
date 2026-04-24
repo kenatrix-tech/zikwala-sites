@@ -88,11 +88,12 @@ export default function RootLayout({
       <head>
         {/* Anti-flash: apply dark class before React hydrates */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var s=localStorage.getItem('theme');var d=${defaultDark ? "true" : "false"};if(s?s==='dark':d)document.documentElement.classList.add('dark')}catch(e){}})()` }} />
-        {/* Preload hero image early — biggest LCP win on static export (unoptimized images skip Next.js preload injection) */}
+        {/* Establish CDN connection before any resource is requested — biggest LCP win */}
+        <link rel="preconnect" href="https://cdn.zikwala.com" />
+        {/* Preload hero image early — static export skips Next.js preload injection */}
         <link rel="preload" as="image" href={config.hero.image} fetchPriority="high" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Preload font CSS so it's ready before the stylesheet link is parsed */}
         <link rel="preload" as="style" href={fontUrl} />
         <link href={fontUrl} rel="stylesheet" />
       </head>

@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { Bed, Bath, Maximize2, MapPin, Phone } from "lucide-react"
+import Link from "next/link"
+import { Bed, Bath, Maximize2, MapPin, Phone, ArrowRight } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
 
@@ -10,6 +11,8 @@ interface Props {
   business: SiteConfig["business"]
   /** Hide the title/subtitle — use on the dedicated /sold page which has its own page header */
   hideHeader?: boolean
+  /** Show only first 6 items with a View All button — for homepage use */
+  preview?: boolean
 }
 
 type Item = NonNullable<SiteConfig["soldListings"]>["items"][0]
@@ -26,7 +29,9 @@ function whatsappLink(phone: string, item: Item) {
   return `https://wa.me/${digits}?text=${text}`
 }
 
-export function SoldListings({ soldListings, business, hideHeader = false }: Props) {
+export function SoldListings({ soldListings, business, hideHeader = false, preview = false }: Props) {
+  const items = preview ? soldListings.items.slice(0, 6) : soldListings.items
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,8 +46,8 @@ export function SoldListings({ soldListings, business, hideHeader = false }: Pro
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {soldListings.items.map((item, i) => (
-            <AnimateIn key={i} delay={i * 60}>
+          {items.map((item, i) => (
+            <AnimateIn key={i} delay={i * 60} className={preview && i >= 3 ? "hidden sm:block" : ""}>
               <div className="group rounded-2xl overflow-hidden bg-white shadow-sm
                               hover:shadow-xl transition-shadow duration-300 border border-gray-100">
 
@@ -134,6 +139,19 @@ export function SoldListings({ soldListings, business, hideHeader = false }: Pro
             </AnimateIn>
           ))}
         </div>
+
+        {preview && soldListings.items.length > 6 && (
+          <AnimateIn className="text-center mt-10">
+            <Link
+              href="/sold"
+              className="inline-flex items-center gap-2 bg-gray-900 text-white font-semibold
+                         text-sm px-6 py-3 rounded-site hover:bg-gray-700 transition-colors"
+            >
+              View All Closings
+              <ArrowRight size={15} />
+            </Link>
+          </AnimateIn>
+        )}
 
       </div>
     </section>

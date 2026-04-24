@@ -44,7 +44,7 @@ export default function HomePage() {
       )}
 
       {features.gallery && config.soldListings && (
-        <SoldListings soldListings={config.soldListings} business={config.business} />
+        <SoldListings soldListings={config.soldListings} business={config.business} preview />
       )}
 
       {features.stats && config.stats && (
