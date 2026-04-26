@@ -35,7 +35,7 @@ export const config: SiteConfig = {
       "corporate catering DC",
       "event catering Maryland",
     ],
-    ogImage: "/clients/demo-catering/og.png",
+    ogImage: "https://cdn.zikwala.com/demo/catering/catering_hero.jpg",
   },
   nav: {
     links: [
@@ -55,7 +55,7 @@ export const config: SiteConfig = {
       "From intimate gatherings to 500-guest events — fresh, flavorful catering tailored to your occasion.",
     cta: { label: "Request a Quote", href: "/contact" },
     secondaryCta: { label: "View Our Menu", href: "/services" },
-    image: "/clients/demo-catering/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/catering/catering_hero.jpg",
     badge: "Serving DC, MD & VA",
     trustPoints: ["Halal & Dietary Options Available", "Full-Service Setup & Cleanup", "Serving DC, MD & VA"],
     socialProof: { count: "600+", label: "events catered across the DMV" },
@@ -142,7 +142,7 @@ export const config: SiteConfig = {
     title: "About Selam Catering & Events",
     story:
       "Selam Catering was born from a love of food and hospitality. Founded in Washington DC, we specialize in blending authentic Ethiopian flavors with American and international cuisine. Whether it's a 20-person office lunch or a 400-guest wedding, we bring the same care and attention to every plate.",
-    image: "/clients/demo-catering/about.jpg",
+    image: "https://cdn.zikwala.com/demo/catering/catering_hero.jpg",
     highlights: [
       { label: "Cuisine", value: "Ethiopian, American, Fusion" },
       { label: "Dietary Options", value: "Halal, Vegan, GF" },

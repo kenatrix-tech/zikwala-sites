@@ -36,7 +36,7 @@ export const config: SiteConfig = {
       "HVAC company Phoenix",
       "emergency AC repair Phoenix",
     ],
-    ogImage: "https://cdn.zikwala.com/demo/hvac/hero.jpg",
+    ogImage: "https://cdn.zikwala.com/demo/hvac/hvac_hero.jpg",
   },
   nav: {
     links: [
@@ -55,7 +55,7 @@ export const config: SiteConfig = {
       "Fast HVAC repair, installation, and maintenance across Phoenix, AZ. 24/7 emergency service. Same-day appointments available.",
     cta: { label: "Get a Free Estimate", href: "/contact" },
     secondaryCta: { label: "Our Services", href: "/services" },
-    image: "https://cdn.zikwala.com/demo/hvac/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/hvac/hvac_hero.jpg",
     badge: "24/7 Emergency Service",
     trustPoints: ["Same-Day Service", "Licensed & Insured", "Free Estimates"],
     socialProof: { count: "800+", label: "Phoenix homes & businesses served" },
@@ -141,7 +141,7 @@ export const config: SiteConfig = {
     title: "About Peak Comfort HVAC",
     story:
       "Peak Comfort HVAC has been keeping Phoenix homes and businesses comfortable since 2013. We're a family-owned company with a team of fully licensed and insured technicians. We believe in honest pricing, clean work, and getting the job done right the first time. No upsells, no surprises — just reliable HVAC service you can count on.",
-    image: "https://cdn.zikwala.com/demo/hvac/peak-comfort/owner.jpg",
+    image: "https://cdn.zikwala.com/demo/hvac/hvac_hero.jpg",
     highlights: [
       { label: "Founded", value: "2013" },
       { label: "License", value: "AZ ROC #324891" },

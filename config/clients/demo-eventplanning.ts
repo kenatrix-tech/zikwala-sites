@@ -34,7 +34,7 @@ export const config: SiteConfig = {
       "corporate event planner DC",
       "party planning Maryland",
     ],
-    ogImage: "/clients/demo-eventplanning/og.png",
+    ogImage: "https://cdn.zikwala.com/demo/event-panner/event_panning_hero.jpg",
   },
   nav: {
     links: [
@@ -54,7 +54,7 @@ export const config: SiteConfig = {
       "Award-winning event planning for weddings, corporate gatherings, and celebrations in Washington DC and the DMV.",
     cta: { label: "Start Planning", href: "/contact" },
     secondaryCta: { label: "View Portfolio", href: "/gallery" },
-    image: "/clients/demo-eventplanning/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/event-panner/event_panning_hero.jpg",
     badge: "Full-Service Planning & Day-of Coordination",
     trustPoints: ["Full Planning & Day-of Coordination", "Vendor Network of 100+ Partners", "350+ Events Executed"],
     socialProof: { count: "350+", label: "events planned across the DMV" },
@@ -141,7 +141,7 @@ export const config: SiteConfig = {
     title: "About Milestone Events & Planning",
     story:
       "Milestone Events & Planning was founded in Washington DC by a passionate event designer with a background in hospitality and design. We believe every milestone deserves to be celebrated beautifully. Our team manages every detail — from initial concept and vendor sourcing to day-of coordination — so you can be fully present for the moments that matter.",
-    image: "/clients/demo-eventplanning/about.jpg",
+    image: "https://cdn.zikwala.com/demo/event-panner/event_panning_hero.jpg",
     highlights: [
       { label: "Specialization", value: "Weddings & Corporate" },
       { label: "Vendor Network", value: "100+ Trusted Partners" },

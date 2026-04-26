@@ -35,7 +35,7 @@ export const config: SiteConfig = {
       "interior decorator Maryland",
       "home design consultation DC",
     ],
-    ogImage: "/clients/demo-decoration/og.png",
+    ogImage: "https://cdn.zikwala.com/demo/decoration/decoration.jpg",
   },
   nav: {
     links: [
@@ -55,7 +55,7 @@ export const config: SiteConfig = {
       "Full-service interior design for homes and offices in the DMV. Elegant, functional spaces tailored to your lifestyle.",
     cta: { label: "Get a Free Quote", href: "/contact" },
     secondaryCta: { label: "View Portfolio", href: "/gallery" },
-    image: "/clients/demo-decoration/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/decoration/decoration.jpg",
     badge: "100+ Spaces Transformed",
     trustPoints: ["ASID Certified Designer", "Free Initial Consultation", "Full-Service Design", "Arlington, VA"],
   },
@@ -141,7 +141,7 @@ export const config: SiteConfig = {
     title: "About Eleni Interiors",
     story:
       "Founded by Eleni Haile, an ASID-certified interior designer with a background in art and contemporary design, Eleni Interiors blends cultural aesthetics with modern elegance. Based in Arlington, VA, we serve homeowners and businesses across the DMV who want spaces that are beautiful, functional, and deeply personal.",
-    image: "/clients/demo-decoration/about.jpg",
+    image: "https://cdn.zikwala.com/demo/decoration/decoration.jpg",
     highlights: [
       { label: "Founded", value: "2014" },
       { label: "Certified", value: "ASID Member" },

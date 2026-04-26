@@ -36,7 +36,7 @@ export const config: SiteConfig = {
       "attorney Washington DC",
       "law firm DMV",
     ],
-    ogImage: "https://cdn.zikwala.com/demo/lawfirm/og.jpg",
+    ogImage: "https://cdn.zikwala.com/demo/law-firm/legal_firm_hero.jpg",
   },
   nav: {
     links: [
@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Immigration, business, and family law services tailored to the needs of DC's diverse community.",
     cta: { label: "Free Consultation", href: "/contact" },
     secondaryCta: { label: "Our Practice Areas", href: "/services" },
-    image: "https://cdn.zikwala.com/demo/lawfirm/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/law-firm/legal_firm_hero.jpg",
     badge: "20+ Years of Legal Experience",
     trustPoints: ["Licensed in DC, MD & VA", "Multilingual Team", "Free Initial Consultation"],
     socialProof: { count: "1,000+", label: "cases handled across the DMV" },
@@ -140,7 +140,7 @@ export const config: SiteConfig = {
     title: "About Sterling Legal Group",
     story:
       "Founded in 2004, Sterling Legal Group has built a reputation for exceptional legal counsel in Washington DC. We serve a diverse clientele including individuals, families, entrepreneurs, and businesses across the DMV. Our multilingual team ensures every client is fully understood and represented with the highest standard of care.",
-    image: "https://cdn.zikwala.com/demo/lawfirm/about.jpg",
+    image: "https://cdn.zikwala.com/demo/law-firm/legal_firm.jpg",
     highlights: [
       { label: "Established", value: "2004" },
       { label: "Languages", value: "English, Spanish, French" },

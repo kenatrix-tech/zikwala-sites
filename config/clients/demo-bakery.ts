@@ -35,7 +35,7 @@ export const config: SiteConfig = {
       "birthday cake DMV",
       "Ethiopian bakery Maryland",
     ],
-    ogImage: "/clients/demo-bakery/og.png",
+    ogImage: "https://cdn.zikwala.com/demo/bakery/bakery_hero.jpg",
   },
   nav: {
     links: [
@@ -55,7 +55,7 @@ export const config: SiteConfig = {
       "Handcrafted custom cakes and fresh pastries for every occasion. Made from scratch, delivered with joy.",
     cta: { label: "Place an Order", href: "/contact" },
     secondaryCta: { label: "See Our Cakes", href: "/gallery" },
-    image: "/clients/demo-bakery/hero.jpg",
+    image: "https://cdn.zikwala.com/demo/bakery/bakery_hero.jpg",
     badge: "Order 5 Days in Advance",
     trustPoints: ["100% Scratch-Made", "Halal Certified", "Custom Designs Welcome"],
     socialProof: { count: "2,000+", label: "cakes crafted and delivered" },
@@ -142,7 +142,7 @@ export const config: SiteConfig = {
     title: "About Desta Sweet Bakery",
     story:
       "Desta Sweet Bakery started in a home kitchen in Gaithersburg, MD, with a simple belief: every celebration deserves a cake made with real ingredients and real love. Today we serve hundreds of families across Montgomery County and the DMV, blending traditional Ethiopian baking techniques with modern cake artistry.",
-    image: "/clients/demo-bakery/about.jpg",
+    image: "https://cdn.zikwala.com/demo/bakery/bakery_hero.jpg",
     highlights: [
       { label: "Halal Certified", value: "Yes" },
       { label: "Custom Designs", value: "Yes" },
