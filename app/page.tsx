@@ -17,6 +17,7 @@ import { VehicleListings } from "@/components/sections/VehicleListings"
 import { PropertyListings } from "@/components/sections/PropertyListings"
 import { ProductListings } from "@/components/sections/ProductListings"
 import { Packages } from "@/components/sections/Packages"
+import { HighlightStrip } from "@/components/sections/HighlightStrip"
 
 export default function HomePage() {
   const config = getConfig()
@@ -25,6 +26,10 @@ export default function HomePage() {
   return (
     <>
       <Hero hero={config.hero} business={config.business} />
+
+      {config.hero.trustPoints && config.hero.trustPoints.length > 0 && (
+        <HighlightStrip trustPoints={config.hero.trustPoints} />
+      )}
 
       <Services services={config.services} nav={config.nav} />
 

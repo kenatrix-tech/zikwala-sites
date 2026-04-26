@@ -49,7 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
-    variant: "split",
+    variant: "magazine",
     heading: "Your Story, Beautifully Told",
     subheading:
       "Award-winning photography for weddings, portraits, and events in Washington DC and the DMV.",
