@@ -11,15 +11,25 @@ interface HeroProps {
 
 export function HeroSplit({ hero, business }: HeroProps) {
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden" style={{ background: "var(--color-surface)" }}>
+      {/* Left accent bar */}
+      <div
+        className="absolute left-0 top-0 bottom-0 w-1.5 z-10"
+        style={{ background: "linear-gradient(to bottom, var(--color-primary), var(--color-secondary))" }}
+      />
+
       {/* Background gradient blobs */}
       <div
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 blur-2xl pointer-events-none"
+        className="absolute -top-32 -right-32 w-[650px] h-[650px] rounded-full opacity-25 blur-3xl pointer-events-none"
         style={{ background: "var(--color-primary)" }}
       />
       <div
-        className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full opacity-10 blur-2xl pointer-events-none"
+        className="absolute -bottom-32 -left-20 w-[450px] h-[450px] rounded-full opacity-15 blur-2xl pointer-events-none"
         style={{ background: "var(--color-secondary)" }}
+      />
+      <div
+        className="absolute top-1/2 left-1/3 w-[300px] h-[300px] rounded-full opacity-[0.07] blur-2xl pointer-events-none"
+        style={{ background: "var(--color-primary)" }}
       />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 md:pt-24 md:pb-28">

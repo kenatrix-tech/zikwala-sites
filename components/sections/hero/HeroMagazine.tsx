@@ -58,6 +58,25 @@ export function HeroMagazine({ hero, business }: HeroProps) {
         {/* Subtle brand color tint */}
         <div className="absolute inset-0 opacity-15" style={{ background: "var(--color-primary)" }} />
 
+        {/* Vertical spine — magazine cover signature, desktop only */}
+        <div className="hidden lg:flex absolute left-0 top-0 bottom-0 w-12 items-center justify-center pointer-events-none select-none z-10"
+             style={{ background: "linear-gradient(to right, rgba(0,0,0,0.35), transparent)" }}>
+          <span
+            className="text-white/60 font-black uppercase whitespace-nowrap -rotate-90"
+            style={{ fontSize: "10px", letterSpacing: "0.45em" }}
+          >
+            {business.name}
+          </span>
+        </div>
+
+        {/* Top-right issue tag — editorial detail, desktop only */}
+        <div className="hidden lg:flex absolute top-6 right-6 flex-col items-end z-10 gap-1 pointer-events-none select-none">
+          <span className="text-white/70 text-[9px] font-bold tracking-[0.4em] uppercase">
+            {business.city}, {business.state}
+          </span>
+          <div className="h-px w-12 bg-white/40" />
+        </div>
+
         {/* Text overlay — bottom of image, mobile and desktop */}
         <AnimateIn delay={200} className="absolute bottom-0 left-0 right-0 px-6 pb-6 lg:px-8 lg:pb-8">
           <p className="text-white/90 text-[10px] font-bold tracking-[0.3em] uppercase mb-1.5">
