@@ -9,7 +9,7 @@ export const config: SiteConfig = {
     address: "4521 Gaston Ave",
     city: "Dallas",
     state: "TX",
-    logo: "https://cdn.zikwala.com/demo/cleaning/abel-cleaning/logo.png",
+    logo: "https://cdn.zikwala.com/demo/cleaning/logo.png",
     niche: "cleaning",
   },
   theme: {
@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Professional cleaning services for homes and offices across Dallas, TX. Eco-friendly, reliable, and satisfaction guaranteed.",
     cta: { label: "Get a Free Quote", href: "/contact" },
     secondaryCta: { label: "Our Services", href: "/services" },
-    image: "/clients/abel-cleaning/hero.svg",
+    image: "https://cdn.zikwala.com/demo/cleaning/hero.jpg",
     badge: "Serving Dallas Since 2015",
     trustPoints: ["Eco-Friendly Products", "Insured & Bonded", "Satisfaction Guaranteed"],
     socialProof: { count: "500+", label: "homes cleaned across Dallas" },
@@ -142,7 +142,7 @@ export const config: SiteConfig = {
     title: "About Abel Cleaning Services",
     story:
       "Founded in 2015, Abel Cleaning Services has been keeping Dallas homes and offices spotless for nearly a decade. We use only eco-friendly, non-toxic products that are safe for kids and pets. Our team is fully insured, background-checked, and trained to deliver consistent results every visit.",
-    image: "https://cdn.zikwala.com/demo/cleaning/abel-cleaning/owner.jpg",
+    image: "https://cdn.zikwala.com/demo/cleaning/hero.jpg",
     highlights: [
       { label: "Founded", value: "2015" },
       { label: "Team Size", value: "8 cleaners" },

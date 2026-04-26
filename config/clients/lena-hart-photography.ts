@@ -36,7 +36,7 @@ export const config: SiteConfig = {
       "family photographer Austin TX",
       "newborn photographer Austin",
     ],
-    ogImage: "https://cdn.zikwala.com/demo/photography/lena-hart/hero.jpg",
+    ogImage: "https://cdn.zikwala.com/demo/photography/hero.jpg",
   },
   nav: {
     links: [
@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Wedding, portrait, and lifestyle photography across Austin, TX. Natural light. Genuine moments. Timeless results.",
     cta: { label: "Book a Session", href: "/contact" },
     secondaryCta: { label: "View Portfolio", href: "/gallery" },
-    image: "/clients/lena-hart-photography/hero.svg",
+    image: "https://cdn.zikwala.com/demo/photography/hero.jpg",
     badge: "Based in Austin, TX",
     trustPoints: ["200+ Weddings Captured", "Natural Light Specialist", "Same-Week Previews"],
     socialProof: { count: "200+", label: "couples & families photographed" },
@@ -100,11 +100,11 @@ export const config: SiteConfig = {
     subtitle: "A glimpse into the moments we've captured",
     images: [
       { src: "https://cdn.zikwala.com/demo/photography/gallery1.jpg", alt: "Wedding ceremony Austin TX" },
-      { src: "https://cdn.zikwala.com/demo/photography/gallery2.jpg", alt: "Bride and groom portrait" },
-      { src: "https://cdn.zikwala.com/demo/photography/gallery3.jpg", alt: "Family portrait Austin" },
-      { src: "https://cdn.zikwala.com/demo/photography/gallery4.jpg", alt: "Engagement session golden hour" },
-      { src: "https://cdn.zikwala.com/demo/photography/gallery5.jpg", alt: "Newborn photography Austin" },
-      { src: "https://cdn.zikwala.com/demo/photography/gallery6.jpg", alt: "Brand headshots Austin TX" },
+      { src: "https://cdn.zikwala.com/demo/photography/gallery2.jpg", alt: "Family portrait Austin" },
+      { src: "https://cdn.zikwala.com/demo/photography/gallery3.jpg", alt: "Bride and groom portrait" },
+      { src: "https://cdn.zikwala.com/demo/photography/gallery4.jpg", alt: "Newborn photography Austin " },
+      { src: "https://cdn.zikwala.com/demo/photography/gallery5.jpg", alt: "Brand headshots Austin TX" },
+      { src: "https://cdn.zikwala.com/demo/photography/gallery6.jpg", alt: "Engagement session golden hour" },
     ],
   },
   testimonials: {
@@ -146,7 +146,7 @@ export const config: SiteConfig = {
     title: "About Lena Hart",
     story:
       "I'm Lena — a wedding and portrait photographer based in Austin, TX. With over 8 years behind the lens, I believe every photo should feel real, warm, and timeless. I specialize in natural light and candid storytelling. Whether it's your wedding day, your growing family, or your brand — I'm here to capture it beautifully.",
-    image: "https://cdn.zikwala.com/demo/photography/lena-hart/lena.jpg",
+    image: "https://cdn.zikwala.com/demo/photography/hero.jpg",
     highlights: [
       { label: "Based in", value: "Austin, TX" },
       { label: "Specialty", value: "Weddings & Portraits" },
@@ -159,6 +159,52 @@ export const config: SiteConfig = {
     subtitle: "Tell me about your session and I'll get back to you within 24 hours.",
     mapEmbed: "https://maps.google.com/maps?q=2108+South+Lamar+Blvd,+Austin,+TX&output=embed",
     formEndpoint: "mailto:hello@lenahart.com",
+  },
+  packages: {
+    title: "Session Packages",
+    subtitle: "Simple, transparent pricing — no hidden fees",
+    items: [
+      {
+        name: "Mini Session",
+        description: "Perfect for individuals, couples, or quick brand updates.",
+        price: "$250",
+        features: [
+          "30-minute session",
+          "1 location",
+          "15 edited digital photos",
+          "Online gallery delivery",
+          "5-day turnaround",
+        ],
+      },
+      {
+        name: "Portrait Session",
+        description: "Our most popular option for families, couples, and personal branding.",
+        price: "$450",
+        badge: "Most Popular",
+        highlight: true,
+        features: [
+          "1-hour session",
+          "Up to 2 locations",
+          "40 edited digital photos",
+          "Online gallery delivery",
+          "5-day turnaround",
+          "Outfit change included",
+        ],
+      },
+      {
+        name: "Wedding Package",
+        description: "Full-day coverage for your most important day.",
+        price: "From $2,500",
+        features: [
+          "8 hours of coverage",
+          "Getting ready to reception",
+          "300+ edited digital photos",
+          "Online gallery delivery",
+          "2-week turnaround",
+          "Engagement session included",
+        ],
+      },
+    ],
   },
   googleReviewUrl: "https://g.page/r/lena-hart-photography-austin/review",
   social: {

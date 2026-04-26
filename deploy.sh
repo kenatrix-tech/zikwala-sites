@@ -208,10 +208,15 @@ fi
 # ── 4. CloudFront invalidation ────────────────────────────────────────────────
 if [ -n "$CF_ID" ]; then
   echo "── Invalidating CloudFront..."
-  aws cloudfront create-invalidation \
+  INVALIDATION_ID=$(aws cloudfront create-invalidation \
     --distribution-id "$CF_ID" \
-    --paths "/*" --query 'Invalidation.Id' --output text
-  echo "✓  Done"
+    --paths "/*" --query 'Invalidation.Id' --output text)
+  echo "   Invalidation ID: $INVALIDATION_ID"
+  echo "── Waiting for invalidation to complete..."
+  aws cloudfront wait invalidation-completed \
+    --distribution-id "$CF_ID" \
+    --id "$INVALIDATION_ID"
+  echo "✓  CloudFront fully propagated"
   echo ""
 fi
 

@@ -1,5 +1,7 @@
 import { ArrowRight, Home, Building2, Sparkles, HardHat, Globe, Briefcase, Heart,
-  MapPin, TrendingUp, FileText, BookOpen, Shield, Palette, Star, Droplets, type LucideIcon } from "lucide-react"
+  MapPin, TrendingUp, FileText, BookOpen, Shield, Palette, Star, Droplets,
+  Wrench, Wind, Flame, PartyPopper, CalendarCheck, UtensilsCrossed, PackageCheck,
+  Cake, Coffee, Scissors, Eye, Camera, type LucideIcon } from "lucide-react"
 import Link from "next/link"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
@@ -7,6 +9,8 @@ import { AnimateIn } from "@/components/ui/AnimateIn"
 const ICON_MAP: Record<string, LucideIcon> = {
   Home, Building2, Sparkles, HardHat, Globe, Briefcase, Heart,
   MapPin, TrendingUp, FileText, BookOpen, Shield, Palette, Star, Droplets,
+  Wrench, Wind, Flame, PartyPopper, CalendarCheck, UtensilsCrossed, PackageCheck,
+  Cake, Coffee, Scissors, Eye, Camera,
 }
 
 interface ServicesProps {

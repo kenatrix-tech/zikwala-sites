@@ -56,7 +56,7 @@ export const config: SiteConfig = {
       "Houston's go-to studio for hair, nails, and skincare. Expert stylists, relaxing atmosphere, results you'll love.",
     cta: { label: "Book Appointment", href: "/contact" },
     secondaryCta: { label: "View Services", href: "/services" },
-    image: "/clients/aria-beauty-studio/hero.svg",
+    image: "https://cdn.zikwala.com/demo/beauty/hero.jpg",
     badge: "Houston's Favorite Studio",
     trustPoints: ["Walk-ins Welcome", "Expert Stylists", "Online Booking"],
     socialProof: { count: "1,200+", label: "happy clients served in Houston" },
@@ -93,6 +93,20 @@ export const config: SiteConfig = {
         price: "From $55",
         icon: "Eye",
       },
+      {
+        name: "Waxing Services",
+        description:
+          "Full body waxing including Brazilian, legs, arms, and face. Smooth, long-lasting results using premium gentle wax.",
+        price: "From $25",
+        icon: "Droplets",
+      },
+      {
+        name: "Makeup & Bridal",
+        description:
+          "Professional makeup for weddings, special occasions, and everyday glam. Airbrush and traditional application available.",
+        price: "From $85",
+        icon: "Palette",
+      },
     ],
   },
   gallery: {
@@ -102,9 +116,9 @@ export const config: SiteConfig = {
       { src: "https://cdn.zikwala.com/demo/beauty/gallery1.jpg", alt: "Balayage hair Houston" },
       { src: "https://cdn.zikwala.com/demo/beauty/gallery2.jpg", alt: "Nail art Houston" },
       { src: "https://cdn.zikwala.com/demo/beauty/gallery3.jpg", alt: "Facial treatment Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery4.jpg", alt: "Hair color Houston TX" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery5.jpg", alt: "Lash extensions Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery6.jpg", alt: "Brow shaping Houston" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery4.jpg", alt: "Lash & Brow Houston" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery5.jpg", alt: "Waxing Services Houston" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery6.jpg", alt: "Makeup & BridalHouston" },
     ],
   },
   testimonials: {
@@ -146,7 +160,7 @@ export const config: SiteConfig = {
     title: "About Aria Beauty Studio",
     story:
       "Aria Beauty Studio opened its doors in Houston in 2017 with one goal — to make every client feel confident and beautiful. Our team of licensed stylists and estheticians bring passion, skill, and care to every appointment. We use only premium, cruelty-free products and stay up to date with the latest techniques so you always leave looking your best.",
-    image: "https://cdn.zikwala.com/demo/beauty/aria-beauty/owner.jpg",
+    image: "https://cdn.zikwala.com/demo/beauty/hero.jpg",
     highlights: [
       { label: "Founded", value: "2017" },
       { label: "Location", value: "Houston, TX" },
@@ -159,6 +173,50 @@ export const config: SiteConfig = {
     subtitle: "Walk-ins welcome — or reserve your spot online.",
     mapEmbed: "https://maps.google.com/maps?q=3820+Westheimer+Rd,+Houston,+TX&output=embed",
     formEndpoint: "mailto:hello@ariabeautystudio.com",
+  },
+  packages: {
+    title: "Beauty Packages",
+    subtitle: "Bundle and save — treat yourself to the full experience",
+    items: [
+      {
+        name: "Refresh Package",
+        description: "A quick pick-me-up for busy schedules.",
+        price: "$85",
+        features: [
+          "Classic manicure",
+          "Express facial (30 min)",
+          "Brow shaping",
+          "Complimentary hand massage",
+        ],
+      },
+      {
+        name: "Glow Package",
+        description: "Our most loved all-in-one beauty experience.",
+        price: "$175",
+        badge: "Best Value",
+        highlight: true,
+        features: [
+          "Full facial (60 min)",
+          "Gel manicure & pedicure",
+          "Lash tint",
+          "Brow shaping & tint",
+          "Complimentary scalp massage",
+        ],
+      },
+      {
+        name: "Bridal Package",
+        description: "Look and feel your absolute best on your special day.",
+        price: "From $350",
+        features: [
+          "Bridal hair styling",
+          "Airbrush makeup application",
+          "Lash extensions",
+          "Gel manicure & pedicure",
+          "Trial session included",
+          "Day-of touch-up kit",
+        ],
+      },
+    ],
   },
   googleReviewUrl: "https://g.page/r/aria-beauty-studio-houston/review",
   social: {

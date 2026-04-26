@@ -35,6 +35,9 @@ const listingLinks: { label: string; href: string }[] = [
   ...(config.catering
     ? [{ label: "Catering", href: "/catering" }]
     : []),
+  ...(config.packages
+    ? [{ label: "Packages", href: "/packages" }]
+    : []),
 ]
 
 export const metadata: Metadata = {
@@ -111,7 +114,7 @@ export default function RootLayout({
         <WhatsAppButton
           phone={config.business.phone}
           message={`Hi, I'm interested in ${config.business.name}'s services.`}
-          mode={config.stickyContact ?? "whatsapp"}
+          mode={config.stickyContact ?? "both"}
         />
       </body>
     </html>

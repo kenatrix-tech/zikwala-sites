@@ -300,6 +300,20 @@ export interface SiteConfig {
   // ─── FAQ ─────────────────────────────────────────────────
   faq?: { question: string; answer: string }[]
 
+  // ─── Packages / Pricing ──────────────────────────────────
+  packages?: {
+    title: string
+    subtitle?: string
+    items: {
+      name: string
+      description: string
+      price: string
+      features: string[]
+      badge?: string
+      highlight?: boolean
+    }[]
+  }
+
   // ─── Sticky Contact Button ───────────────────────────────
   /** "phone" = call only, "whatsapp" = WA only, "both" = stacked (default: "whatsapp") */
   stickyContact?: "phone" | "whatsapp" | "both"

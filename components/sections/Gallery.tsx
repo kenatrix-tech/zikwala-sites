@@ -24,25 +24,30 @@ export function Gallery({ gallery, hideHeader = false }: GalleryProps) {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {gallery.images.map((img, i) => (
             <AnimateIn key={i} delay={i * 75}>
-              <div className="relative aspect-square rounded-site overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {img.badge && (
-                  <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold tracking-wide
-                    ${img.badge === "Sold"
-                      ? "bg-gray-900/80 text-white"
-                      : img.badge === "For Rent"
-                      ? "bg-blue-600/85 text-white"
-                      : img.badge === "Under Contract"
-                      ? "bg-amber-500/85 text-white"
-                      : "bg-primary/85 text-white"
-                    } backdrop-blur-sm`}>
-                    {img.badge}
-                  </div>
+              <div className="flex flex-col gap-2">
+                <div className="relative aspect-square rounded-site overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {img.badge && (
+                    <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold tracking-wide
+                      ${img.badge === "Sold"
+                        ? "bg-gray-900/80 text-white"
+                        : img.badge === "For Rent"
+                        ? "bg-blue-600/85 text-white"
+                        : img.badge === "Under Contract"
+                        ? "bg-amber-500/85 text-white"
+                        : "bg-primary/85 text-white"
+                      } backdrop-blur-sm`}>
+                      {img.badge}
+                    </div>
+                  )}
+                </div>
+                {img.alt && (
+                  <p className="text-center text-sm font-medium text-gray-700 leading-snug px-1">{img.alt}</p>
                 )}
               </div>
             </AnimateIn>

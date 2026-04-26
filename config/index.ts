@@ -36,7 +36,7 @@ import { config as peakComfortHvac } from "./clients/peak-comfort-hvac"
 import { config as aceAutoCare } from "./clients/ace-auto-care"
 import { config as nazretEthiopianRestaurant } from "./clients/nazret-ethiopian-restaurant"
 import { config as markRealEstate } from "./clients/mark-real-estate"
-import { config as tadesseLaw } from "./clients/tadesse-law"
+import { config as sterlingLegal } from "./clients/sterling-legal"
 import { config as flowproPlumbing } from "./clients/flowpro-plumbing"
 import { config as fixrightHandyman } from "./clients/fixright-handyman"
 
@@ -82,7 +82,7 @@ const configs: Record<string, SiteConfig> = {
   "ace-auto-care": aceAutoCare,
   "nazret-ethiopian-restaurant": nazretEthiopianRestaurant,
   "mark-real-estate": markRealEstate,
-  "tadesse-law": tadesseLaw,
+  "sterling-legal": sterlingLegal,
   "flowpro-plumbing": flowproPlumbing,
   "fixright-handyman": fixrightHandyman,
 }

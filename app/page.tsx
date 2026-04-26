@@ -16,6 +16,7 @@ import { FAQ } from "@/components/sections/FAQ"
 import { VehicleListings } from "@/components/sections/VehicleListings"
 import { PropertyListings } from "@/components/sections/PropertyListings"
 import { ProductListings } from "@/components/sections/ProductListings"
+import { Packages } from "@/components/sections/Packages"
 
 export default function HomePage() {
   const config = getConfig()
@@ -69,6 +70,10 @@ export default function HomePage() {
 
       {config.areasServed && config.areasServed.length > 0 && (
         <AreasServed areasServed={config.areasServed} business={config.business} />
+      )}
+
+      {config.packages && (
+        <Packages packages={config.packages} nav={config.nav} />
       )}
 
       {config.faq && config.faq.length > 0 && (

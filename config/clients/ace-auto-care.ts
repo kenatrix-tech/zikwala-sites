@@ -9,7 +9,7 @@ export const config: SiteConfig = {
     address: "4215 N Western Ave",
     city: "Chicago",
     state: "IL",
-    logo: "https://cdn.zikwala.com/demo/autorepair/ace-auto/logo.png",
+    logo: "https://cdn.zikwala.com/demo/auto-repair/logo.jpg",
     niche: "autorepair",
   },
   theme: {
@@ -36,7 +36,7 @@ export const config: SiteConfig = {
       "mechanic Chicago IL",
       "engine repair Chicago",
     ],
-    ogImage: "https://cdn.zikwala.com/demo/autorepair/hero.jpg",
+    ogImage: "https://cdn.zikwala.com/demo/auto-repair/hero.jpg",
   },
   nav: {
     links: [
@@ -55,7 +55,7 @@ export const config: SiteConfig = {
       "ASE-certified mechanics serving Chicago, IL since 2010. Honest pricing, fast turnaround, and quality work — guaranteed.",
     cta: { label: "Book a Service", href: "/contact" },
     secondaryCta: { label: "Our Services", href: "/services" },
-    image: "/clients/ace-auto-care/hero.svg",
+    image: "https://cdn.zikwala.com/demo/auto-repair/hero.jpg",
     badge: "ASE Certified",
     trustPoints: ["ASE-Certified Mechanics", "Honest Flat-Rate Pricing", "Same-Day Service"],
     socialProof: { count: "2,000+", label: "vehicles serviced in Chicago" },
@@ -98,12 +98,12 @@ export const config: SiteConfig = {
     title: "Our Shop",
     subtitle: "Clean, modern facility — your car is in good hands",
     images: [
-      { src: "https://cdn.zikwala.com/demo/autorepair/gallery1.jpg", alt: "Auto repair shop Chicago" },
-      { src: "https://cdn.zikwala.com/demo/autorepair/gallery2.jpg", alt: "Engine repair Chicago IL" },
-      { src: "https://cdn.zikwala.com/demo/autorepair/gallery3.jpg", alt: "Brake service Chicago" },
-      { src: "https://cdn.zikwala.com/demo/autorepair/gallery4.jpg", alt: "Oil change Chicago IL" },
-      { src: "https://cdn.zikwala.com/demo/autorepair/gallery5.jpg", alt: "Tire replacement Chicago" },
-      { src: "https://cdn.zikwala.com/demo/autorepair/gallery6.jpg", alt: "Mechanic Chicago IL" },
+      { src: "https://cdn.zikwala.com/demo/auto-repair/gallery1.jpg", alt: "Auto repair shop Chicago" },
+      { src: "https://cdn.zikwala.com/demo/auto-repair/gallery2.jpg", alt: "Engine repair Chicago IL" },
+      { src: "https://cdn.zikwala.com/demo/auto-repair/gallery3.jpg", alt: "Brake service Chicago" },
+      { src: "https://cdn.zikwala.com/demo/auto-repair/gallery4.jpg", alt: "Oil change Chicago IL" },
+      { src: "https://cdn.zikwala.com/demo/auto-repair/gallery5.jpg", alt: "Tire replacement Chicago" },
+      { src: "https://cdn.zikwala.com/demo/auto-repair/gallery6.jpg", alt: "Mechanic Chicago IL" },
     ],
   },
   testimonials: {
@@ -145,7 +145,7 @@ export const config: SiteConfig = {
     title: "About Ace Auto Care",
     story:
       "Ace Auto Care has been a trusted name in Chicago auto repair since 2010. Founded by ASE-certified master mechanic Marco Rivera, our shop was built on one principle: treat every customer's car like it's your own. We're a neighborhood shop — no chains, no commissions, no pressure. Just honest work at a fair price.",
-    image: "https://cdn.zikwala.com/demo/autorepair/ace-auto/owner.jpg",
+    image: "https://cdn.zikwala.com/demo/auto-repair/hero.jpg",
     highlights: [
       { label: "Founded", value: "2010" },
       { label: "Certification", value: "ASE Certified" },
