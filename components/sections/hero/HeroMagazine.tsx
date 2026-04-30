@@ -16,7 +16,7 @@ const NICHE_LABELS: Partial<Record<string, string>> = {
   catering:       "Catering & Events",
   beauty:         "Beauty & Wellness",
   bakery:         "Artisan Bakery",
-  decoration:     "Interior Design",
+  decoration:     "Event Decoration",
   realestate:     "Real Estate",
   cleaning:       "Professional Cleaning",
   lawfirm:        "Legal Services",

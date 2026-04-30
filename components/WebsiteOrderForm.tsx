@@ -99,7 +99,7 @@ function OrderFormInner({ endpoint }: { endpoint: string }) {
           value={plan}
           onChange={e => setPlan(e.target.value)}
           required
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900
                      focus:outline-none focus:ring-2 bg-white appearance-none cursor-pointer"
         >
           <option value="">Choose a plan or service…</option>
@@ -122,14 +122,14 @@ function OrderFormInner({ endpoint }: { endpoint: string }) {
           <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
           <input
             name="name" required placeholder="Your name"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2"
           />
         </div>
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">Phone *</label>
           <input
             name="phone" type="tel" required placeholder="+1 (703) 555-0000"
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2"
           />
         </div>
       </div>
@@ -151,7 +151,7 @@ function OrderFormInner({ endpoint }: { endpoint: string }) {
         <textarea
           name="notes" rows={4}
           placeholder="Tell us about your business — name, location, anything specific you need…"
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 bg-white
                      focus:outline-none focus:ring-2 resize-none"
         />
       </div>

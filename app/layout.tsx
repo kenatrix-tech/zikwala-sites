@@ -85,12 +85,13 @@ export default function RootLayout({
   }
 
   const defaultDark = config.theme.darkMode
+  const allowDarkMode = config.theme.allowDarkMode !== false
 
   return (
     <html lang="en">
       <head>
         {/* Anti-flash: apply dark class before React hydrates */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var s=localStorage.getItem('theme');var d=${defaultDark ? "true" : "false"};if(s?s==='dark':d)document.documentElement.classList.add('dark')}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var a=${allowDarkMode ? "true" : "false"};var d=${defaultDark ? "true" : "false"};if(!a){if(d)document.documentElement.classList.add('dark');return;}var s=localStorage.getItem('theme');if(s?s==='dark':d)document.documentElement.classList.add('dark')}catch(e){}})()` }} />
         {/* Establish CDN connection before any resource is requested — biggest LCP win */}
         <link rel="preconnect" href="https://cdn.zikwala.com" />
         {/* Preload hero image early — static export skips Next.js preload injection */}
@@ -104,7 +105,7 @@ export default function RootLayout({
         {config.isDemo && (
           <DemoBanner businessName={config.business.name} />
         )}
-        <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} />
+        <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} />
         <main>{children}</main>
         <Footer
           business={config.business}

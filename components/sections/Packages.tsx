@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Check } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
@@ -70,16 +71,16 @@ export function Packages({ packages, nav }: PackagesProps) {
                   ))}
                 </ul>
 
-                <a
-                  href={nav.ctaHref}
+                <Link
+                  href={pkg.cta?.href ?? nav.ctaHref}
                   className={`block text-center py-3 px-6 rounded-site font-semibold text-sm transition-all
                     ${pkg.highlight
                       ? "bg-white text-primary hover:bg-white/90"
                       : "bg-primary text-white hover:opacity-90"
                     }`}
                 >
-                  {nav.ctaLabel}
-                </a>
+                  {pkg.cta?.label ?? nav.ctaLabel}
+                </Link>
               </div>
             </AnimateIn>
           ))}

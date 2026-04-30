@@ -30,7 +30,7 @@ body {
 }
 
 /* ── Dark mode ─────────────────────────────────────────── */
-html.dark body          { background: #0d1117; color: #e6edf3; }
+html.dark body          { background: #0d1117; color: #e6edf3; --color-surface: #161b22; --color-accent: #1a2128; }
 
 /* Backgrounds */
 html.dark .bg-white     { background-color: #161b22; }

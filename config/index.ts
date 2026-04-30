@@ -40,6 +40,7 @@ import { config as sterlingLegal } from "./clients/sterling-legal"
 import { config as flowproPlumbing } from "./clients/flowpro-plumbing"
 import { config as fixrightHandyman } from "./clients/fixright-handyman"
 import { config as danielHailu } from "./clients/daniel-hailu"
+import { config as habeshanateDecor } from "./clients/habeshanate-decor"
 
 // ── Production client configs (add real clients here) ────────────
 // import { config as sparkleCleaningConfig } from "./clients/sparkle-cleaning" 
@@ -86,7 +87,8 @@ const configs: Record<string, SiteConfig> = {
   "sterling-legal": sterlingLegal,
   "flowpro-plumbing": flowproPlumbing,
   "fixright-handyman": fixrightHandyman,
-  "daniel-hailu": danielHailu
+  "daniel-hailu": danielHailu,
+  "habeshanate-decor": habeshanateDecor,
 }
 
 /**

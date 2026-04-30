@@ -54,6 +54,7 @@ export interface SiteConfig {
     font: FontFamily
     roundedLevel: "none" | "sm" | "md" | "lg" | "full"
     darkMode: boolean
+    allowDarkMode?: boolean  // false = hide toggle and never apply dark mode
   }
 
   // ─── Tier & Demo ─────────────────────────────────────────
@@ -311,6 +312,7 @@ export interface SiteConfig {
       features: string[]
       badge?: string
       highlight?: boolean
+      cta?: { label?: string; href: string }
     }[]
   }
 

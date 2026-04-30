@@ -13,12 +13,12 @@ export const config: SiteConfig = {
     niche: "catering",
   },
   theme: {
-    primary: "#92400E",
-    secondary: "#78350F",
-    accent: "#FDE68A",
-    surface: "#FFFBEB",
+    primary: "#0D9488",
+    secondary: "#0F766E",
+    accent: "#F0FDFA",
+    surface: "#F8FFFE",
     onPrimary: "#FFFFFF",
-    font: "Playfair Display",
+    font: "Poppins",
     roundedLevel: "lg",
     darkMode: false,
   },
@@ -49,7 +49,7 @@ export const config: SiteConfig = {
     ctaHref: "/contact",
   },
   hero: {
-    variant: "magazine",
+    variant: "bold",
     heading: "Food That Brings People Together",
     subheading:
       "From intimate gatherings to 500-guest events — fresh, flavorful catering tailored to your occasion.",

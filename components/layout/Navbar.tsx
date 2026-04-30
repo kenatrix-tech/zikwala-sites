@@ -12,9 +12,10 @@ interface NavbarProps {
   nav: SiteConfig["nav"]
   extraLinks?: { label: string; href: string }[]
   defaultDark?: boolean
+  allowDarkMode?: boolean
 }
 
-export function Navbar({ business, nav, extraLinks = [], defaultDark = false }: NavbarProps) {
+export function Navbar({ business, nav, extraLinks = [], defaultDark = false, allowDarkMode = true }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [logoBroken, setLogoBroken] = useState(false)
@@ -108,7 +109,7 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false }: 
             )}
 
             {/* Dark mode toggle */}
-            <ThemeToggle defaultDark={defaultDark} />
+            {allowDarkMode && <ThemeToggle defaultDark={defaultDark} />}
 
             {/* CTA button */}
             <Link

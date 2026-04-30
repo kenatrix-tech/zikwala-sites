@@ -45,6 +45,7 @@ testem.log
 Thumbs.db
 # Next.js build output
 .next/
+.next */
 
 # Env files
 .env
