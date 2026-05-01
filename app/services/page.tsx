@@ -27,7 +27,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <Services services={config.services} nav={config.nav} />
+      <Services services={config.services} nav={config.nav} hideHeader />
 
       <Contact contact={config.contact} business={config.business} />
     </>

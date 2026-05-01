@@ -2,8 +2,8 @@ import type { SiteConfig } from "../types"
 
 export const config: SiteConfig = {
   business: {
-    name: "Habeshanate Décor & Events",
-    tagline: "Your Vision, Our Expertise — Events That Shine",
+    name: "Habeshanate Jewelry & Décor",
+    tagline: "Handcrafted Jewelry & Custom Event Decoration",
     phone: "+1 (571) 327-6333",
     email: "lomellyve@gmail.com",
     address: "Washington",
@@ -24,17 +24,18 @@ export const config: SiteConfig = {
   },
   tier: "standard",
   isDemo: true,
+  sellerSlug: "sol-g-6177",
   seo: {
-    title: "Habeshanate Décor & Events | Event Decoration in Washington DC",
+    title: "Habeshanate Jewelry & Décor | Jewelry Shop & Event Decoration in Washington DC",
     description:
-      "Professional event decoration for birthdays, weddings, graduations, baby showers, and bridal showers across DC, Maryland, and Virginia. Custom setups, balloon arches, backdrop styling, and full event decor.",
+      "Shop handcrafted jewelry and book professional event decoration across DC, Maryland, and Virginia. Necklaces, rings, bracelets, and custom event setups for birthdays, weddings, graduations, and more.",
     keywords: [
+      "jewelry shop Washington DC",
+      "handcrafted jewelry DMV",
+      "jewelry store DC Maryland Virginia",
       "event decoration Washington DC",
       "birthday decoration DMV",
       "wedding decoration DC Maryland Virginia",
-      "graduation decoration DC",
-      "baby shower decoration DMV",
-      "event planner Washington DC",
       "balloon arch DC",
       "party decoration Virginia Maryland",
     ],
@@ -43,25 +44,25 @@ export const config: SiteConfig = {
   nav: {
     links: [
       { label: "Home", href: "/" },
+      { label: "Shop Jewelry", href: "/products" },
       { label: "Services", href: "/services" },
       { label: "Gallery", href: "/gallery" },
-      { label: "Packages", href: "/packages" },
       { label: "About", href: "/about" },
     ],
     ctaLabel: "Book Your Event",
     ctaHref: "/contact",
   },
   hero: {
-    variant: "magazine",
-    heading: "Events That Leave Everyone Speechless",
+    variant: "shop",
+    heading: "Handcrafted Jewelry You'll Treasure Forever",
     subheading:
-      "Custom event decoration for birthdays, weddings, graduations, baby showers, and bridal showers across DC, Maryland & Virginia. We set up, you celebrate.",
-    cta: { label: "Book Your Event", href: "/contact" },
-    secondaryCta: { label: "View Our Work", href: "/gallery" },
+      "Shop unique handcrafted jewelry — necklaces, rings, bracelets and more. Order instantly via WhatsApp. We also decorate events across DC, Maryland & Virginia.",
+    cta: { label: "Shop Jewelry", href: "/products" },
+    secondaryCta: { label: "Book Event Decor", href: "/contact" },
     image: "https://cdn.zikwala.com/demo/decoration/habeshanate/habeshanet1.jpg",
-    badge: "Serving DC, MD & Virginia",
-    trustPoints: ["Custom Themes", "Full Setup & Teardown", "DC, MD & VA", "Same-Week Booking Available"],
-    socialProof: { count: "200+", label: "events decorated across the DMV" },
+    badge: "Jewelry & Event Decoration · DC, MD & VA",
+    trustPoints: ["Handcrafted Jewelry", "WhatsApp Ordering", "Event Decoration DMV", "Same-Week Booking"],
+    socialProof: { count: "500+", label: "customers served across the DMV" },
   },
   services: {
     title: "Decoration & Design Services",
@@ -71,7 +72,7 @@ export const config: SiteConfig = {
         name: "Birthday Decoration",
         description:
           "From intimate home birthdays to large venue parties — balloon arches, backdrops, table setups, and custom themes for kids and adults.",
-        price: "From $600",
+        price: "From $650",
         icon: "Cake",
       },
       {
@@ -156,9 +157,9 @@ export const config: SiteConfig = {
     ],
   },
   about: {
-    title: "About Habeshanate Décor & Events",
+    title: "About Habeshanate Jewelry & Décor",
     story:
-      "Habeshanate Décor & Events was founded with one mission: to make every milestone feel extraordinary. Based in Washington DC, we specialize in creating stunning, personalized event setups for families and individuals across DC, Maryland, and Virginia. From intimate baby showers to large wedding receptions, we handle every detail so you can be fully present for the moment that matters.",
+      "Habeshanate Jewelry & Décor was founded with one mission: to bring beauty into everyday life and every milestone. Based in Washington DC, we craft and curate unique handcrafted jewelry — necklaces, rings, bracelets, and more — and specialize in stunning custom event decoration for families across DC, Maryland, and Virginia. Whether you're shopping for a special piece or planning a celebration, we're here to make it unforgettable.",
     image: "https://cdn.zikwala.com/demo/event-panner/event_panning_hero.jpg",
     highlights: [
       { label: "Based in", value: "Washington, DC" },
@@ -174,7 +175,7 @@ export const config: SiteConfig = {
       {
         name: "Essential",
         description: "Perfect for intimate gatherings and smaller celebrations.",
-        price: "From $600",
+        price: "From $650",
         features: [
           "Balloon garland or arch",
           "1 custom backdrop",

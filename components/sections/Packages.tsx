@@ -6,27 +6,30 @@ import { AnimateIn } from "@/components/ui/AnimateIn"
 interface PackagesProps {
   packages: NonNullable<SiteConfig["packages"]>
   nav: SiteConfig["nav"]
+  hideHeader?: boolean
 }
 
-export function Packages({ packages, nav }: PackagesProps) {
+export function Packages({ packages, nav, hideHeader = false }: PackagesProps) {
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--color-accent)_0%,_transparent_60%)] opacity-60 pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimateIn className="text-center mb-16">
-          <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-3">
-            Pricing
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            {packages.title}
-          </h2>
-          {packages.subtitle && (
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed">
-              {packages.subtitle}
-            </p>
-          )}
-        </AnimateIn>
+        {!hideHeader && (
+          <AnimateIn className="text-center mb-16">
+            <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+              Pricing
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              {packages.title}
+            </h2>
+            {packages.subtitle && (
+              <p className="text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed">
+                {packages.subtitle}
+              </p>
+            )}
+          </AnimateIn>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {packages.items.map((pkg, index) => (

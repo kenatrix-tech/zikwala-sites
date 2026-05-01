@@ -16,6 +16,7 @@ import { FAQ } from "@/components/sections/FAQ"
 import { VehicleListings } from "@/components/sections/VehicleListings"
 import { PropertyListings } from "@/components/sections/PropertyListings"
 import { ProductListings } from "@/components/sections/ProductListings"
+import { ShopFeaturedGrid } from "@/components/sections/ShopFeaturedGrid"
 import { Packages } from "@/components/sections/Packages"
 import { HighlightStrip } from "@/components/sections/HighlightStrip"
 
@@ -23,6 +24,42 @@ export default function HomePage() {
   const config = getConfig()
   const features = getFeatures(config.tier)
 
+  // ── Shop layout: product-based businesses with a sellerSlug ──────────────
+  // Excludes realestate and cardealership which have their own layouts (future).
+  if (
+    config.sellerSlug &&
+    config.business.niche !== "realestate" &&
+    config.business.niche !== "cardealership"
+  ) {
+    return (
+      <>
+        <Hero hero={config.hero} business={config.business} />
+
+        <ShopFeaturedGrid
+          sellerSlug={config.sellerSlug}
+          business={config.business}
+          fallback={{
+            title: config.products?.title,
+            subtitle: config.products?.subtitle,
+          }}
+        />
+
+        {features.stats && config.stats && (
+          <Stats stats={config.stats} />
+        )}
+
+        <About about={config.about} />
+
+        {features.testimonials && config.testimonials && (
+          <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
+        )}
+
+        <Contact contact={config.contact} business={config.business} />
+      </>
+    )
+  }
+
+  // ── Service layout (existing, all non-shop clients unchanged) ────────────
   return (
     <>
       <Hero hero={config.hero} business={config.business} />

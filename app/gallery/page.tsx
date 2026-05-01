@@ -41,7 +41,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <Gallery gallery={config.gallery} />
+      <Gallery gallery={config.gallery} hideHeader />
     </>
   )
 }

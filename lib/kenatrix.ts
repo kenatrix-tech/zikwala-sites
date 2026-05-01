@@ -215,13 +215,48 @@ export interface VehicleImageDto {
   vehicleId: number
 }
 
+// ─── Listing API Types ────────────────────────────────────────────────────────
+
+/** Returned by GET /api/v1/public/listing/seller?sellerSlug={slug} */
+export interface ListingDto {
+  id: number
+  listingType?: string
+  titleLine1?: string
+  titleLine2?: string
+  titleLine3?: string
+  displayPriceText?: string
+  price?: number
+  currency?: string
+  location?: string
+  thumbnailUrl?: string
+  categoryName?: string
+  categorySlug?: string
+  countryCode?: string
+  slug?: string
+  status?: string
+  views?: number
+  isFeatured?: boolean
+}
+
+export interface PageableResponse<T> {
+  content: T[]
+  pageSize: number
+  pageNumber: number
+  totalRecords: number
+  totalPages: number
+  hasNext: boolean
+  hasPrevious: boolean
+}
+
 // ─── Fetch Helpers ────────────────────────────────────────────────────────────
 
 async function apiFetch<T>(path: string): Promise<T | null> {
   try {
     const res = await fetch(`${API_BASE}${path}`, { cache: "no-store" })
     if (!res.ok) return null
-    return res.json() as Promise<T>
+    const contentType = res.headers.get("content-type") ?? ""
+    if (!contentType.includes("application/json")) return null
+    return await res.json() as T
   } catch {
     return null
   }
@@ -245,6 +280,10 @@ export async function fetchProductById(id: string | number): Promise<ProductDto 
   return apiFetch<ProductDto>(`/api/v1/public/product/${id}`)
 }
 
+export async function fetchProductBySlug(slug: string): Promise<ProductDto | null> {
+  return apiFetch<ProductDto>(`/api/v1/public/product/slug/${encodeURIComponent(slug)}`)
+}
+
 export async function fetchVehiclesBySeller(sellerSlug: string): Promise<VehicleSummaryDto[]> {
   const data = await apiFetch<VehicleSummaryDto[]>(`/api/v1/public/vehicle/seller/${sellerSlug}`)
   return data ?? []
@@ -252,6 +291,14 @@ export async function fetchVehiclesBySeller(sellerSlug: string): Promise<Vehicle
 
 export async function fetchVehicleById(id: string | number): Promise<VehicleDto | null> {
   return apiFetch<VehicleDto>(`/api/v1/public/vehicle/${id}`)
+}
+
+/** Fetch all listings for a seller — works across product/vehicle/property types */
+export async function fetchListingsBySellerSlug(sellerSlug: string): Promise<ListingDto[]> {
+  const data = await apiFetch<PageableResponse<ListingDto>>(
+    `/api/v1/public/listing/seller?sellerSlug=${encodeURIComponent(sellerSlug)}&size=50`
+  )
+  return data?.content ?? []
 }
 
 // ─── Adapters: API → SiteConfig format ───────────────────────────────────────
@@ -368,6 +415,28 @@ export function adaptVehicles(
   return {
     title: fallback?.title ?? "Available Vehicles",
     subtitle: fallback?.subtitle ?? "Browse our inventory",
+    items: mapped,
+  }
+}
+
+/** Adapt ListingDto[] (from /listing/seller endpoint) into the products config format */
+export function adaptListings(
+  items: ListingDto[],
+  fallback?: { title?: string; subtitle?: string }
+) {
+  const mapped = items.map((l) => ({
+    id: String(l.id),
+    name: [l.titleLine1, l.titleLine2, l.titleLine3].filter(Boolean).join(" ") || "Item",
+    price: l.price ? Number(l.price) : 0,
+    image: l.thumbnailUrl ?? "",
+    category: l.categoryName,
+    inStock: l.status !== "SOLD" && l.status !== "INACTIVE",
+    slug: l.slug ?? String(l.id),
+  }))
+
+  return {
+    title: fallback?.title ?? "Our Collection",
+    subtitle: fallback?.subtitle ?? "Browse and order directly via WhatsApp",
     items: mapped,
   }
 }

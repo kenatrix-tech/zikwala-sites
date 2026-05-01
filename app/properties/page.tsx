@@ -45,6 +45,7 @@ export default async function PropertiesPage() {
       <PropertyListings
         properties={properties}
         business={config.business}
+        hideHeader
       />
     </>
   )

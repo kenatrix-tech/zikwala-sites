@@ -12,31 +12,29 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
 const config = getConfig()
 const features = getFeatures(config.tier)
 
-// Auto-inject listing pages into nav based on active features + data
+// Auto-inject listing pages into nav based on active features + data.
+// Skip any href already present in the manual nav to avoid duplicates.
+const manualNavHrefs = new Set(config.nav.links.map(l => l.href))
+
 const listingLinks: { label: string; href: string }[] = [
-  ...(features.vehicleListings && (config.vehicles || config.sellerSlug)
+  // Vehicle inventory — cardealership niche only
+  ...(features.vehicleListings && config.business.niche === "cardealership" && (config.vehicles || config.sellerSlug)
     ? [{ label: "Inventory", href: "/vehicles" }]
     : []),
-  // Standard+ real estate: dynamic property listings page
+  // Property listings — realestate niche only
   ...(features.propertyListings && config.business.niche === "realestate" && (config.properties || config.sellerSlug)
     ? [{ label: "Properties", href: "/properties" }]
     : []),
-  // Standard+ non-realestate: generic listings page
-  ...(features.propertyListings && config.business.niche !== "realestate" && (config.properties || config.sellerSlug)
-    ? [{ label: "Listings", href: "/properties" }]
-    : []),
-  // Basic real estate: sold listings portfolio (no feature gate — always visible)
+  // Sold listings portfolio — basic real estate only
   ...(!features.propertyListings && config.business.niche === "realestate" && config.soldListings
     ? [{ label: "Sold Listings", href: "/sold" }]
     : []),
-  ...(features.productListings && (config.products || config.sellerSlug)
+  // Shop / Menu — product-based businesses; skip if manual nav already links to /products
+  ...(features.productListings && (config.products || config.sellerSlug) && !manualNavHrefs.has("/products")
     ? [{ label: config.business.niche === "restaurant" ? "Menu" : "Shop", href: "/products" }]
     : []),
   ...(config.catering
     ? [{ label: "Catering", href: "/catering" }]
-    : []),
-  ...(config.packages
-    ? [{ label: "Packages", href: "/packages" }]
     : []),
 ]
 

@@ -31,7 +31,7 @@ export default function PackagesPage() {
         </div>
       </section>
 
-      <Packages packages={config.packages} nav={config.nav} />
+      <Packages packages={config.packages} nav={config.nav} hideHeader />
 
       <Contact contact={config.contact} business={config.business} />
     </>

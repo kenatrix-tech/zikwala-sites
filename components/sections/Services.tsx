@@ -16,9 +16,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
 interface ServicesProps {
   services: SiteConfig["services"]
   nav: SiteConfig["nav"]
+  hideHeader?: boolean
 }
 
-export function Services({ services, nav }: ServicesProps) {
+export function Services({ services, nav, hideHeader = false }: ServicesProps) {
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative background */}
@@ -26,6 +27,7 @@ export function Services({ services, nav }: ServicesProps) {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
+        {!hideHeader && (
         <AnimateIn className="text-center mb-16">
           <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-3">
             What We Offer
@@ -37,6 +39,7 @@ export function Services({ services, nav }: ServicesProps) {
             {services.subtitle}
           </p>
         </AnimateIn>
+        )}
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

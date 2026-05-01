@@ -12,6 +12,7 @@ interface Props {
   business: SiteConfig["business"]
   /** Show first 3 items only with a "View All" link — used on home page */
   preview?: boolean
+  hideHeader?: boolean
 }
 
 type Filter = "All" | "Gasoline" | "Diesel" | "Hybrid" | "Electric"
@@ -46,7 +47,7 @@ const BADGE_COLORS: Record<string, string> = {
   "Price Drop":   "bg-orange-500 text-white",
 }
 
-export function VehicleListings({ vehicles, business, preview = false }: Props) {
+export function VehicleListings({ vehicles, business, preview = false, hideHeader = false }: Props) {
   const [filter, setFilter] = useState<Filter>("All")
 
   const fuels: Filter[] = ["All", ...Array.from(
@@ -64,16 +65,18 @@ export function VehicleListings({ vehicles, business, preview = false }: Props) 
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <AnimateIn>
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              {vehicles.title}
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              {vehicles.subtitle}
-            </p>
-          </div>
-        </AnimateIn>
+        {!hideHeader && (
+          <AnimateIn>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                {vehicles.title}
+              </h2>
+              <p className="text-gray-500 text-lg max-w-xl mx-auto">
+                {vehicles.subtitle}
+              </p>
+            </div>
+          </AnimateIn>
+        )}
 
         {/* Filter tabs — hidden in preview mode */}
         {!preview && fuels.length > 2 && (

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Phone, ArrowRight, Tag } from "lucide-react"
+import { Phone, Tag, ArrowRight } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
 
@@ -11,6 +11,7 @@ interface Props {
   products: NonNullable<SiteConfig["products"]>
   business: SiteConfig["business"]
   preview?: boolean
+  hideHeader?: boolean
 }
 
 type Product = NonNullable<SiteConfig["products"]>["items"][0]
@@ -25,8 +26,10 @@ function discountPercent(original: number, current: number) {
 
 function whatsappLink(phone: string, product: Product) {
   const digits = phone.replace(/\D/g, "")
+  const base = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "")
+  const link = product.slug && base ? `\n\n🔗 ${base}/products/${product.slug}` : ""
   const text = encodeURIComponent(
-    `Hi, I'd like to order: ${product.name} — ${formatPrice(product.price)}. Is it available?`
+    `Hi, I'd like to order: ${product.name} — ${formatPrice(product.price)}. Is it available?${link}`
   )
   return `https://wa.me/${digits}?text=${text}`
 }
@@ -46,7 +49,7 @@ const BADGE_STYLES: Record<string, string> = {
   "Low Stock":  "bg-orange-500 text-white",
 }
 
-export function ProductListings({ products, business, preview = false }: Props) {
+export function ProductListings({ products, business, preview = false, hideHeader = false }: Props) {
   const categories = ["All", ...Array.from(new Set(products.items.map(p => p.category).filter(Boolean)))] as string[]
   const [activeCategory, setActiveCategory] = useState("All")
 
@@ -60,16 +63,18 @@ export function ProductListings({ products, business, preview = false }: Props) 
     <section className="section-padding bg-surface">
       <div className="max-w-6xl mx-auto">
 
-        <AnimateIn>
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              {products.title}
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              {products.subtitle}
-            </p>
-          </div>
-        </AnimateIn>
+        {!hideHeader && (
+          <AnimateIn>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                {products.title}
+              </h2>
+              <p className="text-gray-500 text-lg max-w-xl mx-auto">
+                {products.subtitle}
+              </p>
+            </div>
+          </AnimateIn>
+        )}
 
         {/* Category filters — full page only */}
         {!preview && categories.length > 1 && (
@@ -95,9 +100,19 @@ export function ProductListings({ products, business, preview = false }: Props) 
             const outOfStock = product.inStock === false
             return (
               <AnimateIn key={product.id} delay={i * 60}>
-                <div className={`group rounded-2xl overflow-hidden bg-white shadow-sm
-                                hover:shadow-xl transition-shadow duration-300 border border-gray-100
+                <div className={`relative group rounded-2xl overflow-hidden bg-white shadow-sm
+                                hover:shadow-xl transition-all duration-300 border border-gray-100
+                                ${!outOfStock && product.slug ? "cursor-pointer" : ""}
                                 ${outOfStock ? "opacity-60" : ""}`}>
+
+                  {/* Stretched card link — sits above image, below action buttons */}
+                  {!outOfStock && product.slug && (
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="absolute inset-0 z-10"
+                      aria-label={product.name}
+                    />
+                  )}
 
                   {/* Image */}
                   <div className="relative aspect-square bg-gray-100 overflow-hidden">
@@ -107,21 +122,18 @@ export function ProductListings({ products, business, preview = false }: Props) 
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    {/* Badge */}
                     {product.badge && (
                       <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full
                         ${BADGE_STYLES[product.badge] ?? "bg-gray-800 text-white"}`}>
                         {product.badge}
                       </span>
                     )}
-                    {/* Discount pill */}
                     {product.originalPrice && (
                       <span className="absolute top-3 right-3 bg-red-500 text-white text-xs font-black
                                        px-2.5 py-1 rounded-full">
                         -{discountPercent(product.originalPrice, product.price)}%
                       </span>
                     )}
-                    {/* Out of stock overlay */}
                     {outOfStock && (
                       <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
                         <span className="bg-gray-800 text-white text-xs font-bold px-3 py-1.5 rounded-full">
@@ -131,7 +143,7 @@ export function ProductListings({ products, business, preview = false }: Props) 
                     )}
                   </div>
 
-                  {/* Details */}
+                  {/* Info */}
                   <div className="p-4">
                     {product.category && (
                       <div className="flex items-center gap-1 text-xs font-semibold text-primary mb-1">
@@ -146,7 +158,6 @@ export function ProductListings({ products, business, preview = false }: Props) 
                       <p className="text-gray-500 text-xs mb-3 line-clamp-2">{product.description}</p>
                     )}
 
-                    {/* Price */}
                     <div className="flex items-baseline gap-2 mb-4">
                       <span className="text-lg font-black text-gray-900">
                         {formatPrice(product.price)}
@@ -158,45 +169,33 @@ export function ProductListings({ products, business, preview = false }: Props) 
                       )}
                     </div>
 
-                    {/* CTAs */}
                     {!outOfStock ? (
-                      <div className="flex flex-col gap-2">
-                        {product.slug && (
-                          <Link
-                            href={`/products/${product.slug}`}
-                            className="w-full inline-flex items-center justify-center gap-1.5
-                                       border border-primary text-primary font-semibold text-sm
-                                       py-2 rounded-site hover:bg-primary hover:text-white transition-all"
-                          >
-                            View Details
-                            <ArrowRight size={13} />
-                          </Link>
-                        )}
-                        <div className="flex gap-2">
-                          <a
-                            href={whatsappLink(business.phone, product)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 inline-flex items-center justify-center gap-1.5
-                                       text-white font-semibold text-sm py-2.5 rounded-site
-                                       transition-all hover:scale-[1.03] hover:shadow-md"
-                            style={{
-                              background: "linear-gradient(135deg, #5BBF7A 0%, #3EA85E 100%)",
-                              boxShadow: "0 2px 8px rgba(62,168,94,0.35)",
-                            }}
-                          >
-                            <WhatsAppIcon size={14} />
-                            Order
-                          </a>
-                          <a
-                            href={`tel:${business.phone}`}
-                            className="inline-flex items-center justify-center
-                                       bg-primary text-white font-semibold text-sm px-4 py-2.5 rounded-site
-                                       hover:opacity-90 transition-opacity"
-                          >
-                            <Phone size={14} />
-                          </a>
-                        </div>
+                      <div className="relative z-20 flex gap-2">
+                        <a
+                          href={whatsappLink(business.phone, product)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          className="flex-1 inline-flex items-center justify-center gap-1.5
+                                     text-white font-semibold text-sm py-2.5 rounded-site
+                                     transition-all hover:scale-[1.03] hover:shadow-md"
+                          style={{
+                            background: "linear-gradient(135deg, #5BBF7A 0%, #3EA85E 100%)",
+                            boxShadow: "0 2px 8px rgba(62,168,94,0.35)",
+                          }}
+                        >
+                          <WhatsAppIcon size={14} />
+                          Order
+                        </a>
+                        <a
+                          href={`tel:${business.phone}`}
+                          onClick={e => e.stopPropagation()}
+                          className="inline-flex items-center justify-center
+                                     bg-primary text-white font-semibold text-sm px-4 py-2.5 rounded-site
+                                     hover:opacity-90 transition-opacity"
+                        >
+                          <Phone size={14} />
+                        </a>
                       </div>
                     ) : (
                       <p className="text-sm text-gray-400 font-medium text-center py-1">

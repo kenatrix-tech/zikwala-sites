@@ -119,7 +119,7 @@ export interface SiteConfig {
      * bold     — solid primary-color panel left, full-bleed image right
      * magazine — image-forward 60/40, editorial text column right
      */
-    variant?: "split" | "centered" | "minimal" | "bold" | "magazine"
+    variant?: "split" | "centered" | "minimal" | "bold" | "magazine" | "shop"
     /** CSS object-position for the hero image — e.g. "center", "top", "center 25%" */
     imagePosition?: string
   }

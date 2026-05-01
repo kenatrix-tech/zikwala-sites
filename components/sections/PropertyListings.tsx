@@ -12,6 +12,7 @@ interface Props {
   business: SiteConfig["business"]
   /** Show first 3 items only with a "View All" link — used on home page */
   preview?: boolean
+  hideHeader?: boolean
 }
 
 type Filter = "All" | "For Sale" | "For Rent"
@@ -43,7 +44,7 @@ const BADGE_COLORS: Record<string, string> = {
   "Just Listed":   "bg-green-600 text-white",
 }
 
-export function PropertyListings({ properties, business, preview = false }: Props) {
+export function PropertyListings({ properties, business, preview = false, hideHeader = false }: Props) {
   const [filter, setFilter] = useState<Filter>("All")
 
   const allVisible = filter === "All"
@@ -60,16 +61,18 @@ export function PropertyListings({ properties, business, preview = false }: Prop
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <AnimateIn>
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              {properties.title}
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              {properties.subtitle}
-            </p>
-          </div>
-        </AnimateIn>
+        {!hideHeader && (
+          <AnimateIn>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                {properties.title}
+              </h2>
+              <p className="text-gray-500 text-lg max-w-xl mx-auto">
+                {properties.subtitle}
+              </p>
+            </div>
+          </AnimateIn>
+        )}
 
         {/* Filter tabs — hidden in preview mode */}
         {!preview && <div className="flex flex-wrap gap-2 justify-center mb-8">

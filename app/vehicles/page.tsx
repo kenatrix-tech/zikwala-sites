@@ -45,6 +45,7 @@ export default async function VehiclesPage() {
       <VehicleListings
         vehicles={vehicles}
         business={config.business}
+        hideHeader
       />
     </>
   )
