@@ -24,7 +24,7 @@ export const config: SiteConfig = {
   },
   tier: "standard",
   isDemo: true,
-  sellerSlug: "sol-g-6177",
+  sellerSlug: "habeshanate-decor-event-planner",
   seo: {
     title: "Habeshanate Jewelry & Décor | Jewelry Shop & Event Decoration in Washington DC",
     description:
@@ -59,7 +59,8 @@ export const config: SiteConfig = {
       "Shop unique handcrafted jewelry — necklaces, rings, bracelets and more. Order instantly via WhatsApp. We also decorate events across DC, Maryland & Virginia.",
     cta: { label: "Shop Jewelry", href: "/products" },
     secondaryCta: { label: "Book Event Decor", href: "/contact" },
-    image: "https://cdn.zikwala.com/demo/decoration/habeshanate/habeshanet1.jpg",
+    image: "https://cdn.zikwala.com/demo/decoration/habeshanate/h_hero.jpg",
+    imagePosition: "center center",
     badge: "Jewelry & Event Decoration · DC, MD & VA",
     trustPoints: ["Handcrafted Jewelry", "WhatsApp Ordering", "Event Decoration DMV", "Same-Week Booking"],
     socialProof: { count: "500+", label: "customers served across the DMV" },
@@ -235,7 +236,7 @@ export const config: SiteConfig = {
     { question: "What events do you decorate?", answer: "We specialize in birthdays, weddings, graduations, baby showers, and bridal showers. We also do anniversaries, gender reveals, and corporate events." },
   ],
   social: {
-    facebook: "https://facebook.com",
-    instagram: "https://instagram.com",
+    facebook: "https://www.facebook.com/habeshanate.habeshanate",
+    instagram: "https://www.instagram.com/habeshanate_jewelry/",
   },
 }

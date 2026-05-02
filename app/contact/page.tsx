@@ -20,14 +20,11 @@ export default function ContactPage() {
     <>
       <section className="bg-accent py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            {config.contact.title}
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-3">{config.contact.title}</h1>
           <p className="text-gray-500 text-lg">{config.contact.subtitle}</p>
         </div>
       </section>
-
-      <Contact contact={config.contact} business={config.business} whatsappInquiry={features.whatsappInquiry} />
+      <Contact contact={config.contact} business={config.business} whatsappInquiry={features.whatsappInquiry} hideHeader />
     </>
   )
 }

@@ -134,7 +134,7 @@ export function Footer({ business, nav, social }: FooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-6 text-xs text-gray-500 flex justify-between">
+        <div className="border-t border-white/10 pt-6 text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-3">
           <a
             href="https://zikwala.com"
             target="_blank"
@@ -143,7 +143,11 @@ export function Footer({ business, nav, social }: FooterProps) {
           >
             Powered by Zikwala
           </a>
-          <span>© {year} {business.name}</span>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition">Terms of Service</Link>
+            <span>© {year} {business.name}</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -11,7 +11,7 @@ interface HeroProps {
 
 export function HeroShop({ hero, business }: HeroProps) {
   return (
-    <section className="relative h-[58vh] min-h-[380px] max-h-[620px] overflow-hidden">
+    <section className="relative h-[45vh] min-h-[320px] max-h-[480px] overflow-hidden">
 
       {/* Image */}
       <Image

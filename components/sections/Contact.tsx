@@ -8,6 +8,7 @@ interface ContactProps {
   contact: SiteConfig["contact"]
   business: SiteConfig["business"]
   whatsappInquiry?: boolean
+  hideHeader?: boolean
 }
 
 type Errors = { name?: string; email?: string; phone?: string; message?: string }
@@ -27,7 +28,7 @@ function validate(name: string, email: string, phone: string, message: string): 
   return errs
 }
 
-export function Contact({ contact, business, whatsappInquiry = false }: ContactProps) {
+export function Contact({ contact, business, whatsappInquiry = false, hideHeader = false }: ContactProps) {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
@@ -106,15 +107,17 @@ export function Contact({ contact, business, whatsappInquiry = false }: ContactP
       />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-3">
-            Get In Touch
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            {contact.title}
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">{contact.subtitle}</p>
-        </div>
+        {!hideHeader && (
+          <div className="text-center mb-16">
+            <span className="inline-block text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+              Get In Touch
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              {contact.title}
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mx-auto">{contact.subtitle}</p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
 

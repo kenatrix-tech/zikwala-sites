@@ -293,10 +293,11 @@ export async function fetchVehicleById(id: string | number): Promise<VehicleDto 
   return apiFetch<VehicleDto>(`/api/v1/public/vehicle/${id}`)
 }
 
-/** Fetch all listings for a seller — works across product/vehicle/property types */
+/** Fetch all active listings for a seller's personal website storefront.
+ *  Uses the /seller/website endpoint — ignores listOnMktplace so all active items appear. */
 export async function fetchListingsBySellerSlug(sellerSlug: string): Promise<ListingDto[]> {
   const data = await apiFetch<PageableResponse<ListingDto>>(
-    `/api/v1/public/listing/seller?sellerSlug=${encodeURIComponent(sellerSlug)}&size=50`
+    `/api/v1/public/listing/seller/website?sellerSlug=${encodeURIComponent(sellerSlug)}&size=50`
   )
   return data?.content ?? []
 }
