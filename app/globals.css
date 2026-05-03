@@ -87,7 +87,7 @@ h1, h2, h3, h4 {
   }
 
   .section-padding {
-    @apply py-20 px-4 sm:px-6 lg:px-8;
+    @apply py-12 px-4 sm:px-6 lg:px-8;
   }
 
   /* Scroll-triggered entrance animations */
@@ -107,5 +107,15 @@ h1, h2, h3, h4 {
     .hero-bold-clip {
       clip-path: polygon(0 0, 100% 0, calc(100% - 108px) 100%, 0 100%);
     }
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }

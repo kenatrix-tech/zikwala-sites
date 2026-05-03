@@ -132,16 +132,16 @@ export function ProductCard({ product, businessPhone }: ProductCardProps) {
 
         {/* Action buttons */}
         {inStock ? (
-          <div className="relative z-20 flex gap-1.5 sm:gap-2">
+          <div className="relative z-20 flex items-center gap-2">
             <a
               href={whatsappLink(businessPhone, product)}
               target="_blank"
               rel="noopener noreferrer"
               onClick={e => e.stopPropagation()}
               className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5
-                         text-white font-semibold text-xs py-2 sm:py-2.5 rounded-site
-                         hover:opacity-90 hover:scale-[1.02] transition-all"
-              style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
+                         text-on-primary font-semibold text-xs py-2 sm:py-2.5 rounded-site
+                         hover:opacity-85 transition-opacity"
+              style={{ background: "var(--color-primary)" }}
             >
               <WhatsAppIcon />
               Order
@@ -150,12 +150,9 @@ export function ProductCard({ product, businessPhone }: ProductCardProps) {
               href={`tel:${businessPhone}`}
               onClick={e => e.stopPropagation()}
               aria-label="Call"
-              className="relative z-20 inline-flex items-center justify-center
-                         border border-gray-200 text-gray-600 px-2.5 sm:px-3
-                         py-2 sm:py-2.5 rounded-site
-                         hover:border-primary hover:text-primary transition-all"
+              className="relative z-20 text-gray-400 hover:text-primary transition-colors p-1"
             >
-              <Phone size={13} />
+              <Phone size={14} />
             </a>
           </div>
         ) : (

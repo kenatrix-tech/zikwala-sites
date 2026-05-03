@@ -23,15 +23,15 @@ function WhatsAppIcon({ size = 15 }: { size?: number }) {
 }
 
 export function ProductListings({ products, business, preview = false, hideHeader = false }: Props) {
-  const productOnly = products.items.filter(p => !p.listingType || p.listingType === "PRODUCT")
-  const categories = ["All", ...Array.from(new Set(productOnly.map(p => p.category).filter(Boolean)))] as string[]
+  const items = products.items
+  const categories = ["All", ...Array.from(new Set(items.map(p => p.category).filter(Boolean)))] as string[]
   const [activeCategory, setActiveCategory] = useState("All")
 
   const visible = preview
-    ? productOnly.slice(0, 3)
+    ? items.slice(0, 3)
     : activeCategory === "All"
-      ? productOnly
-      : productOnly.filter(p => p.category === activeCategory)
+      ? items
+      : items.filter(p => p.category === activeCategory)
 
   return (
     <section className="section-padding bg-surface">

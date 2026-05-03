@@ -8,9 +8,8 @@ export async function generateStaticParams() {
   const config = getConfig()
   if (!config.sellerSlug) return [{ slug: "_" }]
   try {
-    const listings = await fetchListingsBySellerSlug(config.sellerSlug)
+    const listings = await fetchListingsBySellerSlug(config.sellerSlug, { listingType: "PRODUCT" })
     const slugs = listings
-      .filter(l => !l.listingType || l.listingType === "PRODUCT")
       .map(l => ({ slug: l.slug ?? String(l.id) }))
     return slugs.length ? slugs : [{ slug: "_" }]
   } catch {
@@ -97,7 +96,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
-      <ProductDetailClient slug={params.slug} business={config.business} />
+      <ProductDetailClient slug={params.slug} business={config.business} sellerSlug={config.sellerSlug} />
     </>
   )
 }

@@ -24,7 +24,7 @@ export default function ProductsPage() {
 
   return (
     <>
-      <section className="bg-accent py-12">
+      <section className="bg-accent py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">{title}</h1>
           <p className="text-gray-500 text-lg">{subtitle}</p>
@@ -36,6 +36,7 @@ export default function ProductsPage() {
           sellerSlug={config.sellerSlug}
           business={config.business}
           fallback={{ title, subtitle }}
+          storefrontFilter={config.storefrontFilter}
         />
       ) : (
         <ProductListings

@@ -5,11 +5,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Phone, ChevronLeft, Tag, CheckCircle2, ShoppingBag, X, ZoomIn, ChevronLeft as Prev, ChevronRight as Next } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
-import { fetchProductBySlug, type ProductDto } from "@/lib/kenatrix"
+import { fetchProductBySlug, fetchStorefrontSimilarListings, type ProductDto, type ListingDto } from "@/lib/kenatrix"
+import { ProductCard } from "@/components/ui/ProductCard"
 
 interface Props {
   slug: string
   business: SiteConfig["business"]
+  sellerSlug?: string
 }
 
 function formatPrice(product: ProductDto) {
@@ -342,25 +344,15 @@ function CTAs({ contactPhone, product }: { contactPhone: string; product: Produc
         <WhatsAppIcon />
         Order on WhatsApp
       </a>
-      <div className="grid grid-cols-2 gap-3">
-        <a
-          href={`tel:${contactPhone}`}
-          className="inline-flex items-center justify-center gap-2
-                     bg-primary text-white font-bold py-3 rounded-site text-sm
-                     hover:opacity-90 transition-opacity"
-        >
-          <Phone size={15} />
-          Call to Order
-        </a>
-        <Link
-          href="/contact"
-          className="inline-flex items-center justify-center
-                     border-2 border-gray-200 text-gray-700 font-bold py-3 rounded-site text-sm
-                     hover:border-gray-900 hover:text-gray-900 transition-all"
-        >
-          Send Inquiry
-        </Link>
-      </div>
+      <a
+        href={`tel:${contactPhone}`}
+        className="w-full inline-flex items-center justify-center gap-2
+                   bg-gray-900 text-white font-bold py-3 rounded-site text-sm
+                   hover:bg-gray-700 transition-colors"
+      >
+        <Phone size={15} />
+        Call to Order
+      </a>
 
       {product.stock > 0 && product.stock < 5 && (
         <div className="flex items-center gap-1.5 text-sm text-orange-600 font-medium">
@@ -404,55 +396,54 @@ function ShareButtons({ product }: { product: ProductDto }) {
   }
 
   return (
-    <div className="pt-4 border-t border-gray-100">
-      <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-3">Share</p>
-
-      {/* Native share sheet — shown on mobile after hydration (opens WhatsApp, FB, IG, SMS, etc.) */}
-      {canNativeShare && (
-        <button
-          onClick={handleNativeShare}
-          className="w-full mb-3 inline-flex items-center justify-center gap-2
-                     bg-primary/10 text-primary font-semibold text-sm
-                     py-2.5 rounded-site hover:bg-primary/20 transition-all"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current" strokeWidth={2}>
-            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-          </svg>
-          Share this product
-        </button>
-      )}
-
-      {/* Individual platform icons — always visible */}
+    <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+      <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide shrink-0">Share</p>
       <div className="flex items-center gap-2">
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
-          target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"
-          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-[#1877F2] hover:text-white text-gray-500 transition-all"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-          </svg>
-        </a>
-        <a
-          href={`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`}
-          target="_blank" rel="noopener noreferrer" aria-label="Share on X"
-          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-black hover:text-white text-gray-500 transition-all"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
-        </a>
-        <a
-          href={`https://wa.me/?text=${encodedText}%20${encodedUrl}`}
-          target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"
-          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-[#25D366] hover:text-white text-gray-500 transition-all"
-        >
-          <WhatsAppIcon />
-        </a>
+        {canNativeShare ? (
+          <button
+            onClick={handleNativeShare}
+            aria-label="Share"
+            className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100
+                       hover:bg-primary hover:text-white text-gray-500 transition-all"
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current" strokeWidth={2}>
+              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+          </button>
+        ) : (
+          <>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+              target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"
+              className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-[#1877F2] hover:text-white text-gray-500 transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`}
+              target="_blank" rel="noopener noreferrer" aria-label="Share on X"
+              className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-black hover:text-white text-gray-500 transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a
+              href={`https://wa.me/?text=${encodedText}%20${encodedUrl}`}
+              target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"
+              className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-[#25D366] hover:text-white text-gray-500 transition-all"
+            >
+              <WhatsAppIcon />
+            </a>
+          </>
+        )}
         <button
           onClick={copyLink} aria-label="Copy link"
-          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-primary hover:text-white text-gray-500 transition-all"
+          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100
+                     hover:bg-primary hover:text-white text-gray-500 transition-all"
         >
           {copied
             ? <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current stroke-2"><polyline points="20 6 9 17 4 12" /></svg>
@@ -467,10 +458,11 @@ function ShareButtons({ product }: { product: ProductDto }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function ProductDetailClient({ slug, business }: Props) {
+export function ProductDetailClient({ slug, business, sellerSlug }: Props) {
   const [product, setProduct] = useState<ProductDto | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const [similarListings, setSimilarListings] = useState<ListingDto[]>([])
 
   useEffect(() => {
     fetchProductBySlug(slug)
@@ -481,6 +473,13 @@ export function ProductDetailClient({ slug, business }: Props) {
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false))
   }, [slug])
+
+  useEffect(() => {
+    if (!product || !sellerSlug) return
+    fetchStorefrontSimilarListings(product.listingSlug, sellerSlug, "PRODUCT", 10)
+      .then(setSimilarListings)
+      .catch(() => {})
+  }, [product, sellerSlug])
 
   if (loading) return <Skeleton />
 
@@ -519,7 +518,7 @@ export function ProductDetailClient({ slug, business }: Props) {
         </Link>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-6">
 
           {/* ── Column 1: Images + desktop description ── */}
@@ -584,6 +583,37 @@ export function ProductDetailClient({ slug, business }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Similar products */}
+      {similarListings.length > 0 && (
+        <div className="border-t border-gray-100 mt-2 pt-10 pb-16">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="px-4 sm:px-6 text-lg font-black text-gray-900 mb-6">
+              You may also like
+            </h2>
+            <div className="flex gap-3 overflow-x-auto pb-3 px-4 sm:px-6
+                            scrollbar-none snap-x snap-mandatory scroll-smooth">
+              {similarListings.map(item => (
+                <div key={item.id} className="flex-none w-40 sm:w-48 snap-start">
+                  <ProductCard
+                    product={{
+                      id: String(item.id),
+                      name: item.titleLine1 ?? "Item",
+                      price: item.price ? Number(item.price) : 0,
+                      image: item.thumbnailUrl,
+                      category: item.categoryName,
+                      slug: item.slug ?? String(item.id),
+                      listingType: item.listingType,
+                      inStock: item.status !== "SOLD" && item.status !== "INACTIVE",
+                    }}
+                    businessPhone={business.phone}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

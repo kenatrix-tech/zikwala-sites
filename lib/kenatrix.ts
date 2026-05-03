@@ -231,6 +231,7 @@ export interface ListingDto {
   thumbnailUrl?: string
   categoryName?: string
   categorySlug?: string
+  productTypeName?: string
   countryCode?: string
   slug?: string
   status?: string
@@ -299,9 +300,22 @@ export async function fetchVehicleById(id: string | number): Promise<VehicleDto 
 
 /** Fetch all active listings for a seller's personal website storefront.
  *  Uses the /seller/website endpoint — ignores listOnMktplace so all active items appear. */
-export async function fetchListingsBySellerSlug(sellerSlug: string): Promise<ListingDto[]> {
+export interface StorefrontFilter {
+  listingType?: string
+  categoryName?: string
+  categorySlug?: string
+}
+
+export async function fetchListingsBySellerSlug(
+  sellerSlug: string,
+  filters?: StorefrontFilter
+): Promise<ListingDto[]> {
+  const params = new URLSearchParams({ sellerSlug, size: "50" })
+  if (filters?.listingType)  params.set("listingType",  filters.listingType)
+  if (filters?.categoryName) params.set("categoryName", filters.categoryName)
+  if (filters?.categorySlug) params.set("categorySlug", filters.categorySlug)
   const data = await apiFetch<PageableResponse<ListingDto>>(
-    `/api/v1/public/listing/seller/website?sellerSlug=${encodeURIComponent(sellerSlug)}&size=50`
+    `/api/v1/public/website/listing/seller?${params}`
   )
   return data?.content ?? []
 }
@@ -424,6 +438,21 @@ export function adaptVehicles(
   }
 }
 
+/** Fetch similar listings for a seller's storefront product detail page.
+ *  Calls the /website/similar/{listingSlug} endpoint — scoped to one seller. */
+export async function fetchStorefrontSimilarListings(
+  listingSlug: string,
+  sellerSlug: string,
+  type = "PRODUCT",
+  limit = 4
+): Promise<ListingDto[]> {
+  const params = new URLSearchParams({ sellerSlug, type, limit: String(limit) })
+  const data = await apiFetch<ListingDto[]>(
+    `/api/v1/public/website/listing/similar/${encodeURIComponent(listingSlug)}?${params}`
+  )
+  return data ?? []
+}
+
 /** Adapt ListingDto[] (from /listing/seller endpoint) into the products config format */
 export function adaptListings(
   items: ListingDto[],
@@ -434,7 +463,7 @@ export function adaptListings(
     name: l.titleLine1 || "Item",
     price: l.price ? Number(l.price) : 0,
     image: l.thumbnailUrl ?? "",
-    category: l.categoryName,
+    category: l.productTypeName ?? l.categoryName,
     inStock: l.status !== "SOLD" && l.status !== "INACTIVE",
     slug: l.slug ?? String(l.id),
     listingType: l.listingType,

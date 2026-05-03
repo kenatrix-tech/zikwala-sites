@@ -66,6 +66,12 @@ export interface SiteConfig {
   // ─── Zikwala Marketplace Integration ─────────────────────
   /** Zikwala marketplace seller slug — enables dynamic listings from Kenatrix API */
   sellerSlug?: string
+  /** Optional filter applied to all storefront listing fetches for this client */
+  storefrontFilter?: {
+    listingType?: string   // e.g. "PRODUCT" | "SERVICE" | "PROPERTY" | "VEHICLE"
+    categoryName?: string  // e.g. "Jewelry"
+    categorySlug?: string  // e.g. "jewelry"
+  }
 
   // ─── Premium Features (Premium tier only) ────────────────
   features?: {

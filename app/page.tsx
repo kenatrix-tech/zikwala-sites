@@ -38,6 +38,7 @@ export default function HomePage() {
         <ShopFeaturedGrid
           sellerSlug={config.sellerSlug}
           business={config.business}
+          storefrontFilter={config.storefrontFilter}
           fallback={{
             title: config.products?.title,
             subtitle: config.products?.subtitle,

@@ -11,6 +11,7 @@ interface Props {
   sellerSlug: string
   business: SiteConfig["business"]
   fallback?: { title?: string; subtitle?: string }
+  storefrontFilter?: SiteConfig["storefrontFilter"]
 }
 
 type Products = NonNullable<SiteConfig["products"]>
@@ -39,12 +40,12 @@ function Skeleton() {
   )
 }
 
-export function ShopFeaturedGrid({ sellerSlug, business, fallback }: Props) {
+export function ShopFeaturedGrid({ sellerSlug, business, fallback, storefrontFilter }: Props) {
   const [products, setProducts] = useState<Products | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchListingsBySellerSlug(sellerSlug)
+    fetchListingsBySellerSlug(sellerSlug, storefrontFilter)
       .then(items => setProducts(adaptListings(items, fallback)))
       .catch(() => setProducts(null))
       .finally(() => setLoading(false))

@@ -25,6 +25,7 @@ export const config: SiteConfig = {
   tier: "standard",
   isDemo: false,
   sellerSlug: "habeshanate-decor-event-planner",
+  storefrontFilter: { categorySlug: "jewelry" },
   seo: {
     title: "Habeshanate Jewelry | Handcrafted Jewelry & Accessories in Washington DC",
     description:

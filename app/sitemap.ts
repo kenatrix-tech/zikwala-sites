@@ -41,9 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Individual product detail pages — highest SEO value (Google can index each product)
   if (config.sellerSlug) {
     try {
-      const listings = await fetchListingsBySellerSlug(config.sellerSlug)
+      const listings = await fetchListingsBySellerSlug(config.sellerSlug, { listingType: "PRODUCT" })
       listings
-        .filter(l => (!l.listingType || l.listingType === "PRODUCT") && l.status !== "SOLD" && l.status !== "INACTIVE")
+        .filter(l => l.status !== "SOLD" && l.status !== "INACTIVE")
         .forEach(l => {
           routes.push({
             url: `${base}/products/${l.slug ?? String(l.id)}/`,
