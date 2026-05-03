@@ -15,11 +15,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 interface ServicesProps {
   services: SiteConfig["services"]
-  nav: SiteConfig["nav"]
   hideHeader?: boolean
 }
 
-export function Services({ services, nav, hideHeader = false }: ServicesProps) {
+export function Services({ services, hideHeader = false }: ServicesProps) {
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative background */}
@@ -82,10 +81,10 @@ export function Services({ services, nav, hideHeader = false }: ServicesProps) {
         {/* Bottom CTA */}
         <AnimateIn className="text-center mt-14">
           <Link
-            href={nav.ctaHref}
+            href="/contact"
             className="inline-flex items-center gap-2 bg-gradient-brand text-on-primary font-semibold px-8 py-4 rounded-site shadow-lg hover:shadow-xl hover:opacity-90 transition-all text-base"
           >
-            {nav.ctaLabel}
+            Request a Quote
             <ArrowRight size={18} />
           </Link>
         </AnimateIn>

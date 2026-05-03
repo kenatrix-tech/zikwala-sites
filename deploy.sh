@@ -114,6 +114,7 @@ else
   NEXT_PUBLIC_ZIKWALA_PHONE="$ZIKWALA_PHONE" \
   NEXT_PUBLIC_FORM_ENDPOINT="$FORM_ENDPOINT" \
   NEXT_PUBLIC_WEBSITE_ORDER_ENDPOINT="$WEBSITE_ORDER_ENDPOINT" \
+  NEXT_PUBLIC_KENATRIX_API_URL="https://api.zikwala.com" \
   npm run build:clean
   echo "✓  Build complete"
 fi

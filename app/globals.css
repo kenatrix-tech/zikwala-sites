@@ -18,6 +18,9 @@
 }
 
 html {
+  /* --font-size-base set per-theme for fonts with small x-height (e.g. Cormorant Garamond).
+     Scales all Tailwind rem utilities proportionally. Other sites default to 100% (16px). */
+  font-size: var(--font-size-base, 100%);
   scroll-behavior: smooth;
 }
 

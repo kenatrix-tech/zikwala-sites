@@ -86,7 +86,7 @@ export default function RootLayout({
   const allowDarkMode = config.theme.allowDarkMode !== false
 
   return (
-    <html lang="en">
+    <html lang="en" style={themeVars}>
       <head>
         {/* Anti-flash: apply dark class before React hydrates */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var a=${allowDarkMode ? "true" : "false"};var d=${defaultDark ? "true" : "false"};if(!a){if(d)document.documentElement.classList.add('dark');return;}var s=localStorage.getItem('theme');if(s?s==='dark':d)document.documentElement.classList.add('dark')}catch(e){}})()` }} />
@@ -98,8 +98,27 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" as="style" href={fontUrl} />
         <link href={fontUrl} rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": config.business.name,
+            "description": config.seo.description,
+            "telephone": config.business.phone,
+            "email": config.business.email,
+            "image": config.seo.ogImage,
+            "url": process.env.NEXT_PUBLIC_SITE_URL ?? "",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": config.business.city,
+              "addressRegion": config.business.state,
+              "addressCountry": "US",
+            },
+          })}}
+        />
       </head>
-      <body style={themeVars}>
+      <body>
         {config.isDemo && (
           <DemoBanner businessName={config.business.name} />
         )}

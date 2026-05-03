@@ -13,17 +13,27 @@ const FONT_MAP: Record<string, string> = {
   Poppins: "'Poppins', sans-serif",
   Montserrat: "'Montserrat', sans-serif",
   "Playfair Display": "'Playfair Display', serif",
+  "Cormorant Garamond": "'Cormorant Garamond', serif",
+}
+
+// Cormorant Garamond has a very small x-height vs sans-serif fonts —
+// it looks ~2px smaller than Inter at the same pixel size. Bumping the
+// rem root to 112.5% (18px) restores visual parity without touching
+// any component. Other fonts stay at the browser default 100% (16px).
+const FONT_SIZE_BASE: Partial<Record<SiteConfig["theme"]["font"], string>> = {
+  "Cormorant Garamond": "112.5%",
+  "Playfair Display":   "106.25%",
 }
 
 /**
  * Converts a SiteConfig theme into CSS custom properties.
- * Applied inline on <body> so every Tailwind utility
- * that references var(--color-*) picks up the right value.
+ * Applied inline on <html> so Tailwind rem utilities AND
+ * component var(--color-*) references both pick up the right values.
  */
 export function buildThemeVars(
   theme: SiteConfig["theme"]
 ): React.CSSProperties {
-  return {
+  const vars: Record<string, string> = {
     "--color-primary": theme.primary,
     "--color-secondary": theme.secondary,
     "--color-accent": theme.accent,
@@ -32,7 +42,10 @@ export function buildThemeVars(
     "--font-sans": FONT_MAP[theme.font] ?? FONT_MAP["Inter"],
     "--font-heading": FONT_MAP[theme.font] ?? FONT_MAP["Inter"],
     "--radius": RADIUS_MAP[theme.roundedLevel],
-  } as React.CSSProperties
+  }
+  const base = FONT_SIZE_BASE[theme.font]
+  if (base) vars["--font-size-base"] = base
+  return vars as React.CSSProperties
 }
 
 /**
@@ -44,6 +57,7 @@ export function getFontUrl(font: SiteConfig["theme"]["font"]): string {
     Poppins: "Poppins:wght@400;500;600;700",
     Montserrat: "Montserrat:wght@400;500;600;700",
     "Playfair Display": "Playfair+Display:wght@400;600;700",
+    "Cormorant Garamond": "Cormorant+Garamond:wght@300;400;500;600;700",
   }
   const family = families[font] ?? families["Inter"]
   return `https://fonts.googleapis.com/css2?family=${family}&display=swap`

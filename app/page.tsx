@@ -68,7 +68,7 @@ export default function HomePage() {
         <HighlightStrip trustPoints={config.hero.trustPoints} />
       )}
 
-      <Services services={config.services} nav={config.nav} />
+      <Services services={config.services} />
 
       {features.vehicleListings && config.vehicles && (
         <VehicleListings vehicles={config.vehicles} business={config.business} preview />

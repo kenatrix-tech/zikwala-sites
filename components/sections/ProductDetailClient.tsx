@@ -336,8 +336,7 @@ function CTAs({ contactPhone, product }: { contactPhone: string; product: Produc
                    text-white font-bold py-4 rounded-site text-sm
                    transition-all hover:scale-[1.02] hover:shadow-lg"
         style={{
-          background: "linear-gradient(135deg, #5BBF7A 0%, #3EA85E 100%)",
-          boxShadow: "0 2px 10px rgba(62,168,94,0.3)",
+          background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
         }}
       >
         <WhatsAppIcon />
@@ -369,6 +368,99 @@ function CTAs({ contactPhone, product }: { contactPhone: string; product: Produc
           Only {product.stock} left in stock
         </div>
       )}
+    </div>
+  )
+}
+
+// ─── Share Buttons ────────────────────────────────────────────────────────────
+
+function ShareButtons({ product }: { product: ProductDto }) {
+  const [copied, setCopied] = useState(false)
+  const [canNativeShare, setCanNativeShare] = useState(false)
+
+  const base = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "")
+  const url = `${base}/products/${product.listingSlug}`
+  const shareTitle = product.name
+  const shareText = `${product.name}${product.price ? ` — $${Number(product.price).toLocaleString("en-US")}` : ""}`
+  const encodedUrl = encodeURIComponent(url)
+  const encodedText = encodeURIComponent(shareText)
+
+  // Detect Web Share API after hydration (mobile browsers / Safari)
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== "undefined" && !!navigator.share)
+  }, [])
+
+  async function handleNativeShare() {
+    try {
+      await navigator.share({ title: shareTitle, text: shareText, url })
+    } catch { /* user cancelled */ }
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <div className="pt-4 border-t border-gray-100">
+      <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-3">Share</p>
+
+      {/* Native share sheet — shown on mobile after hydration (opens WhatsApp, FB, IG, SMS, etc.) */}
+      {canNativeShare && (
+        <button
+          onClick={handleNativeShare}
+          className="w-full mb-3 inline-flex items-center justify-center gap-2
+                     bg-primary/10 text-primary font-semibold text-sm
+                     py-2.5 rounded-site hover:bg-primary/20 transition-all"
+        >
+          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current" strokeWidth={2}>
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          Share this product
+        </button>
+      )}
+
+      {/* Individual platform icons — always visible */}
+      <div className="flex items-center gap-2">
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+          target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"
+          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-[#1877F2] hover:text-white text-gray-500 transition-all"
+        >
+          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+        </a>
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`}
+          target="_blank" rel="noopener noreferrer" aria-label="Share on X"
+          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-black hover:text-white text-gray-500 transition-all"
+        >
+          <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+        <a
+          href={`https://wa.me/?text=${encodedText}%20${encodedUrl}`}
+          target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"
+          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-[#25D366] hover:text-white text-gray-500 transition-all"
+        >
+          <WhatsAppIcon />
+        </a>
+        <button
+          onClick={copyLink} aria-label="Copy link"
+          className="w-9 h-9 rounded-lg flex items-center justify-center bg-gray-100 hover:bg-primary hover:text-white text-gray-500 transition-all"
+        >
+          {copied
+            ? <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current stroke-2"><polyline points="20 6 9 17 4 12" /></svg>
+            : <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current stroke-2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          }
+        </button>
+        {copied && <span className="text-xs text-green-600 font-medium">Copied!</span>}
+      </div>
     </div>
   )
 }
@@ -405,10 +497,11 @@ export function ProductDetailClient({ slug, business }: Props) {
     )
   }
 
-  const allImages = [
-    ...(product.thumbnailUrl ? [product.thumbnailUrl] : []),
-    ...(product.images?.map(img => img.imageUrl).filter(url => url !== product.thumbnailUrl) ?? []),
-  ].filter(Boolean).slice(0, 8) as string[]
+  const allImages = (
+    product.images?.length
+      ? product.images.map(img => img.imageUrl)
+      : product.thumbnailUrl ? [product.thumbnailUrl] : []
+  ).filter(Boolean).slice(0, 8) as string[]
 
   const contactPhone = product.contactPhone ?? business.phone
 
@@ -477,6 +570,9 @@ export function ProductDetailClient({ slug, business }: Props) {
 
             {/* CTAs */}
             <CTAs contactPhone={contactPhone} product={product} />
+
+            {/* Share */}
+            <ShareButtons product={product} />
 
             {/* Description — mobile only, after CTAs */}
             {product.description && (

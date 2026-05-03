@@ -29,6 +29,7 @@ export type FontFamily =
   | "Poppins"
   | "Montserrat"
   | "Playfair Display"
+  | "Cormorant Garamond"
 
 export interface SiteConfig {
   // ─── Identity ────────────────────────────────────────────
@@ -202,6 +203,7 @@ export interface SiteConfig {
       badge?: string           // "New", "Best Seller", "Sale", "Low Stock"
       inStock?: boolean        // defaults to true
       slug?: string            // productId (string) for detail page — set when data comes from Kenatrix API
+      listingType?: string     // "PRODUCT" | "SERVICE" | "VEHICLE" — from Kenatrix API
     }[]
   }
 

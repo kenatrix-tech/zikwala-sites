@@ -252,7 +252,11 @@ export interface PageableResponse<T> {
 
 async function apiFetch<T>(path: string): Promise<T | null> {
   try {
-    const res = await fetch(`${API_BASE}${path}`, { cache: "no-store" })
+    // Server (build time: generateStaticParams / generateMetadata): force-cache lets Next.js
+    // treat the route as static and generate HTML files for output:"export".
+    // Browser (client components): no-store ensures fresh data on every load.
+    const cache: RequestCache = typeof window === "undefined" ? "force-cache" : "no-store"
+    const res = await fetch(`${API_BASE}${path}`, { cache })
     if (!res.ok) return null
     const contentType = res.headers.get("content-type") ?? ""
     if (!contentType.includes("application/json")) return null
@@ -427,12 +431,13 @@ export function adaptListings(
 ) {
   const mapped = items.map((l) => ({
     id: String(l.id),
-    name: [l.titleLine1, l.titleLine2, l.titleLine3].filter(Boolean).join(" ") || "Item",
+    name: l.titleLine1 || "Item",
     price: l.price ? Number(l.price) : 0,
     image: l.thumbnailUrl ?? "",
     category: l.categoryName,
     inStock: l.status !== "SOLD" && l.status !== "INACTIVE",
     slug: l.slug ?? String(l.id),
+    listingType: l.listingType,
   }))
 
   return {

@@ -47,9 +47,10 @@ export function HeroShop({ hero, business }: HeroProps) {
           <div className="flex flex-wrap gap-3">
             <Link
               href={hero.cta.href}
-              className="inline-flex items-center gap-2 bg-white text-gray-900
+              className="inline-flex items-center gap-2 text-on-primary
                          font-bold px-6 py-3 rounded-full shadow-xl text-sm
-                         hover:bg-gray-100 hover:scale-105 transition-all duration-200"
+                         hover:opacity-90 hover:scale-105 transition-all duration-200"
+              style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
             >
               {hero.cta.label}
               <ArrowRight size={14} />
@@ -57,9 +58,9 @@ export function HeroShop({ hero, business }: HeroProps) {
             {hero.secondaryCta && (
               <Link
                 href={hero.secondaryCta.href}
-                className="inline-flex items-center gap-2 border border-white/40 text-white
-                           font-semibold px-6 py-3 rounded-full text-sm
-                           hover:bg-white/10 transition-all duration-200"
+                className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white
+                           font-semibold px-6 py-3 rounded-full text-sm backdrop-blur-sm
+                           hover:bg-white/25 transition-all duration-200"
               >
                 {hero.secondaryCta.label}
               </Link>

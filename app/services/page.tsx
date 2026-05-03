@@ -22,7 +22,7 @@ export default function ServicesPage() {
           <p className="text-gray-500 text-lg">{config.services.subtitle}</p>
         </div>
       </section>
-      <Services services={config.services} nav={config.nav} hideHeader />
+      <Services services={config.services} hideHeader />
     </>
   )
 }
