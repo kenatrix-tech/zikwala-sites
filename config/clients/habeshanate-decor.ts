@@ -98,13 +98,13 @@ export const config: SiteConfig = {
         name: "Bridal Shower Decoration",
         description:
           "Chic and romantic bridal shower decor — floral backdrops, bride-to-be banners, elegant table settings, and balloon displays.",
-        icon: "Sparkles",
+        icon: "Crown",
       },
       {
         name: "Corporate & Other Events",
         description:
           "Professional event styling for anniversaries, gender reveals, corporate gatherings, and any other special occasion.",
-        icon: "Paintbrush",
+        icon: "CalendarCheck",
       },
     ],
   },

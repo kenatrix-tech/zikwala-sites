@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation"
 import { Send, CheckCircle2 } from "lucide-react"
 
 const WEBSITE_PLANS = [
-  { value: "Basic - $399 setup + $19/mo",    label: "Basic — $399 setup + $19/mo" },
-  { value: "Standard - $799 setup + $29/mo", label: "Standard — $799 setup + $29/mo" },
-  { value: "Pro - $1,399 setup + $49/mo",    label: "Pro — $1,399 setup + $49/mo" },
+  { value: "Basic - $399 setup + $29/mo",    label: "Basic — $399 setup + $29/mo" },
+  { value: "Standard - $799 setup + $49/mo", label: "Standard — $799 setup + $49/mo" },
+  { value: "Pro - $1,399 setup + $79/mo",    label: "Pro — $1,399 setup + $79/mo" },
   { value: "Premium - Custom pricing",        label: "Premium — Custom pricing" },
 ]
 
