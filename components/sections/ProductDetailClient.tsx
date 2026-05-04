@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
+import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { Phone, ChevronLeft, Tag, CheckCircle2, ShoppingBag, X, ZoomIn, ChevronLeft as Prev, ChevronRight as Next } from "lucide-react"
@@ -131,7 +132,7 @@ function Lightbox({ images, name, startIndex, onClose }: LightboxProps) {
       )}
 
       <div
-        className="relative w-full h-full max-w-5xl max-h-[90vh] mx-14 sm:mx-20"
+        className="relative w-full h-full max-h-[90vh] mx-12 sm:mx-16"
         onClick={e => e.stopPropagation()}
       >
         <Image
@@ -458,7 +459,11 @@ function ShareButtons({ product }: { product: ProductDto }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function ProductDetailClient({ slug, business, sellerSlug }: Props) {
+export function ProductDetailClient({ slug: slugProp, business, sellerSlug }: Props) {
+  const pathname = usePathname()
+  // For new products not pre-generated at build time, read slug from URL
+  const slug = slugProp === "_" ? (pathname.split("/").filter(Boolean).pop() ?? slugProp) : slugProp
+
   const [product, setProduct] = useState<ProductDto | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)

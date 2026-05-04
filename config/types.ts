@@ -192,6 +192,7 @@ export interface SiteConfig {
     formEndpoint?: string       // e.g. mailto: or external form service
     notifyEmail?: string        // email to notify on new lead
     telegramChatId?: string     // Telegram numeric chat ID for lead notifications
+    whatsappMessage?: string    // pre-filled WhatsApp message for the contact page
   }
 
   // ─── Product Listings (Standard+ / retail niches) ───────

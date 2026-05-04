@@ -170,6 +170,7 @@ export const config: SiteConfig = {
     mapEmbed: "https://maps.google.com/maps?q=Washington,+DC&output=embed",
     formEndpoint: "mailto:lomellyve@gmail.com",
     notifyEmail: "lomellyve@gmail.com",
+    whatsappMessage: "Hi, I'm interested in your jewelry or event decoration. Can you help me?",
   },
   faq: [
     { question: "How do I order jewelry?", answer: "Simply tap the WhatsApp button on any product and send us a message. We'll confirm availability, arrange payment, and ship directly to you." },

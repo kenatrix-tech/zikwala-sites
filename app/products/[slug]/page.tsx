@@ -9,9 +9,8 @@ export async function generateStaticParams() {
   if (!config.sellerSlug) return [{ slug: "_" }]
   try {
     const listings = await fetchListingsBySellerSlug(config.sellerSlug, { listingType: "PRODUCT" })
-    const slugs = listings
-      .map(l => ({ slug: l.slug ?? String(l.id) }))
-    return slugs.length ? slugs : [{ slug: "_" }]
+    const slugs = listings.map(l => ({ slug: l.slug ?? String(l.id) }))
+    return [{ slug: "_" }, ...slugs]
   } catch {
     return [{ slug: "_" }]
   }
