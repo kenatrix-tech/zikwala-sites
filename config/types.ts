@@ -60,7 +60,8 @@ export interface SiteConfig {
 
   // ─── Tier & Demo ─────────────────────────────────────────
   tier: Tier
-  isDemo: boolean          // shows the "order your site" banner
+  isDemo?: boolean         // true = show "order your site" demo banner
+  isLive?: boolean         // true = allow Google indexing (default blocked)
   isActive?: boolean       // false = entire site blocked (default true)
 
   // ─── Zikwala Marketplace Integration ─────────────────────
@@ -91,6 +92,8 @@ export interface SiteConfig {
     liveChat?: boolean
     /** Email marketing / newsletter signup (Pro+) */
     newsletter?: boolean
+    /** Stripe Connect payment & checkout (Pro+) */
+    payment?: boolean
   }
 
   // ─── SEO ─────────────────────────────────────────────────
@@ -323,6 +326,15 @@ export interface SiteConfig {
       highlight?: boolean
       cta?: { label?: string; href: string }
     }[]
+  }
+
+  // ─── Payment (Pro+ / Stripe Connect) ────────────────────
+  payment?: {
+    enabled: boolean
+    /** Stripe Connect Standard connected account ID — e.g. "acct_xxxxx" */
+    stripeConnectedAccountId: string
+    /** Currency code — defaults to "usd" */
+    currency?: string
   }
 
   // ─── Sticky Contact Button ───────────────────────────────

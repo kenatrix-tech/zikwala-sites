@@ -14,6 +14,9 @@ export interface Features {
   analytics:        boolean   // Google Analytics / tracking
   whatsappInquiry:  boolean   // contact form opens WhatsApp with inquiry pre-filled
 
+  // ─── Pro+ ─────────────────────────────────────────────────
+  payment:          boolean   // Stripe Connect checkout
+
   // ─── Premium only ─────────────────────────────────────────
   auth:             boolean   // login / signup for users
   userDashboard:    boolean   // client manages their own content
@@ -36,6 +39,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking:             false,
     analytics:           false,
     whatsappInquiry:     false,
+    payment:             false,
     auth:                false,
     userDashboard:       false,
     dynamicListings:     false,
@@ -55,6 +59,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking:             false,
     analytics:           false,
     whatsappInquiry:     false,
+    payment:             false,
     auth:                false,
     userDashboard:       false,
     dynamicListings:     false,
@@ -74,6 +79,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking:             true,
     analytics:           true,
     whatsappInquiry:     true,
+    payment:             true,
     auth:                false,
     userDashboard:       false,
     dynamicListings:     false,
@@ -93,6 +99,7 @@ const TIER_FEATURES: Record<Tier, Features> = {
     booking:             true,
     analytics:           true,
     whatsappInquiry:     true,
+    payment:             true,
     auth:                true,
     userDashboard:       true,
     dynamicListings:     true,

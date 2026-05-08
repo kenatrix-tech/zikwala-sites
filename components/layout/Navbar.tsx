@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, Phone } from "lucide-react"
+import { Menu, X, Phone, ShoppingCart } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { ThemeToggle } from "@/components/ui/ThemeToggle"
+import { useCart } from "@/lib/cart"
 
 interface NavbarProps {
   business: SiteConfig["business"]
@@ -13,9 +14,11 @@ interface NavbarProps {
   extraLinks?: { label: string; href: string }[]
   defaultDark?: boolean
   allowDarkMode?: boolean
+  paymentEnabled?: boolean
 }
 
-export function Navbar({ business, nav, extraLinks = [], defaultDark = false, allowDarkMode = true }: NavbarProps) {
+export function Navbar({ business, nav, extraLinks = [], defaultDark = false, allowDarkMode = true, paymentEnabled = false }: NavbarProps) {
+  const { totalItems, openCart } = useCart()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [logoBroken, setLogoBroken] = useState(false)
@@ -113,6 +116,22 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false, al
               )}
 
               {allowDarkMode && <ThemeToggle defaultDark={defaultDark} />}
+
+              {paymentEnabled && (
+                <button
+                  onClick={openCart}
+                  className="relative p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-accent dark:hover:bg-white/10 transition-all"
+                  aria-label="Open cart"
+                >
+                  <ShoppingCart size={20} />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center text-on-primary"
+                      style={{ background: "var(--color-primary)" }}>
+                      {totalItems > 9 ? "9+" : totalItems}
+                    </span>
+                  )}
+                </button>
+              )}
 
               <Link
                 href={nav.ctaHref}

@@ -8,6 +8,8 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { DemoBanner } from "@/components/layout/DemoBanner"
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
+import { CartProvider } from "@/lib/cart"
+import { CartDrawer } from "@/components/ui/CartDrawer"
 
 const config = getConfig()
 const features = getFeatures(config.tier)
@@ -43,6 +45,7 @@ export const metadata: Metadata = {
   title: config.seo.title,
   description: config.seo.description,
   keywords: config.seo.keywords,
+  ...(config.isLive !== true && { robots: { index: false, follow: false } }),
   icons: {
     icon: config.business.logo,
     apple: config.business.logo,
@@ -119,21 +122,24 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {config.isDemo && (
-          <DemoBanner businessName={config.business.name} />
-        )}
-        <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} />
-        <main>{children}</main>
-        <Footer
-          business={config.business}
-          nav={config.nav}
-          social={config.social}
-        />
-        <WhatsAppButton
-          phone={config.business.phone}
-          message={`Hi, I'm interested in ${config.business.name}'s services.`}
-          mode={config.stickyContact ?? "both"}
-        />
+        <CartProvider>
+          {config.isDemo && (
+            <DemoBanner businessName={config.business.name} />
+          )}
+          <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} paymentEnabled={features.payment && config.payment?.enabled} />
+          <main>{children}</main>
+          <Footer
+            business={config.business}
+            nav={config.nav}
+            social={config.social}
+          />
+          <WhatsAppButton
+            phone={config.business.phone}
+            message={`Hi, I'm interested in ${config.business.name}'s services.`}
+            mode={config.stickyContact ?? "both"}
+          />
+          {features.payment && config.payment?.enabled && <CartDrawer />}
+        </CartProvider>
       </body>
     </html>
   )

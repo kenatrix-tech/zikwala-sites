@@ -4,15 +4,17 @@ import { useEffect, useRef, useState, useCallback } from "react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { Phone, ChevronLeft, Tag, CheckCircle2, ShoppingBag, X, ZoomIn, ChevronLeft as Prev, ChevronRight as Next } from "lucide-react"
+import { Phone, ChevronLeft, Tag, CheckCircle2, ShoppingBag, ShoppingCart, X, ZoomIn, ChevronLeft as Prev, ChevronRight as Next } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { fetchProductBySlug, fetchStorefrontSimilarListings, type ProductDto, type ListingDto } from "@/lib/kenatrix"
 import { ProductCard } from "@/components/ui/ProductCard"
+import { useCart } from "@/lib/cart"
 
 interface Props {
   slug: string
   business: SiteConfig["business"]
   sellerSlug?: string
+  paymentEnabled?: boolean
 }
 
 function formatPrice(product: ProductDto) {
@@ -315,7 +317,8 @@ function DescriptionBlock({ text }: { text: string }) {
 
 // ─── CTA block (shared) ───────────────────────────────────────────────────────
 
-function CTAs({ contactPhone, product }: { contactPhone: string; product: ProductDto }) {
+function CTAs({ contactPhone, product, paymentEnabled }: { contactPhone: string; product: ProductDto; paymentEnabled?: boolean }) {
+  const { addItem } = useCart()
   const isUnavailable = product.status === "SOLD" || product.status === "INACTIVE"
 
   if (isUnavailable) {
@@ -325,6 +328,44 @@ function CTAs({ contactPhone, product }: { contactPhone: string; product: Produc
         <Link href="/products" className="text-primary text-sm mt-2 inline-block hover:underline">
           Browse other products →
         </Link>
+      </div>
+    )
+  }
+
+  if (paymentEnabled) {
+    return (
+      <div className="space-y-3">
+        <button
+          onClick={() => addItem({
+            id: String(product.listingId),
+            name: product.name,
+            price: product.price ? Number(product.price) : 0,
+            image: product.thumbnailUrl ?? "",
+            slug: product.listingSlug,
+          })}
+          className="w-full inline-flex items-center justify-center gap-2
+                     text-white font-bold py-4 rounded-site text-sm
+                     transition-all hover:scale-[1.02] hover:shadow-lg"
+          style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
+        >
+          <ShoppingCart size={16} />
+          Add to Cart
+        </button>
+        <a
+          href={`tel:${contactPhone}`}
+          className="w-full inline-flex items-center justify-center gap-2
+                     bg-gray-900 text-white font-bold py-3 rounded-site text-sm
+                     hover:bg-gray-700 transition-colors"
+        >
+          <Phone size={15} />
+          Call to Order
+        </a>
+        {product.stock > 0 && product.stock < 5 && (
+          <div className="flex items-center gap-1.5 text-sm text-orange-600 font-medium">
+            <CheckCircle2 size={14} />
+            Only {product.stock} left in stock
+          </div>
+        )}
       </div>
     )
   }
@@ -354,7 +395,6 @@ function CTAs({ contactPhone, product }: { contactPhone: string; product: Produc
         <Phone size={15} />
         Call to Order
       </a>
-
       {product.stock > 0 && product.stock < 5 && (
         <div className="flex items-center gap-1.5 text-sm text-orange-600 font-medium">
           <CheckCircle2 size={14} />
@@ -459,7 +499,7 @@ function ShareButtons({ product }: { product: ProductDto }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function ProductDetailClient({ slug: slugProp, business, sellerSlug }: Props) {
+export function ProductDetailClient({ slug: slugProp, business, sellerSlug, paymentEnabled }: Props) {
   const pathname = usePathname()
   // For new products not pre-generated at build time, read slug from URL
   const slug = slugProp === "_" ? (pathname.split("/").filter(Boolean).pop() ?? slugProp) : slugProp
@@ -573,7 +613,7 @@ export function ProductDetailClient({ slug: slugProp, business, sellerSlug }: Pr
             <div className="border-t border-gray-100" />
 
             {/* CTAs */}
-            <CTAs contactPhone={contactPhone} product={product} />
+            <CTAs contactPhone={contactPhone} product={product} paymentEnabled={paymentEnabled} />
 
             {/* Share */}
             <ShareButtons product={product} />
