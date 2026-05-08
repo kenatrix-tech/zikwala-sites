@@ -24,6 +24,7 @@ export const config: SiteConfig = {
   },
   tier: "basic",
   isDemo: false,
+  isLive: true,
   seo: {
     title: "Bulcha Real Estate | Keller Williams Portland Elite | OR & WA",
     description:
