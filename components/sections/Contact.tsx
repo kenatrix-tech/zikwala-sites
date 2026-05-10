@@ -19,9 +19,12 @@ interface ContactProps {
   hideHeader?: boolean
 }
 
-type Errors = { name?: string; email?: string; phone?: string; message?: string }
+type Errors = { name?: string; email?: string; phone?: string; message?: string; date?: string; time?: string }
 
-function validate(name: string, email: string, phone: string, message: string): Errors {
+function validate(
+  name: string, email: string, phone: string, message: string,
+  opts?: { bookingFields?: SiteConfig["contact"]["bookingFields"]; date?: string; time?: string }
+): Errors {
   const errs: Errors = {}
   if (!name.trim() || name.trim().length < 2)
     errs.name = "Please enter your full name."
@@ -31,8 +34,12 @@ function validate(name: string, email: string, phone: string, message: string): 
     errs.phone = "Please enter your phone number."
   else if (!/^[\d\s\-\+\(\)]{7,15}$/.test(phone.trim()))
     errs.phone = "Please enter a valid phone number."
-  if (!message.trim())
+  if (!opts?.bookingFields && !message.trim())
     errs.message = "Please enter a message."
+  if (opts?.bookingFields?.date && !opts.date)
+    errs.date = "Please select a date."
+  if (opts?.bookingFields?.time && !opts.time)
+    errs.time = "Please select a time."
   return errs
 }
 
@@ -55,14 +62,37 @@ export function Contact({ contact, business, whatsappInquiry = false, hideHeader
     const phone   = data.get("phone") as string
     const email   = data.get("email") as string
     const message = data.get("message") as string
+    const bookingDate   = data.get("date") as string
+    const bookingTime   = data.get("time") as string
+    const bookingGuests = data.get("guests") as string
 
-    const errs = validate(name, email, phone, message)
+    const errs = validate(name, email, phone, message, {
+      bookingFields: contact.bookingFields,
+      date: bookingDate,
+      time: bookingTime,
+    })
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
-      setTouched({ name: true, email: true, phone: true, message: true })
+      setTouched({ name: true, email: true, phone: true, message: true, date: true, time: true })
       return
     }
     setErrors({})
+
+    let details = message
+    if (contact.bookingFields) {
+      const parts: string[] = []
+      if (bookingDate) {
+        const d = new Date(bookingDate + "T12:00")
+        parts.push(`Date: ${d.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}`)
+      }
+      if (bookingTime) {
+        const [h, m] = bookingTime.split(":")
+        const t = new Date(); t.setHours(Number(h), Number(m))
+        parts.push(`Time: ${t.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`)
+      }
+      if (bookingGuests) parts.push(`Guests: ${bookingGuests}`)
+      details = parts.join(" · ") + (message.trim() ? `\n\nSpecial requests: ${message}` : "")
+    }
 
     const apiBase = (process.env.NEXT_PUBLIC_KENATRIX_API_URL ?? "https://api.zikwala.com").replace(/\/$/, "")
     const endpoint = `${apiBase}/api/v1/public/contact/notify-lead`
@@ -75,7 +105,7 @@ export function Contact({ contact, business, whatsappInquiry = false, hideHeader
           name,
           phone,
           email,
-          details:          message,
+          details:          details,
           clientId:         process.env.NEXT_PUBLIC_CLIENT_ID ?? "unknown",
           appName:          business.name,
           type:             "WEBSITE_INQUIRY",
@@ -267,6 +297,57 @@ export function Contact({ contact, business, whatsappInquiry = false, hideHeader
                     {touched.phone && errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </div>
                 </div>
+                {contact.bookingFields && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {contact.bookingFields.date && (
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                          Date *
+                        </label>
+                        <input
+                          name="date"
+                          type="date"
+                          min={new Date().toISOString().split("T")[0]}
+                          className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${touched.date && errors.date ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
+                          onBlur={() => handleBlur("date")}
+                        />
+                        {touched.date && errors.date && <p className="text-red-500 text-xs mt-1">{errors.date}</p>}
+                      </div>
+                    )}
+                    {contact.bookingFields.time && (
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                          Time *
+                        </label>
+                        <input
+                          name="time"
+                          type="time"
+                          step={(contact.bookingFields.timeStep ?? 15) * 60}
+                          className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${touched.time && errors.time ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
+                          onBlur={() => handleBlur("time")}
+                        />
+                        {touched.time && errors.time && <p className="text-red-500 text-xs mt-1">{errors.time}</p>}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {contact.bookingFields?.guests && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+                      Number of Guests
+                    </label>
+                    <input
+                      name="guests"
+                      type="number"
+                      min="1"
+                      max={contact.bookingFields?.maxGuests ?? 20}
+                      className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      placeholder="How many guests?"
+                    />
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                     Email *
@@ -282,13 +363,13 @@ export function Contact({ contact, business, whatsappInquiry = false, hideHeader
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
-                    Message *
+                    {contact.bookingFields ? "Special Requests" : "Message *"}
                   </label>
                   <textarea
                     name="message"
                     rows={5}
                     className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all resize-none ${touched.message && errors.message ? "border-red-400 dark:border-red-500" : "border-gray-200 dark:border-gray-600"}`}
-                    placeholder="Tell us how we can help..."
+                    placeholder={contact.bookingFields?.placeholder ?? "Tell us how we can help..."}
                     onBlur={() => handleBlur("message")}
                   />
                   {touched.message && errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
@@ -299,7 +380,7 @@ export function Contact({ contact, business, whatsappInquiry = false, hideHeader
                   className="w-full bg-gradient-brand text-on-primary font-semibold py-4 rounded-xl hover:opacity-90 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-base disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Send size={18} />
-                  {submitting ? "Sending…" : "Send Message"}
+                  {submitting ? "Sending…" : (contact.submitLabel ?? "Send Message")}
                 </button>
               </form>
             )}

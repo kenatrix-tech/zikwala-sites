@@ -196,6 +196,15 @@ export interface SiteConfig {
     notifyEmail?: string        // email to notify on new lead
     telegramChatId?: string     // Telegram numeric chat ID for lead notifications
     whatsappMessage?: string    // pre-filled WhatsApp message for the contact page
+    submitLabel?: string        // submit button text — e.g. "Request a Reservation"
+    bookingFields?: {
+      date?: boolean            // show date picker
+      time?: boolean            // show time picker
+      timeStep?: number         // minute interval for time picker — e.g. 15 or 30 (default 15)
+      guests?: boolean          // show number of guests input
+      maxGuests?: number        // max value for guests input (default 20)
+      placeholder?: string      // message textarea label — e.g. "Special requests or dietary needs"
+    }
   }
 
   // ─── Product Listings (Standard+ / retail niches) ───────
@@ -208,7 +217,7 @@ export interface SiteConfig {
       description?: string
       price: number
       originalPrice?: number   // shows strikethrough + discount
-      image: string
+      image?: string
       category?: string        // e.g. "Shoes", "Tops", "Electronics"
       badge?: string           // "New", "Best Seller", "Sale", "Low Stock"
       inStock?: boolean        // defaults to true
@@ -336,6 +345,10 @@ export interface SiteConfig {
     /** Currency code — defaults to "usd" */
     currency?: string
   }
+
+  // ─── Delivery / Order Links ──────────────────────────────
+  /** Third-party delivery platforms — shown as secondary links below direct order CTAs */
+  deliveryLinks?: { name: string; url: string }[]
 
   // ─── Sticky Contact Button ───────────────────────────────
   /** "phone" = call only, "whatsapp" = WA only, "both" = stacked (default: "whatsapp") */

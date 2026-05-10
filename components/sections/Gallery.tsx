@@ -1,4 +1,6 @@
 import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
 
@@ -6,9 +8,13 @@ interface GalleryProps {
   gallery: NonNullable<SiteConfig["gallery"]>
   /** Hide the internal title/subtitle — use when the page already has its own header */
   hideHeader?: boolean
+  /** Limit to 6 images and show a "View All" link to /gallery */
+  preview?: boolean
 }
 
-export function Gallery({ gallery, hideHeader = false }: GalleryProps) {
+export function Gallery({ gallery, hideHeader = false, preview = false }: GalleryProps) {
+  const images = preview ? gallery.images.slice(0, 6) : gallery.images
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +28,7 @@ export function Gallery({ gallery, hideHeader = false }: GalleryProps) {
         )}
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {gallery.images.map((img, i) => (
+          {images.map((img, i) => (
             <AnimateIn key={i} delay={i * 75}>
               <div className="flex flex-col gap-2">
                 <div className="relative aspect-square rounded-site overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
@@ -53,6 +59,21 @@ export function Gallery({ gallery, hideHeader = false }: GalleryProps) {
             </AnimateIn>
           ))}
         </div>
+
+        {preview && gallery.images.length > 6 && (
+          <AnimateIn className="mt-10 text-center">
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-2 bg-primary text-white
+                         font-bold px-8 py-3.5 rounded-site shadow-lg
+                         hover:opacity-90 hover:scale-105 transition-all duration-200"
+            >
+              View All Photos
+              <ArrowRight size={16} />
+            </Link>
+            <p className="text-sm text-gray-400 mt-3">{gallery.images.length} photos in our gallery</p>
+          </AnimateIn>
+        )}
       </div>
     </section>
   )

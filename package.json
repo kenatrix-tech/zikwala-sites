@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/set-client.js",
     "dev": "next dev",
+    "prebuild": "node scripts/set-client.js",
     "build": "next build",
     "build:clean": "npm run clean && npm run build",
     "clean": "rm -rf out .next",

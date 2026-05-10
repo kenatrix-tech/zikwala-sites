@@ -16,6 +16,7 @@ import { FAQ } from "@/components/sections/FAQ"
 import { VehicleListings } from "@/components/sections/VehicleListings"
 import { PropertyListings } from "@/components/sections/PropertyListings"
 import { ProductListings } from "@/components/sections/ProductListings"
+import { RestaurantMenu } from "@/components/sections/RestaurantMenu"
 import { ShopFeaturedGrid } from "@/components/sections/ShopFeaturedGrid"
 import { Packages } from "@/components/sections/Packages"
 import { HighlightStrip } from "@/components/sections/HighlightStrip"
@@ -80,11 +81,13 @@ export default function HomePage() {
       )}
 
       {features.productListings && config.products && (
-        <ProductListings products={config.products} business={config.business} preview />
+        ["restaurant", "bakery"].includes(config.business.niche)
+          ? <RestaurantMenu products={config.products} business={config.business} deliveryLinks={config.deliveryLinks} preview />
+          : <ProductListings products={config.products} business={config.business} preview />
       )}
 
       {features.gallery && config.gallery && !config.soldListings && (
-        <Gallery gallery={config.gallery} />
+        <Gallery gallery={config.gallery} preview />
       )}
 
       {features.gallery && config.soldListings && (

@@ -25,12 +25,15 @@ export const config: SiteConfig = {
   tier: "pro",
   isDemo: false,
   payment: {
-    enabled: false,
+    enabled: true,
     stripeConnectedAccountId: "acct_1TUcqI99buy5XIHq",
     currency: "usd",
   },
-  sellerSlug: "habeshanate-decor-event-planner",
-  storefrontFilter: { categorySlug: "jewelry" },
+  features: {
+    payment: true,
+  },
+  sellerSlug: "sol-g-6177",
+  storefrontFilter: { categorySlug: "traditional-dresses" },
   seo: {
     title: "Habeshanate Jewelry | Handcrafted Jewelry & Accessories in Washington DC",
     description:

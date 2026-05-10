@@ -27,7 +27,7 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
     setError(null)
 
     try {
-      const res = await fetch(`${API_URL}/api/v1/public/website/payment/checkout-session`, {
+      const res = await fetch(`${API_URL}/api/v1/public/storefront/checkout/session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
