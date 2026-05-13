@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Phone, ShoppingBag } from "lucide-react"
+import { Phone, ShoppingBag, ShoppingCart, Check } from "lucide-react"
+import { useCart } from "@/lib/cart"
 
 export interface ProductCardItem {
   id: string
@@ -21,6 +23,7 @@ export interface ProductCardItem {
 interface ProductCardProps {
   product: ProductCardItem
   businessPhone: string
+  showCart?: boolean
 }
 
 function formatPrice(n: number) {
@@ -45,13 +48,21 @@ function WhatsAppIcon() {
   )
 }
 
-export function ProductCard({ product, businessPhone }: ProductCardProps) {
+export function ProductCard({ product, businessPhone, showCart }: ProductCardProps) {
+  const { addItem } = useCart()
+  const [added, setAdded] = useState(false)
   const inStock = product.inStock !== false
   const discountPct = product.originalPrice && product.originalPrice > product.price
     ? Math.round((1 - product.price / product.originalPrice) * 100)
     : null
-  // Only PRODUCT listings have a detail page; SERVICE/VEHICLE/etc. show WhatsApp/Call only
   const isNavigable = inStock && product.slug && product.listingType !== "SERVICE" && product.listingType !== "VEHICLE"
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.stopPropagation()
+    addItem({ id: product.id, name: product.name, price: product.price, image: product.image ?? "", slug: product.slug })
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1500)
+  }
 
   return (
     <div className={`relative group rounded-2xl overflow-hidden bg-white shadow-sm
@@ -133,27 +144,41 @@ export function ProductCard({ product, businessPhone }: ProductCardProps) {
         {/* Action buttons */}
         {inStock ? (
           <div className="relative z-20 flex items-center gap-2">
-            <a
-              href={whatsappLink(businessPhone, product)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={e => e.stopPropagation()}
-              className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5
-                         text-on-primary font-semibold text-xs py-2 sm:py-2.5 rounded-site
-                         hover:opacity-85 transition-opacity"
-              style={{ background: "var(--color-primary)" }}
-            >
-              <WhatsAppIcon />
-              Order
-            </a>
-            <a
-              href={`tel:${businessPhone}`}
-              onClick={e => e.stopPropagation()}
-              aria-label="Call"
-              className="relative z-20 text-gray-400 hover:text-primary transition-colors p-1"
-            >
-              <Phone size={14} />
-            </a>
+            {showCart ? (
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5
+                           text-on-primary font-semibold text-xs py-2 sm:py-2.5 rounded-site
+                           transition-all duration-300"
+                style={{ background: added ? "var(--color-secondary)" : "var(--color-primary)" }}
+              >
+                {added ? <><Check size={13} /> Added!</> : <><ShoppingCart size={13} /> Add to Cart</>}
+              </button>
+            ) : (
+              <>
+                <a
+                  href={whatsappLink(businessPhone, product)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={e => e.stopPropagation()}
+                  className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5
+                             text-on-primary font-semibold text-xs py-2 sm:py-2.5 rounded-site
+                             hover:opacity-85 transition-opacity"
+                  style={{ background: "var(--color-primary)" }}
+                >
+                  <WhatsAppIcon />
+                  Order
+                </a>
+                <a
+                  href={`tel:${businessPhone}`}
+                  onClick={e => e.stopPropagation()}
+                  aria-label="Call"
+                  className="relative z-20 text-gray-400 hover:text-primary transition-colors p-1"
+                >
+                  <Phone size={14} />
+                </a>
+              </>
+            )}
           </div>
         ) : (
           <p className="text-xs text-gray-400 font-medium text-center py-1 tracking-wide">

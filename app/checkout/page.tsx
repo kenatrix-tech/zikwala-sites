@@ -7,16 +7,19 @@ export default function CheckoutPage() {
   const config = getConfig()
   const features = getFeatures(config.tier)
 
-  if (!features.payment || !config.payment?.enabled || !config.payment.stripeConnectedAccountId) {
+  const hasPayment = features.payment && config.payment?.enabled && config.payment.stripeConnectedAccountId
+
+  if (!hasPayment && !config.isDemo) {
     redirect("/products")
   }
 
   return (
     <CheckoutClient
-      stripeConnectedAccountId={config.payment.stripeConnectedAccountId}
-      currency={config.payment.currency ?? "usd"}
+      stripeConnectedAccountId={config.payment?.stripeConnectedAccountId ?? ""}
+      currency={config.payment?.currency ?? "usd"}
       sellerSlug={config.sellerSlug}
       businessName={config.business.name}
+      isDemo={config.isDemo && !hasPayment}
     />
   )
 }

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag, Minus, Plus, Trash2, CreditCard, ArrowLeft, Lock } from "lucide-react"
+import { ShoppingBag, Minus, Plus, Trash2, CreditCard, ArrowLeft, Lock, Sparkles, ArrowRight, CheckCircle2, X } from "lucide-react"
 import { useCart } from "@/lib/cart"
 
 interface Props {
@@ -11,15 +11,17 @@ interface Props {
   currency: string
   sellerSlug?: string
   businessName: string
+  isDemo?: boolean
 }
 
 const API_URL = process.env.NEXT_PUBLIC_KENATRIX_API_URL ?? "https://api.zikwala.com"
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "")
 
-export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug, businessName }: Props) {
+export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug, businessName, isDemo }: Props) {
   const { items, updateQuantity, removeItem, clearCart, totalItems, totalPrice } = useCart()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showDemoNotice, setShowDemoNotice] = useState(false)
 
   async function handleCheckout() {
     if (items.length === 0) return
@@ -165,7 +167,7 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
             )}
 
             <button
-              onClick={handleCheckout}
+              onClick={isDemo ? () => setShowDemoNotice(true) : handleCheckout}
               disabled={loading}
               className="mt-5 w-full inline-flex items-center justify-center gap-2
                          text-sm font-bold py-4 rounded-site text-on-primary
@@ -185,17 +187,73 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
               )}
             </button>
 
-            <div className="flex items-center justify-center gap-1.5 mt-3 text-xs text-gray-400">
-              <Lock size={11} />
-              Secured by Stripe
-            </div>
+            {showDemoNotice && (
+              <div className="mt-4 rounded-2xl overflow-hidden ring-1 ring-black/5">
+                <div
+                  className="px-5 py-4 text-white relative"
+                  style={{ background: "linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)" }}
+                >
+                  <button
+                    onClick={() => setShowDemoNotice(false)}
+                    className="absolute top-3 right-3 opacity-60 hover:opacity-100 transition-opacity"
+                    aria-label="Close"
+                  >
+                    <X size={15} />
+                  </button>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles size={15} className="opacity-90" />
+                    <span className="text-xs font-bold uppercase tracking-widest opacity-90">Demo Preview</span>
+                  </div>
+                  <p className="text-sm font-bold leading-snug pr-4">
+                    Payment is available on your live website
+                  </p>
+                  <p className="text-xs opacity-75 mt-0.5">
+                    This is a demo — checkout is fully functional once your site goes live.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-gray-800 px-5 py-4 space-y-2.5">
+                  {[
+                    "Stripe-powered secure checkout",
+                    "Visa, Mastercard, Apple Pay & more",
+                    "Instant order confirmation emails",
+                    "Funds deposited directly to your account",
+                  ].map(feat => (
+                    <div key={feat} className="flex items-center gap-2.5">
+                      <CheckCircle2 size={13} style={{ color: "var(--color-primary)" }} className="shrink-0" />
+                      <span className="text-xs text-gray-600 dark:text-gray-300">{feat}</span>
+                    </div>
+                  ))}
+                  <a
+                    href="https://zikwala.com/website/get-started"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 w-full inline-flex items-center justify-center gap-2
+                               text-xs font-bold py-3 rounded-xl text-on-primary
+                               bg-gradient-brand hover:opacity-90 transition-opacity"
+                  >
+                    Get Your Website
+                    <ArrowRight size={13} />
+                  </a>
+                </div>
+              </div>
+            )}
 
-            <p className="text-xs text-gray-400 text-center mt-2">
-              Sold by {businessName}
-            </p>
+            {!showDemoNotice && (
+              <div className="flex items-center justify-center gap-1.5 mt-3 text-xs text-gray-400">
+                <Lock size={11} />
+                {isDemo ? "Demo preview — no real charge" : "Secured by Stripe"}
+              </div>
+            )}
+
+            {!isDemo && (
+              <p className="text-xs text-gray-400 text-center mt-2">
+                Sold by {businessName}
+              </p>
+            )}
           </div>
         </div>
       </div>
     </div>
   )
 }
+

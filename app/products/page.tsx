@@ -24,8 +24,9 @@ export default function ProductsPage() {
   if (!features.productListings || (!config.products && !config.sellerSlug)) redirect("/")
 
   const isRestaurant = RESTAURANT_NICHES.includes(config.business.niche)
+  const showCart = features.payment
   const title = config.products?.title ?? (isRestaurant ? "Our Menu" : "Our Collection")
-  const subtitle = config.products?.subtitle ?? (isRestaurant ? "Order via WhatsApp or call us" : "Browse and order directly via WhatsApp")
+  const subtitle = config.products?.subtitle ?? (isRestaurant ? "Order via WhatsApp or call us" : showCart ? "Add items to your cart and checkout securely online" : "Browse and order directly via WhatsApp")
 
   return (
     <>
@@ -54,6 +55,7 @@ export default function ProductsPage() {
           products={config.products!}
           business={config.business}
           hideHeader
+          showCart={showCart}
         />
       )}
     </>

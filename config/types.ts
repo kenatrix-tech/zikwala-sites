@@ -337,6 +337,35 @@ export interface SiteConfig {
     }[]
   }
 
+  // ─── Booking System (Pro+ / service-based businesses) ───
+  booking?: {
+    title?: string
+    subtitle?: string
+    /** Stripe Connect account ID for this seller — charges go to seller, platform takes a fee */
+    stripeConnectAccountId?: string
+    /** Business open time — e.g. "09:00" (default "09:00") */
+    openTime?: string
+    /** Business close time — e.g. "19:00" (default "19:00") */
+    closeTime?: string
+    /** Slot interval in minutes — 15, 30, or 60 (default 30) */
+    timeStep?: number
+    /** Show address field — for at-home services (cleaning, handyman, plumbing, etc.) */
+    collectAddress?: boolean
+    /** Custom notes placeholder — guides the client on what to write */
+    notesPlaceholder?: string
+    services: {
+      name: string
+      description?: string
+      price?: string
+      priceAmount?: number
+      duration?: string
+      icon?: string
+      listingId?: number
+      depositPercent?: number
+    }[]
+    defaultDepositPercent?: number
+  }
+
   // ─── Payment (Pro+ / Stripe Connect) ────────────────────
   payment?: {
     enabled: boolean

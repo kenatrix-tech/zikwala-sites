@@ -13,6 +13,8 @@ import { CartDrawer } from "@/components/ui/CartDrawer"
 
 const config = getConfig()
 const features = getFeatures(config.tier)
+const hasProducts = !!(config.products || config.sellerSlug)
+const paymentEnabled = features.payment && hasProducts
 
 // Auto-inject listing pages into nav based on active features + data.
 // Skip any href already present in the manual nav to avoid duplicates.
@@ -126,7 +128,7 @@ export default function RootLayout({
           {config.isDemo && (
             <DemoBanner businessName={config.business.name} />
           )}
-          <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} paymentEnabled={features.payment && config.payment?.enabled} />
+          <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} paymentEnabled={paymentEnabled} />
           <main>{children}</main>
           <Footer
             business={config.business}
@@ -138,7 +140,7 @@ export default function RootLayout({
             message={`Hi, I'm interested in ${config.business.name}'s services.`}
             mode={config.stickyContact ?? "both"}
           />
-          {features.payment && config.payment?.enabled && <CartDrawer />}
+          {paymentEnabled && <CartDrawer />}
         </CartProvider>
       </body>
     </html>

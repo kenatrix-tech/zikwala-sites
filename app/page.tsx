@@ -61,6 +61,42 @@ export default function HomePage() {
     )
   }
 
+  // ── Boutique / e-commerce layout: static products, payment-enabled ────────
+  if (config.products && config.business.niche === "boutique") {
+    const showCart = features.payment
+    return (
+      <>
+        <Hero hero={config.hero} business={config.business} />
+
+        {config.hero.trustPoints && config.hero.trustPoints.length > 0 && (
+          <HighlightStrip trustPoints={config.hero.trustPoints} />
+        )}
+
+        <ProductListings products={config.products} business={config.business} preview showCart={showCart} />
+
+        {features.stats && config.stats && (
+          <Stats stats={config.stats} />
+        )}
+
+        {features.gallery && config.gallery && (
+          <Gallery gallery={config.gallery} preview />
+        )}
+
+        {features.testimonials && config.testimonials && (
+          <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
+        )}
+
+        <About about={config.about} />
+
+        {config.faq && config.faq.length > 0 && (
+          <FAQ faq={config.faq} />
+        )}
+
+        <Contact contact={config.contact} business={config.business} />
+      </>
+    )
+  }
+
   // ── Service layout (existing, all non-shop clients unchanged) ────────────
   return (
     <>

@@ -12,6 +12,7 @@ interface Props {
   business: SiteConfig["business"]
   preview?: boolean
   hideHeader?: boolean
+  showCart?: boolean
 }
 
 function WhatsAppIcon({ size = 15 }: { size?: number }) {
@@ -22,7 +23,7 @@ function WhatsAppIcon({ size = 15 }: { size?: number }) {
   )
 }
 
-export function ProductListings({ products, business, preview = false, hideHeader = false }: Props) {
+export function ProductListings({ products, business, preview = false, hideHeader = false, showCart }: Props) {
   const items = products.items
   const categories = ["All", ...Array.from(new Set(items.map(p => p.category).filter(Boolean)))] as string[]
   const [activeCategory, setActiveCategory] = useState("All")
@@ -72,7 +73,7 @@ export function ProductListings({ products, business, preview = false, hideHeade
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {visible.map((product, i) => (
             <AnimateIn key={product.id} delay={i * 60}>
-              <ProductCard product={product} businessPhone={business.phone} />
+              <ProductCard product={product} businessPhone={business.phone} showCart={showCart} />
             </AnimateIn>
           ))}
         </div>
