@@ -45,12 +45,14 @@ export const config: SiteConfig = {
   nav: {
     links: [
       { label: "Home",    href: "/" },
+      { label: "Menu",    href: "/products" },
+      { label: "Reserve", href: "/booking" },
       { label: "Gallery", href: "/gallery" },
       { label: "About",   href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
     ctaLabel: "Reserve a Table",
-    ctaHref: "/contact",
+    ctaHref: "/booking",
   },
 
   hero: {
@@ -58,7 +60,7 @@ export const config: SiteConfig = {
     heading: "Where Fire Meets Farm-Fresh Flavor",
     subheading:
       "Handcrafted dishes from local farms, cooked over an open oak-wood fire in the heart of Austin.",
-    cta:          { label: "Reserve a Table", href: "/contact" },
+    cta:          { label: "Reserve a Table", href: "/booking" },
     secondaryCta: { label: "View Our Menu",   href: "/products" },
     image: "/clients/demo-restaurant/hero.jpg",
     badge: "Open Since 2016 · Austin, TX",
@@ -272,12 +274,22 @@ export const config: SiteConfig = {
     ],
   },
 
+  booking: {
+    title: "Reserve a Table",
+    subtitle: "Pick your party size, choose a date and time — we'll confirm your reservation shortly.",
+    openTime: "10:00",
+    closeTime: "22:00",
+    timeStep: 30,
+    services: [],
+  },
+
   contact: {
-    title: "Reservations & Inquiries",
-    subtitle:
-      "Dinner Mon–Sat 5–10PM · Brunch Sat–Sun 10AM–2PM · Happy Hour Mon–Fri 4–6PM. Walk-ins welcome based on availability.",
+    title: "Get In Touch",
+    subtitle: "Questions about the menu, catering, or private dining? We'd love to hear from you.",
     mapEmbed: "",
     formEndpoint: "mailto:reservations@emberandoak.com",
+    whatsappMessage: "Hi, I have a question about Ember & Oak.",
+    submitLabel: "Send Message",
   },
 
   catering: {

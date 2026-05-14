@@ -26,14 +26,14 @@ export default function ProductsPage() {
   const isRestaurant = RESTAURANT_NICHES.includes(config.business.niche)
   const showCart = features.payment
   const title = config.products?.title ?? (isRestaurant ? "Our Menu" : "Our Collection")
-  const subtitle = config.products?.subtitle ?? (isRestaurant ? "Order via WhatsApp or call us" : showCart ? "Add items to your cart and checkout securely online" : "Browse and order directly via WhatsApp")
+  const subtitle = config.products?.subtitle ?? (isRestaurant ? "Call us to place a takeout order or reserve a table" : showCart ? "Add items to your cart and checkout securely online" : "Browse and order directly via WhatsApp")
 
   return (
     <>
       <section className="bg-accent py-8 sm:py-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">{title}</h1>
-          <p className="text-gray-500 text-lg">{subtitle}</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">{title}</h1>
+          <p className="text-gray-500 text-base sm:text-lg">{subtitle}</p>
         </div>
       </section>
 

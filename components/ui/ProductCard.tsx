@@ -24,6 +24,7 @@ interface ProductCardProps {
   product: ProductCardItem
   businessPhone: string
   showCart?: boolean
+  niche?: string
 }
 
 function formatPrice(n: number) {
@@ -48,7 +49,7 @@ function WhatsAppIcon() {
   )
 }
 
-export function ProductCard({ product, businessPhone, showCart }: ProductCardProps) {
+export function ProductCard({ product, businessPhone, showCart, niche }: ProductCardProps) {
   const { addItem } = useCart()
   const [added, setAdded] = useState(false)
   const inStock = product.inStock !== false
@@ -154,6 +155,18 @@ export function ProductCard({ product, businessPhone, showCart }: ProductCardPro
               >
                 {added ? <><Check size={13} /> Added!</> : <><ShoppingCart size={13} /> Add to Cart</>}
               </button>
+            ) : niche === "restaurant" ? (
+              <a
+                href={`tel:${businessPhone}`}
+                onClick={e => e.stopPropagation()}
+                className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5
+                           text-on-primary font-semibold text-xs py-2 sm:py-2.5 rounded-site
+                           hover:opacity-85 transition-opacity"
+                style={{ background: "var(--color-primary)" }}
+              >
+                <Phone size={13} />
+                Call to Order
+              </a>
             ) : (
               <>
                 <a

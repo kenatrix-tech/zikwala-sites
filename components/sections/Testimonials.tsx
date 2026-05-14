@@ -145,7 +145,7 @@ export function Testimonials({ testimonials, googleReviewUrl }: TestimonialsProp
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center flex-wrap gap-3 shrink-0">
                 <a
                   href={googleReviewUrl}
                   target="_blank"

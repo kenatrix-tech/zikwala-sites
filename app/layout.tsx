@@ -14,7 +14,7 @@ import { CartDrawer } from "@/components/ui/CartDrawer"
 const config = getConfig()
 const features = getFeatures(config.tier)
 const hasProducts = !!(config.products || config.sellerSlug)
-const paymentEnabled = features.payment && hasProducts
+const paymentEnabled = features.payment && hasProducts && config.business.niche !== "restaurant"
 
 // Auto-inject listing pages into nav based on active features + data.
 // Skip any href already present in the manual nav to avoid duplicates.

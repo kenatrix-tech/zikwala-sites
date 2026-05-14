@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { CheckCircle, Calendar, ChevronRight, Scissors, Sparkles, Heart, Eye, Droplets, Palette, Star, Wrench, Zap, Droplet, BookOpen, Wind, Car, type LucideIcon } from "lucide-react"
+import { CheckCircle, Calendar, ChevronRight, ChevronLeft, Scissors, Sparkles, Heart, Eye, Droplets, Palette, Star, Wrench, Zap, Droplet, BookOpen, Wind, Car, type LucideIcon } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -12,6 +12,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 interface BookingClientProps {
   booking: NonNullable<SiteConfig["booking"]>
   business: SiteConfig["business"]
+  isLive?: boolean
 }
 
 type Step = "service" | "datetime" | "details" | "done"
@@ -66,7 +67,116 @@ function validate(f: FormState, collectAddress: boolean): Errors {
   return e
 }
 
-export function BookingClient({ booking, business }: BookingClientProps) {
+// ── Calendar picker ───────────────────────────────────────────────────────────
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+const DAYS   = ["Su","Mo","Tu","We","Th","Fr","Sa"]
+
+function CalendarPicker({ value, min, onChange }: { value: string; min: string; onChange: (d: string) => void }) {
+  const minDate = new Date(min + "T12:00")
+  const [viewYear,  setViewYear]  = useState(minDate.getFullYear())
+  const [viewMonth, setViewMonth] = useState(minDate.getMonth())
+
+  function prevMonth() {
+    if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1) }
+    else setViewMonth(m => m - 1)
+  }
+  function nextMonth() {
+    if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1) }
+    else setViewMonth(m => m + 1)
+  }
+
+  function toStr(y: number, m: number, d: number) {
+    return `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`
+  }
+
+  function isPast(d: number) {
+    return new Date(viewYear, viewMonth, d) < new Date(min + "T00:00")
+  }
+
+  const firstDayOfWeek = new Date(viewYear, viewMonth, 1).getDay()
+  const daysInMonth    = new Date(viewYear, viewMonth + 1, 0).getDate()
+  const cells: (number | null)[] = [
+    ...Array.from({ length: firstDayOfWeek }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ]
+
+  return (
+    <div className="rounded-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-4 select-none">
+      <div className="flex items-center justify-between mb-3">
+        <button type="button" onClick={prevMonth} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+          <ChevronLeft size={16} className="text-gray-500 dark:text-gray-300" />
+        </button>
+        <span className="text-sm font-semibold text-gray-800 dark:text-white">
+          {MONTHS[viewMonth]} {viewYear}
+        </span>
+        <button type="button" onClick={nextMonth} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+          <ChevronRight size={16} className="text-gray-500 dark:text-gray-300" />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-7 mb-1">
+        {DAYS.map(d => (
+          <div key={d} className="text-center text-xs font-medium text-gray-400 dark:text-gray-500 py-1">{d}</div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-7 gap-0.5">
+        {cells.map((day, i) => {
+          if (!day) return <div key={i} />
+          const str      = toStr(viewYear, viewMonth, day)
+          const selected = value === str
+          const past     = isPast(day)
+          return (
+            <button key={i} type="button" disabled={past} onClick={() => onChange(str)}
+              className={`h-9 w-full rounded-lg text-sm font-medium transition-all ${
+                selected  ? "text-white shadow-sm"
+                : past    ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+              }`}
+              style={selected ? { background: "var(--color-primary)" } : {}}>
+              {day}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function DatePickerField({ value, min, onChange }: { value: string; min: string; onChange: (d: string) => void }) {
+  const [open, setOpen] = useState(!value)
+
+  function handleSelect(d: string) {
+    onChange(d)
+    setOpen(false)
+  }
+
+  const displayDate = value
+    ? new Date(value + "T12:00").toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric" })
+    : null
+
+  return (
+    <div>
+      <button type="button" onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center justify-between bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3.5 text-sm transition-all hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/30">
+        <span className={displayDate ? "text-gray-800 dark:text-white font-medium" : "text-gray-400"}>
+          {displayDate ?? "Select a date"}
+        </span>
+        <div className="flex items-center gap-2">
+          {displayDate && <span className="text-xs text-gray-400">{open ? "Close" : "Change"}</span>}
+          <Calendar size={16} className="text-gray-400 shrink-0" />
+        </div>
+      </button>
+      {open && (
+        <div className="mt-2">
+          <CalendarPicker value={value} min={min} onChange={handleSelect} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function BookingClient({ booking, business, isLive }: BookingClientProps) {
   const openTime   = booking.openTime  ?? "09:00"
   const closeTime  = booking.closeTime ?? "19:00"
   const timeStep   = booking.timeStep  ?? 30
@@ -125,6 +235,13 @@ export function BookingClient({ booking, business }: BookingClientProps) {
     setApiError(null)
     setSubmitting(true)
 
+    if (!isLive) {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      setStep("done")
+      setSubmitting(false)
+      return
+    }
+
     const apiBase = (process.env.NEXT_PUBLIC_KENATRIX_API_URL ?? "https://api.zikwala.com").replace(/\/$/, "")
 
     try {
@@ -177,6 +294,7 @@ export function BookingClient({ booking, business }: BookingClientProps) {
           }),
         })
       }
+      window.scrollTo({ top: 0, behavior: "smooth" })
       setStep("done")
     } finally {
       setSubmitting(false)
@@ -186,20 +304,44 @@ export function BookingClient({ booking, business }: BookingClientProps) {
   // ── Done ──────────────────────────────────────────────────────────────────────
   if (step === "done") {
     return (
-      <section className="py-24">
-        <div className="max-w-lg mx-auto px-4 text-center">
-          <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: "var(--color-accent)" }}>
+      <section className="py-16 px-4">
+        <div className="max-w-md mx-auto text-center">
+          <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5" style={{ background: "var(--color-accent)" }}>
             <CheckCircle size={40} className="text-primary" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">You&apos;re Booked!</h2>
-          {bookingNumber && <p className="text-sm text-gray-400 mb-2">Booking #{bookingNumber}</p>}
-          <p className="text-gray-500 mb-2">
-            Thanks <strong>{form.name}</strong>! Your <strong>{selectedService?.name}</strong> appointment on{" "}
-            <strong>{new Date(selectedDate + "T12:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</strong>{" "}
-            at <strong>{formatSlot(selectedTime)}</strong> is confirmed.
-          </p>
-          <p className="text-gray-400 text-sm mb-8">We&apos;ll call you at {form.phone} to confirm. See you soon!</p>
-          <a href="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-sm" style={{ background: "var(--color-primary)" }}>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">You&apos;re Booked!</h2>
+          <p className="text-gray-500 text-sm mb-6">Thanks <strong>{form.name}</strong>! We&apos;ll call you at <strong>{form.phone}</strong> to confirm.</p>
+
+          <div className="rounded-2xl border border-gray-100 text-left divide-y divide-gray-100 mb-8" style={{ background: "var(--color-accent)" }}>
+            {bookingNumber && (
+              <div className="flex justify-between px-5 py-3 text-sm">
+                <span className="text-gray-500">Booking #</span>
+                <span className="font-semibold text-gray-800">{bookingNumber}</span>
+              </div>
+            )}
+            <div className="flex justify-between px-5 py-3 text-sm">
+              <span className="text-gray-500">Service</span>
+              <span className="font-semibold text-gray-800">{selectedService?.name}</span>
+            </div>
+            <div className="flex justify-between px-5 py-3 text-sm">
+              <span className="text-gray-500">Date</span>
+              <span className="font-semibold text-gray-800">
+                {new Date(selectedDate + "T12:00").toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric" })}
+              </span>
+            </div>
+            <div className="flex justify-between px-5 py-3 text-sm">
+              <span className="text-gray-500">Time</span>
+              <span className="font-semibold text-gray-800">{formatSlot(selectedTime)}</span>
+            </div>
+            {selectedService?.price && (
+              <div className="flex justify-between px-5 py-3 text-sm">
+                <span className="text-gray-500">Price</span>
+                <span className="font-semibold text-primary">{selectedService.price}</span>
+              </div>
+            )}
+          </div>
+
+          <a href="/" className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold text-sm" style={{ background: "var(--color-primary)" }}>
             Back to Home
           </a>
         </div>
@@ -226,49 +368,49 @@ export function BookingClient({ booking, business }: BookingClientProps) {
             {selectedService?.price && <><span className="text-gray-400">·</span><span className="text-gray-600">{selectedService.price}</span></>}
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 space-y-5">
-            <h2 className="text-xl font-bold text-gray-900">Your Details</h2>
+          <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-xl p-5 sm:p-8 space-y-5">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Your Details</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Full Name *</label>
                 <input value={form.name} onChange={e => handleChange("name", e.target.value)} onBlur={() => handleBlur("name")}
                   placeholder="Your name"
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${touched.name && errors.name ? "border-red-400" : "border-gray-200"}`} />
+                  className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${touched.name && errors.name ? "border-red-400" : "border-gray-200 dark:border-gray-600"}`} />
                 {touched.name && errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Phone *</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Phone *</label>
                 <input type="tel" value={form.phone} onChange={e => handleChange("phone", e.target.value)} onBlur={() => handleBlur("phone")}
                   placeholder="Your phone number"
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${touched.phone && errors.phone ? "border-red-400" : "border-gray-200"}`} />
+                  className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${touched.phone && errors.phone ? "border-red-400" : "border-gray-200 dark:border-gray-600"}`} />
                 {touched.phone && errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email <span className="text-gray-400 font-normal">(optional — for confirmation)</span></label>
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Email <span className="text-gray-400 font-normal">(optional — for confirmation)</span></label>
               <input type="email" value={form.email} onChange={e => handleChange("email", e.target.value)} onBlur={() => handleBlur("email")}
                 placeholder="your@email.com"
-                className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${touched.email && errors.email ? "border-red-400" : "border-gray-200"}`} />
+                className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${touched.email && errors.email ? "border-red-400" : "border-gray-200 dark:border-gray-600"}`} />
               {touched.email && errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
             {collectAddress && (
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Service Address *</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Service Address *</label>
                 <input value={form.address} onChange={e => handleChange("address", e.target.value)} onBlur={() => handleBlur("address")}
                   placeholder="123 Main St, City, State"
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${touched.address && errors.address ? "border-red-400" : "border-gray-200"}`} />
+                  className={`w-full border rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${touched.address && errors.address ? "border-red-400" : "border-gray-200 dark:border-gray-600"}`} />
                 {touched.address && errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
               </div>
             )}
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Notes <span className="text-gray-400 font-normal">(optional)</span></label>
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Notes <span className="text-gray-400 font-normal">(optional)</span></label>
               <textarea value={form.notes} onChange={e => handleChange("notes", e.target.value)}
                 rows={3} placeholder={notesPlaceholder}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all resize-none" />
+                className="w-full border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 transition-all resize-none" />
             </div>
 
             {apiError && (
@@ -320,19 +462,18 @@ export function BookingClient({ booking, business }: BookingClientProps) {
 
           {/* Date */}
           <div className="mb-8">
-            <h3 className="text-base font-bold text-gray-900 mb-3">Select a Date</h3>
-            <div className="relative">
-              <input type="date" value={selectedDate} min={today}
-                onChange={e => { setSelectedDate(e.target.value); setSelectedTime("") }}
-                className="w-full bg-white border border-gray-300 rounded-xl pl-4 pr-12 py-4 text-sm text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-gray-300 transition-all box-border" />
-              <Calendar size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-            </div>
+            <h3 className="text-base font-bold text-gray-900 dark:text-white mb-3">Select a Date</h3>
+            <DatePickerField
+              value={selectedDate}
+              min={today}
+              onChange={d => { setSelectedDate(d); setSelectedTime("") }}
+            />
           </div>
 
           {/* Time slots */}
           {selectedDate && (
             <div className="mb-8">
-              <h3 className="text-base font-bold text-gray-900 mb-3">Select a Time</h3>
+              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-3">Select a Time</h3>
               {availableSlots.length === 0 ? (
                 <p className="text-sm text-gray-400">No available times for this date. Please choose another day.</p>
               ) : (
@@ -342,7 +483,7 @@ export function BookingClient({ booking, business }: BookingClientProps) {
                       className={`py-2.5 px-3 rounded-xl text-sm font-medium border transition-all ${
                         selectedTime === t
                           ? "text-white border-transparent shadow-md"
-                          : "border-gray-200 text-gray-700 hover:border-primary/40 hover:text-primary bg-white"
+                          : "border-gray-200 dark:border-gray-500 text-gray-700 dark:text-white bg-white dark:bg-gray-700 hover:border-primary/40 hover:text-primary"
                       }`}
                       style={selectedTime === t ? { background: "var(--color-primary)", borderColor: "var(--color-primary)" } : {}}>
                       {formatSlot(t)}
@@ -365,26 +506,56 @@ export function BookingClient({ booking, business }: BookingClientProps) {
 
   // ── Service picker ─────────────────────────────────────────────────────────────
   return (
-    <section className="py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <section className="py-12 sm:py-16">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            {booking.title ?? "Book an Appointment"}
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+            {booking.subtitle ?? "Select a service to get started"}
+          </p>
+        </div>
+
+        <div className="space-y-3">
           {booking.services.map((service, i) => {
             const Icon = service.icon && ICON_MAP[service.icon] ? ICON_MAP[service.icon]! : Calendar
             return (
-              <button key={i} onClick={() => goToDateTime(i)}
-                className="text-left rounded-2xl border border-gray-100 p-6 hover:shadow-lg hover:border-primary/30 transition-all group bg-white">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" style={{ background: "var(--color-accent)" }}>
-                  <Icon size={22} className="text-primary" />
+              <button
+                key={i}
+                onClick={() => goToDateTime(i)}
+                className="w-full text-left flex items-center gap-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-5 py-4 hover:border-primary hover:shadow-md hover:bg-primary/[0.02] dark:hover:border-primary/60 transition-all duration-150 group"
+              >
+                {/* Icon */}
+                <div className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                  style={{ background: "var(--color-accent)" }}>
+                  <Icon size={20} className="text-primary" />
                 </div>
-                <div className="font-semibold text-gray-900 mb-1">{service.name}</div>
-                {service.description && <p className="text-gray-500 text-sm mb-3 line-clamp-2">{service.description}</p>}
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-2">
-                    {service.price     && <span className="text-primary font-semibold text-sm">{service.price}</span>}
-                    {service.duration  && <span className="text-gray-400 text-xs">· {service.duration}</span>}
+
+                {/* Text */}
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-gray-900 dark:text-white text-[15px] leading-snug">
+                    {service.name}
                   </div>
-                  <ChevronRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
+                  {service.description && (
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5 line-clamp-1">
+                      {service.description}
+                    </p>
+                  )}
+                  {(service.price || service.duration) && (
+                    <div className="flex items-center gap-2 mt-1.5">
+                      {service.price    && <span className="text-primary font-bold text-sm">{service.price}</span>}
+                      {service.duration && <span className="text-gray-400 text-xs">· {service.duration}</span>}
+                    </div>
+                  )}
                 </div>
+
+                {/* Arrow */}
+                <ChevronRight
+                  size={20}
+                  className="shrink-0 text-gray-300 dark:text-gray-500 group-hover:text-primary group-hover:translate-x-0.5 transition-all"
+                />
               </button>
             )
           })}

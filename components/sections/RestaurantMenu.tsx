@@ -58,7 +58,7 @@ function MenuItemRow({ item, phone }: { item: MenuItem; phone: string }) {
       {/* Left: text */}
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline justify-between gap-3 mb-1">
-          <h3 className="font-bold text-gray-900 text-[15px] leading-snug">{item.name}</h3>
+          <h3 className="font-bold text-gray-900 text-[15px] leading-snug min-w-0">{item.name}</h3>
           <div className="shrink-0 text-right">
             <span className="font-black text-primary text-base">${item.price}</span>
             {item.originalPrice && (
@@ -86,15 +86,13 @@ function MenuItemRow({ item, phone }: { item: MenuItem; phone: string }) {
           </div>
           {!unavailable && (
             <a
-              href={whatsappOrderLink(phone, item)}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`tel:${phone}`}
               className="inline-flex items-center gap-1.5 text-[12px] font-bold text-white
                          px-3 py-1 rounded-full transition-all hover:opacity-90 hover:scale-105 shrink-0"
               style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
             >
-              <WhatsAppIcon />
-              Order
+              <Phone size={11} />
+              Call to Order
             </a>
           )}
         </div>
@@ -221,27 +219,17 @@ export function RestaurantMenu({ products, business, deliveryLinks, preview = fa
             <div className="mt-14 rounded-2xl bg-primary/5 border border-primary/10 p-6 sm:p-8 text-center max-w-xl mx-auto">
               <p className="font-bold text-gray-900 mb-1">Ready to order or have a question?</p>
               <p className="text-gray-500 text-sm mb-5">
-                Call us or message on WhatsApp — we'll take care of you.
+                Call us to place a takeout order or make a reservation.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <a
                   href={`tel:${business.phone}`}
-                  className="inline-flex items-center gap-2 bg-gray-900 text-white
-                             font-bold px-6 py-3 rounded-site hover:bg-gray-700 transition-colors"
+                  className="inline-flex items-center gap-2 text-white font-bold px-6 py-3 rounded-site
+                             hover:opacity-90 transition-all"
+                  style={{ background: "var(--color-primary)" }}
                 >
                   <Phone size={15} />
                   Call to Order
-                </a>
-                <a
-                  href={`https://wa.me/${business.phone.replace(/\D/g, "")}?text=${encodeURIComponent("Hi, I'd like to place an order. Can you help me?")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-white font-bold px-6 py-3 rounded-site
-                             hover:opacity-90 transition-all"
-                  style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
-                >
-                  <WhatsAppIcon />
-                  WhatsApp Order
                 </a>
               </div>
 

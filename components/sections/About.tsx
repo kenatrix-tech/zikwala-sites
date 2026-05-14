@@ -17,7 +17,7 @@ function SectionImage({ src, alt }: { src: string; alt: string }) {
   if (broken) return null
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       {/* Decorative accents behind the image */}
       <div
         className="absolute -bottom-5 -right-5 w-44 h-44 rounded-2xl -z-10 opacity-20"

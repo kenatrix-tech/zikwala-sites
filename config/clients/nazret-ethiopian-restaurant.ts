@@ -25,7 +25,7 @@ export const config: SiteConfig = {
   },
 
   tier: "pro",
-  isDemo: true,
+  isDemo: false,
 
   seo: {
     title: "Nazret Ethiopian Restaurant | Authentic Ethiopian Food in Falls Church VA",
@@ -47,13 +47,14 @@ export const config: SiteConfig = {
     links: [
       { label: "Home",     href: "/" },
       { label: "Menu",     href: "/products" },
+      { label: "Reserve",  href: "/booking" },
       { label: "Catering", href: "/catering" },
       { label: "Gallery",  href: "/gallery" },
       { label: "About",    href: "/about" },
       { label: "Contact",  href: "/contact" },
     ],
     ctaLabel: "Reserve a Table",
-    ctaHref: "/contact",
+    ctaHref: "/booking",
   },
 
   hero: {
@@ -61,7 +62,7 @@ export const config: SiteConfig = {
     heading: "A Taste of Home, Shared Around Injera",
     subheading:
       "Traditional Ethiopian dishes slow-cooked with authentic spices — served the way it's been done for generations. Family-style. Warm. Unforgettable.",
-    cta:          { label: "Reserve a Table",  href: "/contact" },
+    cta:          { label: "Reserve a Table",  href: "/booking" },
     secondaryCta: { label: "View Our Menu",    href: "/products" },
     image: "https://cdn.zikwala.com/demo/restaurant/hero_nazeret.jpg",
     badge: "Skyline, Falls Church VA · Ethiopian Cuisine",
@@ -454,31 +455,31 @@ export const config: SiteConfig = {
     ],
   },
 
+  booking: {
+    title: "Reserve a Table",
+    subtitle: "Pick your party size, choose a date and time — we'll call to confirm your reservation.",
+    openTime: "11:00",
+    closeTime: "22:00",
+    timeStep: 30,
+    services: [],
+  },
+
   contact: {
     title: "Find Us & Get In Touch",
-    subtitle:
-      "Open daily 11AM – 10PM · 3821 S George Mason Dr, Unit D, Falls Church, VA 22041 (Skyline). Walk-ins welcome — reservations recommended on weekends.",
+    subtitle: "Open daily 11AM – 10PM · 3821 S George Mason Dr, Unit D, Falls Church, VA 22041 (Skyline).",
     mapEmbed: "https://maps.google.com/maps?q=3821+S+George+Mason+Dr,+Falls+Church,+VA+22041&t=&z=16&ie=UTF8&iwloc=&output=embed",
     formEndpoint: "mailto:info@nazretrestaurant.com",
     notifyEmail: "info@nazretrestaurant.com",
-    whatsappMessage: "Hi, I'd like to reserve a table at Nazret Restaurant. Can you help me?",
-    submitLabel: "Request a Reservation",
-    bookingFields: {
-      date: true,
-      time: true,
-      timeStep: 15,
-      guests: true,
-      maxGuests: 20,
-      placeholder: "Special requests or dietary needs (optional)",
-    },
+    submitLabel: "Send Message",
   },
 
   deliveryLinks: [
     { name: "Uber Eats",  url: "https://www.ubereats.com/store/nazret-ethiopian-restaurant" },
-    { name: "Postmates",  url: "https://postmates.com/store/nazret-ethiopian-restaurant" },
+    { name: "DoorDash",   url: "https://www.doordash.com/store/nazret-ethiopian-restaurant" },
+    { name: "Grubhub",    url: "https://www.grubhub.com/restaurant/nazret-ethiopian-restaurant" },
   ],
 
-  stickyContact: "both",
+  stickyContact: "phone",
 
   catering: {
     title: "Ethiopian Catering by Nazret",
@@ -571,7 +572,7 @@ export const config: SiteConfig = {
     },
     {
       question: "Do you take reservations?",
-      answer: "Yes. You can reserve a table by calling us, sending a WhatsApp message, or using the contact form on this page. We recommend booking at least a day in advance for groups of 5 or more.",
+      answer: "Yes. You can reserve a table online at our booking page or by calling us directly. We recommend booking at least a day in advance for groups of 5 or more.",
     },
     {
       question: "What is injera?",
@@ -587,7 +588,7 @@ export const config: SiteConfig = {
     },
     {
       question: "Do you offer takeout and delivery?",
-      answer: "Yes — we offer takeout directly from the restaurant. For delivery, we are available on major delivery platforms. Call us or send a WhatsApp message to place a takeout order ahead of time.",
+      answer: "Yes — we offer takeout directly from the restaurant. Call us ahead to have your order ready on arrival. For delivery, we are available on Uber Eats, DoorDash, and Grubhub.",
     },
     {
       question: "What is the Ethiopian coffee ceremony?",

@@ -73,7 +73,7 @@ export function ProductListings({ products, business, preview = false, hideHeade
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {visible.map((product, i) => (
             <AnimateIn key={product.id} delay={i * 60}>
-              <ProductCard product={product} businessPhone={business.phone} showCart={showCart} />
+              <ProductCard product={product} businessPhone={business.phone} showCart={showCart} niche={business.niche} />
             </AnimateIn>
           ))}
         </div>

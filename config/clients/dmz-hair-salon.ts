@@ -229,13 +229,6 @@ export const config: SiteConfig = {
     formEndpoint: "mailto:hello@dmzhairsalon.com",
     whatsappMessage: "Hi, I'd like to book an appointment at DMZ Hair Salon & Braiding.",
     submitLabel: "Send Message",
-    bookingFields: {
-      date: true,
-      time: true,
-      timeStep: 30,
-      guests: false,
-      placeholder: "What service are you looking for? Any questions? (optional)",
-    },
   },
   faq: [
     { question: "Do you accept walk-ins?", answer: "Yes! Walk-ins are always welcome. We recommend calling ahead on weekends to check availability." },
@@ -245,6 +238,9 @@ export const config: SiteConfig = {
     { question: "How much does a haircut cost?", answer: "Haircuts start from $25 depending on length and style. Call us for an exact quote." },
     { question: "Do you do waxing?", answer: "Yes — we offer face, eyebrow, and body waxing starting from $15." },
   ],
+  stickyContact: "phone",
+
+  googleReviewUrl: "https://www.google.com/maps/search/DMZ+Hair+Salon+Braiding+7908+Georgia+Ave+Silver+Spring+MD",
   social: {
     instagram: "https://instagram.com",
     facebook: "https://facebook.com",

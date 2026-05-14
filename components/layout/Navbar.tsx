@@ -115,8 +115,6 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false, al
                 </a>
               )}
 
-              {allowDarkMode && <ThemeToggle defaultDark={defaultDark} />}
-
               {paymentEnabled && (
                 <button
                   onClick={openCart}
@@ -141,6 +139,8 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false, al
               >
                 {nav.ctaLabel}
               </Link>
+
+              {allowDarkMode && <ThemeToggle defaultDark={defaultDark} />}
 
               {/* Hamburger — morphs to X when open */}
               <button
