@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { CheckCircle2, ArrowRight, MapPin, Clock, Users, X, Send, CheckCircle, Phone, Calendar } from "lucide-react"
+import { CheckCircle2, ArrowRight, MapPin, Clock, Users, X, Send, CheckCircle, Calendar } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 
 interface Props {
@@ -307,9 +307,9 @@ export function CateringClient({ catering, business, contact }: Props) {
       </section>
 
       {/* ── Event types ── */}
-      <section className="bg-gray-50 py-10 px-4 border-b border-gray-100">
+      <section className="bg-gray-50 dark:bg-gray-900 py-10 px-4 border-b border-gray-100 dark:border-gray-800">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">We cater for</p>
+          <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-5">We cater for</p>
           <div className="flex flex-wrap justify-center gap-2">
             {catering.eventTypes.map((type) => (
               <span key={type} className="px-4 py-2 rounded-full text-sm font-semibold border-2 text-primary border-primary/20 bg-accent">
@@ -324,18 +324,18 @@ export function CateringClient({ catering, business, contact }: Props) {
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-black text-gray-900 mb-3">Catering Packages</h2>
-            <p className="text-gray-500">Choose a package or contact us for a fully custom quote.</p>
+            <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-3">Catering Packages</h2>
+            <p className="text-gray-500 dark:text-gray-400">Choose a package or contact us for a fully custom quote.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {catering.packages.map((pkg) => (
               <div
                 key={pkg.name}
-                className={`relative rounded-2xl border-2 flex flex-col overflow-hidden
+                className={`relative rounded-2xl border-2 flex flex-col overflow-hidden bg-white dark:bg-gray-800
                   ${pkg.highlight
                     ? "border-primary shadow-2xl shadow-primary/20 scale-[1.02]"
-                    : "border-gray-200 shadow-sm"
+                    : "border-gray-200 dark:border-gray-700 shadow-sm"
                   }`}
               >
                 {pkg.badge && (
@@ -345,13 +345,13 @@ export function CateringClient({ catering, business, contact }: Props) {
                 )}
 
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-lg font-black text-gray-900 mb-2">{pkg.name}</h3>
-                  <p className="text-gray-500 text-sm mb-4 leading-snug">{pkg.description}</p>
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white mb-2">{pkg.name}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 leading-snug">{pkg.description}</p>
 
                   <div className="mb-5">
-                    <p className="text-2xl font-black text-gray-900">{pkg.priceFrom ?? "Custom Quote"}</p>
+                    <p className="text-2xl font-black text-gray-900 dark:text-white">{pkg.priceFrom ?? "Custom Quote"}</p>
                     {pkg.minimumGuests && (
-                      <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 flex items-center gap-1">
                         <Users size={11} />
                         Minimum {pkg.minimumGuests} guests
                       </p>
@@ -360,7 +360,7 @@ export function CateringClient({ catering, business, contact }: Props) {
 
                   <ul className="space-y-2 flex-1 mb-6">
                     {pkg.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-gray-700">
+                      <li key={f} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                         <CheckCircle2 size={14} className="text-primary shrink-0 mt-0.5" />
                         {f}
                       </li>
@@ -387,9 +387,9 @@ export function CateringClient({ catering, business, contact }: Props) {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="bg-gray-50 border-t border-gray-100 py-16 px-4 text-center">
-        <h2 className="text-2xl font-black text-gray-900 mb-3">Have a custom event in mind?</h2>
-        <p className="text-gray-500 mb-8 max-w-md mx-auto">
+      <section className="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-16 px-4 text-center">
+        <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-3">Have a custom event in mind?</h2>
+        <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md mx-auto">
           Send us the details — guest count, date, and menu preferences — and we&apos;ll build a package around your event.
         </p>
         <button
@@ -399,7 +399,7 @@ export function CateringClient({ catering, business, contact }: Props) {
           Request a Custom Quote
           <ArrowRight size={16} />
         </button>
-        <p className="text-xs text-gray-400 mt-4">
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
           Or call us directly at{" "}
           <a href={`tel:${business.phone}`} className="underline">{business.phone}</a>
         </p>

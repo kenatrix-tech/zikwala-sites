@@ -22,8 +22,8 @@ export const config: SiteConfig = {
     roundedLevel: "sm",
     darkMode: false,
   },
-  tier: "standard",
-  isDemo: true,
+  tier: "pro",
+  isDemo: false,
   seo: {
     title: "Sterling Legal Group | Immigration & Business Law in Washington DC",
     description:
@@ -40,21 +40,22 @@ export const config: SiteConfig = {
   },
   nav: {
     links: [
-      { label: "Home", href: "/" },
+      { label: "Home",           href: "/" },
       { label: "Practice Areas", href: "/services" },
-      { label: "Our Team", href: "/gallery" },
-      { label: "About", href: "/about" },
-      { label: "Contact", href: "/contact" },
+      { label: "Book Now",       href: "/booking" },
+      { label: "Our Team",       href: "/gallery" },
+      { label: "About",          href: "/about" },
+      { label: "Contact",        href: "/contact" },
     ],
     ctaLabel: "Free Consultation",
-    ctaHref: "/contact",
+    ctaHref: "/booking",
   },
   hero: {
     variant: "bold",
     heading: "Legal Expertise You Can Rely On",
     subheading:
       "Immigration, business, and family law services tailored to the needs of DC's diverse community.",
-    cta: { label: "Free Consultation", href: "/contact" },
+    cta: { label: "Free Consultation", href: "/booking" },
     secondaryCta: { label: "Our Practice Areas", href: "/services" },
     image: "https://cdn.zikwala.com/demo/law-firm/legal_firm_hero.jpg",
     badge: "20+ Years of Legal Experience",
@@ -148,12 +149,61 @@ export const config: SiteConfig = {
       { label: "Practice Areas", value: "4" },
     ],
   },
+  booking: {
+    title: "Schedule Your Free Consultation",
+    subtitle: "Choose your legal matter, pick a date and time, and we'll confirm within one business day.",
+    openTime: "09:00",
+    closeTime: "17:00",
+    timeStep: 60,
+    notesPlaceholder: "Briefly describe your legal situation — this helps us prepare for your consultation…",
+    services: [
+      {
+        name: "Immigration Consultation",
+        description: "Green cards, visas, asylum, citizenship, DACA, or deportation defense.",
+        duration: "60 min",
+        icon: "Globe",
+      },
+      {
+        name: "Business Law Consultation",
+        description: "Business formation, contracts, compliance, or commercial disputes.",
+        duration: "60 min",
+        icon: "Briefcase",
+      },
+      {
+        name: "Family Law Consultation",
+        description: "Divorce, child custody, child support, or adoption matters.",
+        duration: "60 min",
+        icon: "Heart",
+      },
+      {
+        name: "Real Estate Law Consultation",
+        description: "Property transactions, title disputes, or landlord-tenant issues.",
+        duration: "60 min",
+        icon: "Home",
+      },
+    ],
+  },
+
   contact: {
     title: "Schedule a Free Consultation",
     subtitle: "Tell us about your legal matter and we'll respond within one business day.",
     mapEmbed: "https://maps.google.com/maps?q=789+K+Street+NW,+Washington,+DC&output=embed",
     formEndpoint: "mailto:contact@sterlinglegaldc.com",
+    notifyEmail: "contact@sterlinglegaldc.com",
+    submitLabel: "Request Consultation",
   },
+
+  areasServed: [
+    { name: "Washington, DC",    description: "Main office — all practice areas" },
+    { name: "Bethesda, MD",      description: "Immigration & business law" },
+    { name: "Silver Spring, MD", description: "Immigration & family law" },
+    { name: "Rockville, MD",     description: "Immigration & civil matters" },
+    { name: "Arlington, VA",     description: "Business law & immigration" },
+    { name: "Alexandria, VA",    description: "Family law & real estate" },
+  ],
+
+  stickyContact: "phone",
+
   faq: [
     { question: "Do you offer free consultations?", answer: "Yes — we offer a free initial consultation for all new clients. This allows us to understand your situation and explain your legal options with no obligation." },
     { question: "What immigration services do you handle?", answer: "We handle green cards, work visas (H-1B, L-1, O-1), family petitions, asylum applications, citizenship, and deportation defense." },

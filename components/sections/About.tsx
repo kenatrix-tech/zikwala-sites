@@ -58,7 +58,7 @@ function SectionText({
 
       {section.heading && (
         <h2
-          className={`font-bold text-gray-900 leading-tight mb-6 ${
+          className={`font-bold text-gray-900 dark:text-white leading-tight mb-6 ${
             isFirst ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
           }`}
         >
@@ -66,7 +66,7 @@ function SectionText({
         </h2>
       )}
 
-      <p className="text-gray-500 text-lg leading-relaxed mb-10">
+      <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed mb-10">
         {section.body}
       </p>
 
@@ -75,12 +75,12 @@ function SectionText({
           {section.highlights.map((h) => (
             <div
               key={h.label}
-              className="flex items-start gap-3 bg-white rounded-xl p-4 border border-gray-100 shadow-sm"
+              className="flex items-start gap-3 bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm"
             >
               <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" />
               <div>
-                <div className="text-xs text-gray-400 font-medium mb-0.5">{h.label}</div>
-                <div className="text-gray-800 font-semibold text-sm">{h.value}</div>
+                <div className="text-xs text-gray-400 dark:text-gray-500 font-medium mb-0.5">{h.label}</div>
+                <div className="text-gray-800 dark:text-gray-200 font-semibold text-sm">{h.value}</div>
               </div>
             </div>
           ))}
@@ -98,7 +98,7 @@ export function About({ about }: AboutProps) {
       : [])
 
   return (
-    <section className="relative overflow-hidden bg-gray-50">
+    <section className="relative overflow-hidden bg-gray-50 dark:bg-gray-900">
       {/* Decorative ambient blob */}
       <div
         className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-10 blur-3xl pointer-events-none"
@@ -113,7 +113,7 @@ export function About({ about }: AboutProps) {
           return (
             <div
               key={i}
-              className={`py-20 ${i > 0 ? "border-t border-gray-200" : ""}`}
+              className={`py-20 ${i > 0 ? "border-t border-gray-200 dark:border-gray-700" : ""}`}
             >
               <div
                 className={`grid grid-cols-1 items-center gap-14 ${

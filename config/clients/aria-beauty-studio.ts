@@ -225,11 +225,10 @@ export const config: SiteConfig = {
     ],
   },
   contact: {
-    title: "Get in Touch",
-    subtitle: "Walk-ins welcome — or book online for your preferred time slot.",
+    title: "Visit Us or Get in Touch",
+    subtitle: "Walk-ins welcome — call ahead for same-day appointments.",
     mapEmbed: "https://maps.google.com/maps?q=3820+Westheimer+Rd,+Houston,+TX&output=embed",
     formEndpoint: "mailto:hello@ariabeautystudio.com",
-    whatsappMessage: "Hi, I'd like to book an appointment at Aria Beauty Studio.",
     submitLabel: "Send Message",
   },
   packages: {
@@ -276,6 +275,19 @@ export const config: SiteConfig = {
       },
     ],
   },
+  stickyContact: "phone",
+
+  faq: [
+    { question: "Do you accept walk-ins?", answer: "Yes! Walk-ins are welcome based on availability. For a guaranteed time slot we recommend booking online or calling ahead, especially on weekends." },
+    { question: "How do I book an appointment?", answer: "You can book directly on our website — just pick a service, choose your date and time, and confirm. You can also call us or walk in." },
+    { question: "What services do you offer?", answer: "We offer hair styling, nail care, skincare & facials, lash & brow services, waxing, and makeup including bridal packages. See our full services page for details." },
+    { question: "Do you offer bridal services?", answer: "Yes — we have a full bridal package covering hair, airbrush makeup, lash extensions, and gel manicure & pedicure, including a trial session. Contact us to plan your bridal experience." },
+    { question: "What products do you use?", answer: "We use only premium, cruelty-free products across all services — from hair color to skincare treatments and nail care." },
+    { question: "How much does a haircut cost?", answer: "Hair services start from $60 depending on length and style. Color, balayage, and highlights are priced separately. Call us for an exact quote." },
+    { question: "Do you do lash extensions?", answer: "Yes — we offer lash extensions, lash lifts, brow shaping, brow tinting, and microblading. Services start from $55." },
+    { question: "Is there parking available?", answer: "Yes — free parking is available in the lot at our Westheimer Rd location in Houston." },
+  ],
+
   googleReviewUrl: "https://g.page/r/aria-beauty-studio-houston/review",
   social: {
     instagram: "https://instagram.com",

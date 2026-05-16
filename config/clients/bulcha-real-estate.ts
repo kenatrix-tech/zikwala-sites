@@ -22,7 +22,7 @@ export const config: SiteConfig = {
     roundedLevel: "lg",
     darkMode: false,
   },
-  tier: "basic",
+  tier: "standard",
   isDemo: false,
   isLive: true,
   seo: {
@@ -45,10 +45,11 @@ export const config: SiteConfig = {
   },
   nav: {
     links: [
-      { label: "Home", href: "/" },
-      { label: "Services", href: "/services" },
-      { label: "About", href: "/about" },
-      { label: "Calculator", href: "/mortgage-calculator" },
+      { label: "Home",        href: "/" },
+      { label: "Properties",  href: "/properties" },
+      { label: "Services",    href: "/services" },
+      { label: "About",       href: "/about" },
+      { label: "Calculator",  href: "/mortgage-calculator" },
     ],
     ctaLabel: "Free Consultation",
     ctaHref: "/contact",
@@ -59,7 +60,7 @@ export const config: SiteConfig = {
     subheading:
       "Top 10% on RMLS. Rookie of the Year. Trusted real estate expert across Greater Portland Metro, Oregon & Washington.",
     cta: { label: "Free Consultation", href: "/contact" },
-    secondaryCta: { label: "View Sold Listings", href: "/sold" },
+    secondaryCta: { label: "Browse Listings", href: "/properties" },
     image: "https://cdn.zikwala.com/client/bulcha-real-estate/bulcha_hero_768x576.jpg",
     badge: "🥇 Rookie of the Year",
     trustPoints: ["Top 10% on RMLS", "Licensed in OR & WA", "Keller Williams Portland Elite", "Speaks English, Amharic & Afaan Oromo"],
@@ -101,6 +102,17 @@ export const config: SiteConfig = {
       },
     ],
   },
+  // Dynamic property listings fetched from Kenatrix backend at build time.
+  // The /properties page calls GET /api/v1/public/property/seller/{sellerSlug}
+  // Replace "BULCHA_SELLER_SLUG" with Bulcha's actual sellerSlug from the backend.
+  sellerSlug: "BULCHA_SELLER_SLUG",
+
+  properties: {
+    title: "Active Listings",
+    subtitle: "Homes for sale across Greater Portland Metro, OR & WA — updated regularly",
+    items: [], // populated dynamically from the backend via sellerSlug
+  },
+
   soldListings: {
     title: "Recent Closings",
     subtitle: "Homes sold across Portland, Lake Oswego & Vancouver WA",

@@ -22,8 +22,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     routes.push({ url: `${base}/products/`, lastModified: now, changeFrequency: "daily", priority: 0.9 })
   }
 
+  if (features.booking && config.booking) {
+    routes.push({ url: `${base}/booking/`, lastModified: now, changeFrequency: "monthly", priority: 0.8 })
+  }
+
   if (features.gallery && config.gallery) {
     routes.push({ url: `${base}/gallery/`, lastModified: now, changeFrequency: "monthly", priority: 0.6 })
+  }
+
+  if (config.catering) {
+    routes.push({ url: `${base}/catering/`, lastModified: now, changeFrequency: "monthly", priority: 0.7 })
   }
 
   if (!features.propertyListings && config.business.niche === "realestate" && config.soldListings) {

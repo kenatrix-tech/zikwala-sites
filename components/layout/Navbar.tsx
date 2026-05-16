@@ -61,10 +61,10 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false, al
         />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between min-h-16 py-2">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group shrink-0" onClick={() => setOpen(false)}>
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0 min-w-0" onClick={() => setOpen(false)}>
               {business.logo && !logoBroken ? (
                 <Image
                   src={business.logo}
@@ -84,7 +84,7 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false, al
                   {shortName.charAt(0).toUpperCase()}
                 </span>
               )}
-              <span className="text-base font-bold leading-tight text-gray-900 dark:text-white">
+              <span className="text-sm font-bold leading-tight text-gray-900 dark:text-white max-w-[180px] sm:max-w-[280px] md:max-w-none">
                 {shortName}
               </span>
             </Link>

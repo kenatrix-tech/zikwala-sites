@@ -26,15 +26,18 @@ const listingLinks: { label: string; href: string }[] = [
     ? [{ label: "Inventory", href: "/vehicles" }]
     : []),
   // Property listings — realestate niche only
-  ...(features.propertyListings && config.business.niche === "realestate" && (config.properties || config.sellerSlug)
+  ...(features.propertyListings && config.business.niche === "realestate" && (config.properties || config.sellerSlug) && !manualNavHrefs.has("/properties")
     ? [{ label: "Properties", href: "/properties" }]
     : []),
   // Sold listings portfolio — basic real estate only
-  ...(!features.propertyListings && config.business.niche === "realestate" && config.soldListings
+  ...(!features.propertyListings && config.business.niche === "realestate" && config.soldListings && !manualNavHrefs.has("/sold")
     ? [{ label: "Sold Listings", href: "/sold" }]
     : []),
-  // Shop / Menu — product-based businesses; skip if manual nav already links to /products
-  ...(features.productListings && (config.products || config.sellerSlug) && !manualNavHrefs.has("/products")
+  // Shop / Menu — product-based businesses; skip realestate/cardealership (they use /properties and /vehicles)
+  ...(features.productListings &&
+    !["realestate", "cardealership"].includes(config.business.niche) &&
+    (config.products || config.sellerSlug) &&
+    !manualNavHrefs.has("/products")
     ? [{ label: config.business.niche === "restaurant" ? "Menu" : "Shop", href: "/products" }]
     : []),
   ...(config.catering
@@ -107,7 +110,30 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "LocalBusiness",
+            "@type": ({
+              realestate:   "RealEstateAgent",
+              lawfirm:      "LegalService",
+              restaurant:   "Restaurant",
+              bakery:       "Bakery",
+              beauty:       "BeautySalon",
+              cleaning:     "HomeAndConstructionBusiness",
+              autorepair:   "AutoRepair",
+              cardealership:"AutoDealer",
+              hvac:         "HomeAndConstructionBusiness",
+              electrical:   "Electrician",
+              plumbing:     "Plumber",
+              painting:     "HomeAndConstructionBusiness",
+              handyman:     "HomeAndConstructionBusiness",
+              catering:     "FoodEstablishment",
+              photography:  "LocalBusiness",
+              tutor:        "EducationalOrganization",
+              insurance:    "InsuranceAgency",
+              babysitting:  "LocalBusiness",
+              eventplanning:"EventVenue",
+              decoration:   "HomeAndConstructionBusiness",
+              boutique:     "ClothingStore",
+              tax:          "AccountingService",
+            } as Record<string, string>)[config.business.niche] ?? "LocalBusiness",
             "name": config.business.name,
             "description": config.seo.description,
             "telephone": config.business.phone,
@@ -116,10 +142,14 @@ export default function RootLayout({
             "url": process.env.NEXT_PUBLIC_SITE_URL ?? "",
             "address": {
               "@type": "PostalAddress",
+              "streetAddress": config.business.address,
               "addressLocality": config.business.city,
               "addressRegion": config.business.state,
               "addressCountry": "US",
             },
+            ...(config.business.niche === "restaurant" || config.business.niche === "bakery" || config.business.niche === "catering"
+              ? { "servesCuisine": config.business.tagline }
+              : {}),
           })}}
         />
       </head>

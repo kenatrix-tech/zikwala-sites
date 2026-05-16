@@ -39,7 +39,7 @@ export const config: SiteConfig = {
       "modern American bistro",
       "private dining Austin",
     ],
-    ogImage: "/clients/demo-restaurant/og.png",
+    ogImage: "/clients/demo-restaurant/hero.jpg",
   },
 
   nav: {
@@ -284,11 +284,11 @@ export const config: SiteConfig = {
   },
 
   contact: {
-    title: "Get In Touch",
-    subtitle: "Questions about the menu, catering, or private dining? We'd love to hear from you.",
-    mapEmbed: "",
+    title: "Find Us & Get In Touch",
+    subtitle: "Open Mon–Sat 5PM–10PM · Brunch Sat–Sun 10AM–2PM · 312 West 6th Street, Austin, TX",
+    mapEmbed: "https://maps.google.com/maps?q=312+West+6th+Street,+Austin,+TX+78701&output=embed",
     formEndpoint: "mailto:reservations@emberandoak.com",
-    whatsappMessage: "Hi, I have a question about Ember & Oak.",
+    notifyEmail: "reservations@emberandoak.com",
     submitLabel: "Send Message",
   },
 
@@ -365,6 +365,58 @@ export const config: SiteConfig = {
       },
     ],
   },
+
+  deliveryLinks: [
+    { name: "Uber Eats", url: "https://www.ubereats.com" },
+    { name: "DoorDash",  url: "https://www.doordash.com" },
+    { name: "Grubhub",   url: "https://www.grubhub.com" },
+  ],
+
+  stickyContact: "phone",
+
+  areasServed: [
+    { name: "Downtown Austin",    description: "Our home — walk-ins welcome nightly" },
+    { name: "South Congress",     description: "Dine-in & private events" },
+    { name: "East Austin",        description: "Catering & private events" },
+    { name: "The Domain",         description: "Corporate catering delivery" },
+    { name: "Round Rock, TX",     description: "Catering & private events" },
+    { name: "Cedar Park, TX",     description: "Catering & private events" },
+  ],
+
+  faq: [
+    {
+      question: "Do I need a reservation?",
+      answer: "Reservations are strongly recommended, especially on weekends. Walk-ins are welcome based on availability. Book online or call us directly.",
+    },
+    {
+      question: "What are your hours?",
+      answer: "Dinner service runs Monday–Saturday 5PM–10PM. Weekend brunch is Saturday and Sunday 10AM–2PM. Happy hour is Monday–Friday 4PM–6PM.",
+    },
+    {
+      question: "Do you accommodate dietary restrictions?",
+      answer: "Yes — we can accommodate vegetarian, gluten-free, and most dietary needs. Please let your server know and our kitchen will do its best to accommodate you.",
+    },
+    {
+      question: "Do you offer private dining?",
+      answer: "Yes — our private dining room seats up to 20 guests and is available for birthdays, anniversaries, and corporate events. Custom menus are available. Contact us to reserve.",
+    },
+    {
+      question: "Is there parking nearby?",
+      answer: "Street parking is available on West 6th Street and surrounding blocks. Several public parking garages are also within walking distance.",
+    },
+    {
+      question: "Do you offer catering?",
+      answer: "Yes — we cater corporate lunches, weddings, private events, and more across Austin and surrounding areas. Packages start from $18/person. Contact us for a custom quote.",
+    },
+    {
+      question: "Can I order delivery?",
+      answer: "Yes — we are available for delivery on Uber Eats, DoorDash, and Grubhub. Pickup orders can also be placed by calling us directly.",
+    },
+    {
+      question: "What is your happy hour?",
+      answer: "Happy hour runs Monday–Friday from 4PM to 6PM. Enjoy discounted craft cocktails and wood-fired small plates. Walk-ins only — no reservations needed.",
+    },
+  ],
 
   googleReviewUrl: "https://g.page/r/ember-oak-austin/review",
 
