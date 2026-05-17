@@ -61,7 +61,7 @@ export const config: SiteConfig = {
     subheading:
       "Handmade African-inspired clothing and jewelry for women, men & kids. Proudly serving the DMV community from Springfield Town Center.",
     cta: { label: "Shop Collection", href: "/products" },
-    secondaryCta: { label: "Chat on WhatsApp", href: "https://wa.me/17032709546?text=Hi!%20I'd%20like%20to%20place%20an%20order." },
+    secondaryCta: { label: "View Cart", href: "/cart" },
     image: "/clients/demo/eth-boutique_hero.jpg",
     badge: "Handmade · African-Inspired · Springfield VA",
     trustPoints: ["Handmade with Care", "Women, Men & Kids", "WhatsApp Orders", "In-Store & Online"],

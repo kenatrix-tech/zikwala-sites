@@ -9,7 +9,7 @@ export const config: SiteConfig = {
     address: "8432 Georgia Ave",
     city: "Silver Spring",
     state: "MD",
-    logo: "/clients/demo/ethiopia_boutiq.png",
+    logo: "/clients/demo/eth-boutique_hero1.jpg",
     niche: "boutique",
   },
   theme: {
@@ -43,7 +43,7 @@ export const config: SiteConfig = {
       "Ethiopian boutique Silver Spring",
       "Ethiopian fashion Maryland",
     ],
-    ogImage: "/ethiopia_boutiq.png",
+    ogImage: "/clients/demo/selam-ethiopian-hero.jpg",
   },
   nav: {
     links: [
@@ -61,8 +61,8 @@ export const config: SiteConfig = {
     subheading:
       "Handmade Ethiopian clothing and jewelry for women, men & kids. Proudly serving the DMV community from Silver Spring, Maryland.",
     cta: { label: "Shop Collection", href: "/products" },
-    secondaryCta: { label: "Chat on WhatsApp", href: "https://wa.me/13015874923?text=Hi!%20I'd%20like%20to%20place%20an%20order." },
-    image: "/clients/demo/ethiopian-boutique-hero.jpg",
+    secondaryCta: { label: "View Cart", href: "/cart" },
+    image: "/clients/demo/selam-ethiopian-hero.jpg",
     badge: "Handmade · Habesha · Silver Spring MD",
     trustPoints: ["Handmade with Care", "Women, Men & Kids", "WhatsApp Orders", "In-Store & Online"],
     socialProof: { count: "200+", label: "happy customers in the DMV" },
@@ -150,7 +150,7 @@ export const config: SiteConfig = {
     title: "About Selam Ethiopian Boutique",
     story:
       "Selam Ethiopian Boutique was founded with a deep love for Ethiopian culture and craftsmanship. Located in Silver Spring, Maryland, we specialize in handmade Ethiopian clothing and jewelry for women, men, and kids. Every piece in our collection is carefully crafted or curated — from traditional Habesha kemis and netela to modern African-inspired fashion and handcrafted jewelry. We are proud to serve the Ethiopian and Habesha community across the DMV and welcome everyone who appreciates the beauty of Ethiopian culture.",
-    image: "/clients/demo/ethiopia_boutiq.png",
+    image: "/clients/demo/selam-ethiopian-hero.jpg",
     highlights: [
       { label: "Location", value: "Silver Spring, MD" },
       { label: "Specialty", value: "Ethiopian & Habesha Clothing" },
