@@ -12,6 +12,7 @@ interface Props {
   business: SiteConfig["business"]
   fallback?: { title?: string; subtitle?: string }
   storefrontFilter?: SiteConfig["storefrontFilter"]
+  showCart?: boolean
 }
 
 type Products = NonNullable<SiteConfig["products"]>
@@ -40,7 +41,7 @@ function Skeleton() {
   )
 }
 
-export function ShopFeaturedGrid({ sellerSlug, business, fallback, storefrontFilter }: Props) {
+export function ShopFeaturedGrid({ sellerSlug, business, fallback, storefrontFilter, showCart }: Props) {
   const [products, setProducts] = useState<Products | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -93,6 +94,7 @@ export function ShopFeaturedGrid({ sellerSlug, business, fallback, storefrontFil
               key={product.id}
               product={product}
               businessPhone={business.phone}
+              showCart={showCart}
             />
           ))}
         </div>

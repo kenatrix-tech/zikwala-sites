@@ -9,7 +9,7 @@ export default function CheckoutPage() {
 
   const hasPayment = features.payment && config.payment?.enabled && config.payment.stripeConnectedAccountId
 
-  if (!hasPayment && !config.isDemo) {
+  if (!hasPayment && config.isLive) {
     redirect("/products")
   }
 
@@ -19,7 +19,7 @@ export default function CheckoutPage() {
       currency={config.payment?.currency ?? "usd"}
       sellerSlug={config.sellerSlug}
       businessName={config.business.name}
-      isDemo={config.isDemo && !hasPayment}
+      isDemo={!hasPayment}
     />
   )
 }

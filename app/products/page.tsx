@@ -43,6 +43,7 @@ export default function ProductsPage() {
           business={config.business}
           fallback={{ title, subtitle }}
           storefrontFilter={config.storefrontFilter}
+          showCart={showCart}
         />
       ) : isRestaurant ? (
         <RestaurantMenu

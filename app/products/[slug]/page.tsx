@@ -96,7 +96,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
-      <ProductDetailClient slug={params.slug} business={config.business} sellerSlug={config.sellerSlug} paymentEnabled={getFeatures(config.tier).payment && config.payment?.enabled} />
+      <ProductDetailClient slug={params.slug} business={config.business} sellerSlug={config.sellerSlug} paymentEnabled={getFeatures(config.tier).payment} />
     </>
   )
 }

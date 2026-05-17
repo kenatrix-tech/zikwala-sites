@@ -652,6 +652,7 @@ export function ProductDetailClient({ slug: slugProp, business, sellerSlug, paym
                       inStock: item.status !== "SOLD" && item.status !== "INACTIVE",
                     }}
                     businessPhone={business.phone}
+                    showCart={paymentEnabled}
                   />
                 </div>
               ))}

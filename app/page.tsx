@@ -32,6 +32,7 @@ export default function HomePage() {
     config.business.niche !== "realestate" &&
     config.business.niche !== "cardealership"
   ) {
+    const showCart = features.payment
     return (
       <>
         <Hero hero={config.hero} business={config.business} />
@@ -44,6 +45,7 @@ export default function HomePage() {
             title: config.products?.title,
             subtitle: config.products?.subtitle,
           }}
+          showCart={showCart}
         />
 
         {features.stats && config.stats && (
