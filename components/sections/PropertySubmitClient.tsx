@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Check, ChevronRight, ChevronLeft, Home, MapPin, Sliders, User, CheckCircle2, ImagePlus, X, Loader2 } from "lucide-react"
 import imageCompression from "browser-image-compression"
 
@@ -14,14 +14,10 @@ const COMPRESSION_OPTIONS = {
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
-const PROPERTY_TYPES = [
-  { id: 3, label: "Apartment" },
-  { id: 1, label: "House" },
-  { id: 4, label: "Condo" },
-  { id: 2, label: "Townhouse" },
-  { id: 5, label: "Commercial" },
-  { id: 6, label: "Room" },
-]
+type CategoryItem = { id: number; label: string }
+
+// Module-level cache — fetched once per browser session across all renders
+let _categoryCache: CategoryItem[] | null = null
 
 const BED_OPTIONS = [
   { value: 0, label: "Studio" },
@@ -210,7 +206,20 @@ export function PropertySubmitClient({ sellerSlug, agentName, apiBase }: Props) 
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const [compressing, setCompressing] = useState(false)
+  const [categories, setCategories] = useState<CategoryItem[]>(_categoryCache ?? [])
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (_categoryCache) return
+    fetch(`${apiBase}/api/v1/public/category/subcatgory/property`)
+      .then(r => r.ok ? r.json() : [])
+      .then((data: { categoryId: number; name: string }[]) => {
+        const mapped = data.map(c => ({ id: c.categoryId, label: c.name }))
+        _categoryCache = mapped
+        setCategories(mapped)
+      })
+      .catch(() => {/* keep empty, form still works */})
+  }, [apiBase])
 
   const [form, setForm] = useState<FormData>({
     purpose: "RENT",
@@ -248,7 +257,7 @@ export function PropertySubmitClient({ sellerSlug, agentName, apiBase }: Props) 
     }))
   }
 
-  const isCommercial = form.categoryId === 5
+  const isCommercial = categories.find(c => c.id === form.categoryId)?.label?.toLowerCase().includes("commercial") ?? false
 
   const onFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? [])
@@ -312,42 +321,57 @@ export function PropertySubmitClient({ sellerSlug, agentName, apiBase }: Props) 
     if (!validate(3)) return
     setSubmitting(true)
     try {
-      const listing = {
-        sellerSlug,
-        propertyPurpose: form.purpose,
+      // Fold contact info into description so agent can follow up
+      const contactNote = `Submitted by: ${form.contactName} | ${form.contactPhone}${form.contactEmail ? " | " + form.contactEmail : ""}`
+      const fullDescription = [form.description, contactNote].filter(Boolean).join("\n\n")
+
+      const payload = {
+        propertyPurpose: form.purpose === "SELL" ? "SALE" : "RENT",
         categoryId: form.categoryId,
         monthlyRent: form.purpose === "RENT" && form.monthlyRent ? Number(form.monthlyRent) : null,
         sellingPrice: form.purpose === "SELL" && form.sellingPrice ? Number(form.sellingPrice) : null,
-        description: form.description || null,
+        description: fullDescription,
         street: form.street || null,
         city: form.city,
         state: form.state,
         zipCode: form.zipCode || null,
         country: "US",
-        bedRooms: form.bedRooms,
-        bathRooms: form.bathRooms,
-        squareFeet: form.squareFeet ? Number(form.squareFeet) : null,
+        bedRooms: form.bedRooms ?? 0,
+        bathRooms: form.bathRooms ?? 0,
+        squareFeet: form.squareFeet ? Number(form.squareFeet) : 0,
         appliances: form.appliances.length ? form.appliances : null,
         amenities: form.amenities.length ? form.amenities : null,
         flooring: form.flooring || null,
         parking: form.parking || null,
-        contactName: form.contactName,
-        contactPhone: form.contactPhone,
-        contactEmail: form.contactEmail || null,
-        status: "PENDING",
       }
 
-      const body = new FormData()
-      body.append("listing", JSON.stringify(listing))
-      if (imageFiles.length > 0) {
-        body.append("thumbnail", imageFiles[0])
-        imageFiles.slice(1).forEach(f => body.append("files", f))
+      // Step 1 — create listing, get slug back
+      const res = await fetch(
+        `${apiBase}/api/v1/public/website/listing/property?sellerSlug=${encodeURIComponent(sellerSlug)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      )
+      if (!res.ok) throw new Error("Server error")
+      const created = await res.json() as { slug?: string }
+
+      // Step 2 — upload images if any (fire-and-forget: don't block success screen)
+      if (imageFiles.length > 0 && created.slug) {
+        const formData = new FormData()
+        imageFiles.forEach((f, i) => {
+          // S3ServiceImpl does lastIndexOf(".") — guarantee an extension exists
+          const ext = f.name.includes(".") ? f.name.slice(f.name.lastIndexOf(".")) : ".webp"
+          const safe = new File([f], `photo-${i}${ext}`, { type: f.type })
+          formData.append("files", safe)
+        })
+        fetch(
+          `${apiBase}/api/v1/public/website/listing/property/${encodeURIComponent(created.slug)}/images`,
+          { method: "PUT", body: formData }
+        ).catch(() => {/* images can be added later by agent */})
       }
 
-      await fetch(`${apiBase}/api/v1/public/property/submit`, {
-        method: "POST",
-        body,
-      })
       setSubmitted(true)
     } catch {
       setErrors({ contactName: "Something went wrong. Please try again." })
@@ -471,14 +495,17 @@ export function PropertySubmitClient({ sellerSlug, agentName, apiBase }: Props) 
 
               <Field label="Property Type *" error={errors.categoryId}>
                 <div className="flex flex-wrap gap-2">
-                  {PROPERTY_TYPES.map(t => (
-                    <Chip
-                      key={t.id}
-                      label={t.label}
-                      selected={form.categoryId === t.id}
-                      onClick={() => set("categoryId", t.id)}
-                    />
-                  ))}
+                  {categories.length === 0
+                    ? <span className="text-sm text-gray-400">Loading types...</span>
+                    : categories.map(t => (
+                        <Chip
+                          key={t.id}
+                          label={t.label}
+                          selected={form.categoryId === t.id}
+                          onClick={() => set("categoryId", t.id)}
+                        />
+                      ))
+                  }
                 </div>
               </Field>
 

@@ -22,7 +22,7 @@ export const config: SiteConfig = {
     roundedLevel: "lg",
     darkMode: false,
   },
-  tier: "standard",
+  tier: "pro",
   isDemo: false,
   isLive: true,
   seo: {
@@ -45,11 +45,12 @@ export const config: SiteConfig = {
   },
   nav: {
     links: [
-      { label: "Home",        href: "/" },
-      { label: "Properties",  href: "/properties" },
-      { label: "Services",    href: "/services" },
-      { label: "About",       href: "/about" },
-      { label: "Calculator",  href: "/mortgage-calculator" },
+      { label: "Home",          href: "/" },
+      { label: "Buy",           href: "/properties?purpose=sale" },
+      { label: "Rent",          href: "/properties?purpose=rent" },
+      { label: "Sell",          href: "/contact" },
+      { label: "About",         href: "/about" },
+      { label: "Calculator",    href: "/mortgage-calculator" },
     ],
     ctaLabel: "Free Consultation",
     ctaHref: "/contact",
@@ -102,10 +103,8 @@ export const config: SiteConfig = {
       },
     ],
   },
-  // Dynamic property listings fetched from Kenatrix backend at build time.
-  // The /properties page calls GET /api/v1/public/property/seller/{sellerSlug}
-  // Replace "BULCHA_SELLER_SLUG" with Bulcha's actual sellerSlug from the backend.
-  sellerSlug: "BULCHA_SELLER_SLUG",
+  sellerSlug: "sol-g-6177",
+  storefrontFilter: { listingType: "PROPERTY" },
 
   properties: {
     title: "Active Listings",
@@ -366,7 +365,7 @@ export const config: SiteConfig = {
     { question: "How do you market a home for sale?", answer: "I use professional photography, MLS listing, targeted social media ads, email campaigns, open houses, and my network of active buyers to get maximum exposure for your home." },
     { question: "Can you help me if I'm relocating from out of state?", answer: "Absolutely. I specialize in relocation buyers and can arrange virtual tours, coordinate remote paperwork, and provide deep neighborhood insights so you can make confident decisions from anywhere." },
   ],
-  stickyContact: "both",
+  stickyContact: "phone",
   googleReviewUrl: "https://maps.app.goo.gl/Yyc5cuDxvEUZ9Pmv9",
   social: {
     facebook: "https://www.facebook.com/share/1Ca5iyQhwV/?mibextid=wwXIfr",

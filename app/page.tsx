@@ -18,6 +18,7 @@ import { PropertyListings } from "@/components/sections/PropertyListings"
 import { ProductListings } from "@/components/sections/ProductListings"
 import { RestaurantMenu } from "@/components/sections/RestaurantMenu"
 import { ShopFeaturedGrid } from "@/components/sections/ShopFeaturedGrid"
+import { PropertiesClientGrid } from "@/components/sections/PropertiesClientGrid"
 import { Packages } from "@/components/sections/Packages"
 import { HighlightStrip } from "@/components/sections/HighlightStrip"
 
@@ -57,6 +58,68 @@ export default function HomePage() {
         {features.testimonials && config.testimonials && (
           <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
         )}
+
+        <Contact contact={config.contact} business={config.business} />
+      </>
+    )
+  }
+
+  // ── Real estate layout: dynamic property listings above services ─────────
+  if (config.business.niche === "realestate" && config.sellerSlug && config.storefrontFilter?.listingType === "PROPERTY") {
+    const { title, subtitle } = config.properties ?? { title: "Active Listings", subtitle: "" }
+    return (
+      <>
+        <Hero hero={config.hero} business={config.business} />
+
+        {config.hero.trustPoints && config.hero.trustPoints.length > 0 && (
+          <HighlightStrip trustPoints={config.hero.trustPoints} />
+        )}
+
+        {/* Active listings — dynamic, client-side fetch */}
+        <section className="bg-accent py-6">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
+            <p className="text-gray-500">{subtitle}</p>
+          </div>
+        </section>
+        <PropertiesClientGrid
+          sellerSlug={config.sellerSlug}
+          business={config.business}
+          fallback={{ title, subtitle }}
+          storefrontFilter={config.storefrontFilter}
+          preview
+        />
+
+        {/* Recently sold — hardcoded gallery */}
+        {features.gallery && config.soldListings && (
+          <SoldListings soldListings={config.soldListings} business={config.business} preview />
+        )}
+
+        {features.stats && config.stats && <Stats stats={config.stats} />}
+
+        <Services services={config.services} />
+
+        {features.testimonials && config.testimonials && (
+          <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
+        )}
+
+        {config.howItWorks && <HowItWorks />}
+
+        <About about={config.about} />
+
+        {config.homeValuation && (
+          <HomeValuation business={config.business} contact={config.contact} />
+        )}
+
+        {config.mortgageCalculator && (
+          <MortgageCalculator nav={config.nav} business={config.business} />
+        )}
+
+        {config.areasServed && config.areasServed.length > 0 && (
+          <AreasServed areasServed={config.areasServed} business={config.business} />
+        )}
+
+        {config.faq && config.faq.length > 0 && <FAQ faq={config.faq} />}
 
         <Contact contact={config.contact} business={config.business} />
       </>

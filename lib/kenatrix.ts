@@ -251,13 +251,13 @@ export interface PageableResponse<T> {
 
 // ─── Fetch Helpers ────────────────────────────────────────────────────────────
 
-async function apiFetch<T>(path: string): Promise<T | null> {
+async function apiFetch<T>(path: string, cache?: RequestCache): Promise<T | null> {
   try {
     // Server (build time: generateStaticParams / generateMetadata): force-cache lets Next.js
     // treat the route as static and generate HTML files for output:"export".
     // Browser (client components): no-store ensures fresh data on every load.
-    const cache: RequestCache = typeof window === "undefined" ? "force-cache" : "no-store"
-    const res = await fetch(`${API_BASE}${path}`, { cache })
+    const cacheMode: RequestCache = cache ?? (typeof window === "undefined" ? "force-cache" : "no-store")
+    const res = await fetch(`${API_BASE}${path}`, { cache: cacheMode })
     if (!res.ok) return null
     const contentType = res.headers.get("content-type") ?? ""
     if (!contentType.includes("application/json")) return null
@@ -315,7 +315,23 @@ export async function fetchListingsBySellerSlug(
   if (filters?.categoryName) params.set("categoryName", filters.categoryName)
   if (filters?.categorySlug) params.set("categorySlug", filters.categorySlug)
   const data = await apiFetch<PageableResponse<ListingDto>>(
-    `/api/v1/public/website/listing/seller?${params}`
+    `/api/v1/public/website/listing/seller?${params}`,
+    "no-store"
+  )
+  return data?.content ?? []
+}
+
+/** Fetch listings by status (SOLD, UNDER_CONTRACT, etc.) for a seller's storefront */
+export async function fetchListingsBySellerSlugAndStatus(
+  sellerSlug: string,
+  statuses: string[],
+  listingType?: string
+): Promise<ListingDto[]> {
+  const params = new URLSearchParams({ sellerSlug, statuses: statuses.join(","), size: "50" })
+  if (listingType) params.set("listingType", listingType)
+  const data = await apiFetch<PageableResponse<ListingDto>>(
+    `/api/v1/public/website/listing/seller/by-status?${params}`,
+    "no-store"
   )
   return data?.content ?? []
 }
@@ -340,6 +356,7 @@ type PropertyConfigItem = {
   bedrooms?: number
   bathrooms?: number
   sqft?: number
+  specsLine?: string
   image: string
   badge?: string
   slug?: string
@@ -451,6 +468,57 @@ export async function fetchStorefrontSimilarListings(
     `/api/v1/public/website/listing/similar/${encodeURIComponent(listingSlug)}?${params}`
   )
   return data ?? []
+}
+
+// titleLine2 = "3 beds 2 bath 1826 sqft"  titleLine3 = "Townhouse - For Sale"
+function parsePropertySpecs(line?: string) {
+  if (!line) return {}
+  const beds  = line.match(/(\d+)\s*bed/i)
+  const baths = line.match(/(\d+)\s*bath/i)
+  const sqft  = line.match(/([\d,]+)\s*sqft/i)
+  return {
+    bedrooms:  beds  ? parseInt(beds[1])                      : undefined,
+    bathrooms: baths ? parseInt(baths[1])                     : undefined,
+    sqft:      sqft  ? parseInt(sqft[1].replace(/,/g, ""))    : undefined,
+  }
+}
+
+function parsePropertyType(line?: string, category?: string): PropertyConfigItem["type"] {
+  const src = (line ?? "") + " " + (category ?? "")
+  const types: PropertyConfigItem["type"][] = ["Townhouse", "Condo", "Apartment", "Land", "Commercial", "House"]
+  for (const t of types) if (src.toLowerCase().includes(t.toLowerCase())) return t
+  return "House"
+}
+
+/** Adapt ListingDto[] (from /listing/seller?listingType=PROPERTY) into the properties config format */
+export function adaptListingsToProperties(
+  items: ListingDto[],
+  fallback?: { title: string; subtitle: string }
+) {
+  const mapped = items.map((l) => {
+    const specs = parsePropertySpecs(l.titleLine2)
+    return {
+      id:        String(l.id),
+      title:     l.titleLine1 || "Property Listing",
+      address:   l.titleLine1 ?? "",
+      city:      l.location ?? "",
+      price:     l.price ? Number(l.price) : 0,
+      status:    (l.status === "SOLD" ? "Sold" : l.status === "UNDER_CONTRACT" ? "Under Contract" : l.titleLine3?.toUpperCase() === "RENT" ? "For Rent" : "For Sale") as PropertyConfigItem["status"],
+      type:      parsePropertyType(undefined, l.categoryName),
+      image:     l.thumbnailUrl ?? "",
+      slug:      l.slug ?? String(l.id),
+      specsLine: l.titleLine2 || undefined,
+      bedrooms:  specs.bedrooms,
+      bathrooms: specs.bathrooms,
+      sqft:      specs.sqft,
+    }
+  })
+
+  return {
+    title: fallback?.title ?? "Available Properties",
+    subtitle: fallback?.subtitle ?? "Browse our current listings",
+    items: mapped,
+  }
 }
 
 /** Adapt ListingDto[] (from /listing/seller endpoint) into the products config format */

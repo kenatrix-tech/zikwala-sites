@@ -262,6 +262,7 @@ export interface SiteConfig {
       bedrooms?: number
       bathrooms?: number
       sqft?: number
+      specsLine?: string      // pre-formatted "3 bd · 2 ba · 1,826 sqft" — from API titleLine2
       image: string
       badge?: string          // e.g. "New Listing", "Price Reduced", "Open House"
       slug?: string           // listingSlug for detail page — set when data comes from Kenatrix API

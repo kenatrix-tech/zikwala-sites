@@ -13,20 +13,22 @@ import { CartDrawer } from "@/components/ui/CartDrawer"
 
 const config = getConfig()
 const features = getFeatures(config.tier)
-const hasProducts = !!(config.products || config.sellerSlug)
+const hasProducts = !!(config.products || config.sellerSlug) &&
+  !["realestate", "cardealership"].includes(config.business.niche)
 const paymentEnabled = features.payment && hasProducts && config.business.niche !== "restaurant"
 
 // Auto-inject listing pages into nav based on active features + data.
 // Skip any href already present in the manual nav to avoid duplicates.
 const manualNavHrefs = new Set(config.nav.links.map(l => l.href))
+const manualNavPaths = new Set(config.nav.links.map(l => l.href.split("?")[0]))
 
 const listingLinks: { label: string; href: string }[] = [
   // Vehicle inventory — cardealership niche only
   ...(features.vehicleListings && config.business.niche === "cardealership" && (config.vehicles || config.sellerSlug)
     ? [{ label: "Inventory", href: "/vehicles" }]
     : []),
-  // Property listings — realestate niche only
-  ...(features.propertyListings && config.business.niche === "realestate" && (config.properties || config.sellerSlug) && !manualNavHrefs.has("/properties")
+  // Property listings — realestate niche only; skip if nav already has any /properties link (with or without query params)
+  ...(features.propertyListings && config.business.niche === "realestate" && (config.properties || config.sellerSlug) && !manualNavPaths.has("/properties")
     ? [{ label: "Properties", href: "/properties" }]
     : []),
   // Sold listings portfolio — basic real estate only
