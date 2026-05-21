@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { getConfig } from "@/config"
 import { getFeatures } from "@/lib/features"
 import { Hero } from "@/components/sections/Hero"
@@ -75,20 +76,16 @@ export default function HomePage() {
           <HighlightStrip trustPoints={config.hero.trustPoints} />
         )}
 
-        {/* Active listings — dynamic, client-side fetch */}
-        <section className="bg-accent py-6">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
-            <p className="text-gray-500">{subtitle}</p>
-          </div>
-        </section>
-        <PropertiesClientGrid
-          sellerSlug={config.sellerSlug}
-          business={config.business}
-          fallback={{ title, subtitle }}
-          storefrontFilter={config.storefrontFilter}
-          preview
-        />
+        {/* Active listings — dynamic, client-side fetch; header rendered inside component so it hides when empty */}
+        <Suspense>
+          <PropertiesClientGrid
+            sellerSlug={config.sellerSlug}
+            business={config.business}
+            fallback={{ title, subtitle }}
+            storefrontFilter={config.storefrontFilter}
+            preview
+          />
+        </Suspense>
 
         {/* Recently sold — hardcoded gallery */}
         {features.gallery && config.soldListings && (

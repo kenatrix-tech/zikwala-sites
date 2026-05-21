@@ -103,7 +103,7 @@ export const config: SiteConfig = {
       },
     ],
   },
-  sellerSlug: "sol-g-6177",
+  sellerSlug: "bulcha-real-estate-7619",
   storefrontFilter: { listingType: "PROPERTY" },
 
   properties: {

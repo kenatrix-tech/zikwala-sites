@@ -63,9 +63,13 @@ export function PropertiesClientGrid({ sellerSlug, business, fallback, storefron
       .finally(() => setLoading(false))
   }, [sellerSlug, purposeFilter])
 
-  if (loading) return <Skeleton />
+  if (loading) return preview ? null : <Skeleton />
 
   if (!properties || properties.items.length === 0) {
+    // On home page preview, hide the whole section (header included)
+    if (preview) return null
+
+    // On listings page, show empty state
     return (
       <section className="section-padding bg-surface">
         <div className="max-w-md mx-auto px-4 text-center py-20">
@@ -89,12 +93,33 @@ export function PropertiesClientGrid({ sellerSlug, business, fallback, storefron
     )
   }
 
+  // In preview mode, render header + grid together so they hide as one unit
+  if (preview) {
+    return (
+      <>
+        <section className="bg-accent py-6">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">{properties.title}</h2>
+            {properties.subtitle && <p className="text-gray-500">{properties.subtitle}</p>}
+          </div>
+        </section>
+        <PropertyListings
+          properties={properties}
+          business={business}
+          hideHeader
+          preview
+          hideTabs
+        />
+      </>
+    )
+  }
+
   return (
     <PropertyListings
       properties={properties}
       business={business}
       hideHeader
-      preview={preview}
+      preview={false}
       hideTabs
     />
   )
