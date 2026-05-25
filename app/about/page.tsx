@@ -7,12 +7,38 @@ import { getFeatures } from "@/lib/features"
 const config = getConfig()
 const features = getFeatures(config.tier)
 
+const nicheLabels: Record<string, string> = {
+  realestate:   "Real Estate Agent",
+  lawfirm:      "Law Office",
+  restaurant:   "Restaurant",
+  bakery:       "Bakery",
+  beauty:       "Beauty Salon",
+  cleaning:     "Cleaning Service",
+  autorepair:   "Auto Repair Shop",
+  cardealership:"Car Dealership",
+  hvac:         "HVAC Service",
+  electrical:   "Electrician",
+  plumbing:     "Plumbing Service",
+  painting:     "Painting Service",
+  handyman:     "Handyman Service",
+  catering:     "Catering Service",
+  photography:  "Photography Studio",
+  tutor:        "Tutoring Service",
+  insurance:    "Insurance Agency",
+  babysitting:  "Childcare Service",
+  eventplanning:"Event Planning",
+  decoration:   "Decoration Service",
+  boutique:     "Boutique",
+  tax:          "Tax Service",
+}
+
 export function generateMetadata(): Metadata {
   const { business } = getConfig()
   const stateCode = business.state.split(" ")[0]
+  const nicheLabel = nicheLabels[business.niche] ?? "Local Business"
   return {
-    title: `About ${business.name} | Real Estate Agent | ${business.city}, ${stateCode}`,
-    description: `Meet ${business.name} — ${business.tagline}. Serving buyers, sellers, and investors across ${business.city} and surrounding areas with expert guidance and proven results.`,
+    title: `About ${business.name} | ${nicheLabel} | ${business.city}, ${stateCode}`,
+    description: `Meet the team behind ${business.name} — ${business.tagline}. Proudly serving ${business.city}, ${stateCode} and surrounding areas.`,
   }
 }
 

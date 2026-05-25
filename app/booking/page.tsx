@@ -42,7 +42,7 @@ export default function BookingPage() {
 
       {isRestaurant
         ? <ReservationClient booking={config.booking} business={config.business} isLive={config.isLive} />
-        : <BookingClient booking={config.booking} business={config.business} isLive={config.isLive} />
+        : <BookingClient booking={config.booking} business={config.business} sellerSlug={config.sellerSlug} isLive={config.isLive} isDemo={config.isDemo} />
       }
     </>
   )

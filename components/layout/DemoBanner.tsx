@@ -1,19 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Copy, Check } from "lucide-react"
-import { useState } from "react"
+import { ArrowRight, MessageCircle } from "lucide-react"
+
+const WHATSAPP_NUMBER = "15716391098"
+const WHATSAPP_MESSAGE = "Hi, I'm interested in getting a website like this for my business."
 
 interface DemoBannerProps {
   businessName: string
-}
-
-function FacebookIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-    </svg>
-  )
 }
 
 function WhatsAppIcon() {
@@ -25,28 +19,15 @@ function WhatsAppIcon() {
 }
 
 export function DemoBanner({ businessName }: DemoBannerProps) {
-  const [copied, setCopied] = useState(false)
+  function textUs() {
+    window.open(`sms:+${WHATSAPP_NUMBER}`, "_blank")
+  }
 
-  const siteUrl = typeof window !== "undefined" ? window.location.href : ""
-
-  function shareOnFacebook() {
+  function contactOnWhatsApp() {
     window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`,
-      "_blank",
-      "width=600,height=400"
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
+      "_blank"
     )
-  }
-
-  function shareOnWhatsApp() {
-    const text = `Check out this website I found — ${businessName}: ${siteUrl}`
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank")
-  }
-
-  function copyLink() {
-    navigator.clipboard.writeText(siteUrl).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
   }
 
   return (
@@ -60,41 +41,41 @@ export function DemoBanner({ businessName }: DemoBannerProps) {
         </p>
 
         <div className="flex items-center gap-2 flex-wrap justify-center">
-          {/* Share on Facebook */}
+          {/* Text Us */}
           <button
-            onClick={shareOnFacebook}
+            onClick={textUs}
             className="inline-flex items-center gap-1.5 text-white/70 hover:text-white
                        border border-white/20 hover:border-white/50
                        text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
-            title="Share on Facebook"
+            title="Text Us"
           >
-            <FacebookIcon />
-            <span className="hidden sm:inline">Facebook</span>
+            <MessageCircle size={13} />
+            <span className="hidden sm:inline">Text Us</span>
           </button>
 
-          {/* Share on WhatsApp */}
+          {/* WhatsApp */}
           <button
-            onClick={shareOnWhatsApp}
+            onClick={contactOnWhatsApp}
             className="inline-flex items-center gap-1.5 text-white/70 hover:text-white
                        border border-white/20 hover:border-white/50
                        text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
-            title="Share on WhatsApp"
+            title="WhatsApp"
           >
             <WhatsAppIcon />
             <span className="hidden sm:inline">WhatsApp</span>
           </button>
 
-          {/* Copy link */}
-          <button
-            onClick={copyLink}
+{/* More demos */}
+          <a
+            href="https://zikwala.com/website/demos"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-white/70 hover:text-white
                        border border-white/20 hover:border-white/50
                        text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
-            title="Copy link"
           >
-            {copied ? <Check size={13} className="text-green-400" /> : <Copy size={13} />}
-            <span className="hidden sm:inline">{copied ? "Copied!" : "Copy"}</span>
-          </button>
+            More Demos
+          </a>
 
           {/* Get this site CTA */}
           <Link

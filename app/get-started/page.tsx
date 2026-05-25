@@ -1,9 +1,8 @@
 import type { Metadata } from "next"
-import { CheckCircle2, ArrowRight, Star, Zap, Phone } from "lucide-react"
+import { CheckCircle2, Star, Zap } from "lucide-react"
 import { getConfig } from "@/config"
 import { redirect } from "next/navigation"
-import { WebsiteOrderForm } from "@/components/WebsiteOrderForm"
-import Link from "next/link"
+import { OrderButton } from "@/components/OrderFormModal"
 
 export const metadata: Metadata = {
   title: "Get Your Professional Website | Zikwala",
@@ -154,12 +153,6 @@ export default function GetStartedPage() {
   const websiteOrderEndpoint =
     process.env.NEXT_PUBLIC_WEBSITE_ORDER_ENDPOINT ?? "https://api.zikwala.com/api/v1/public/website"
 
-  // Used only for Premium consultation (still goes to zikwala.com form)
-  function consultationLink() {
-    const params = new URLSearchParams({ plan: "Premium", business: businessName })
-    return `${zikwalaUrl}/website-order?${params.toString()}`
-  }
-
   return (
     <div className="bg-white">
 
@@ -176,9 +169,21 @@ export default function GetStartedPage() {
           design, domain, SSL, hosting, and updates. You focus on your business.
         </p>
         <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25
-                        backdrop-blur-sm rounded-full px-5 py-2.5 text-sm font-medium">
+                        backdrop-blur-sm rounded-full px-5 py-2.5 text-sm font-medium mb-6">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           Demo shown: <strong className="ml-1">{businessName}</strong>
+        </div>
+        <div>
+          <a
+            href={`${zikwalaUrl}/website/demos`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20
+                       border border-white/30 text-white text-sm font-semibold
+                       px-5 py-2.5 rounded-full transition-all"
+          >
+            View More Demos →
+          </a>
         </div>
       </section>
 
@@ -276,30 +281,19 @@ export default function GetStartedPage() {
                   </div>
 
                   {/* CTA */}
-                  {plan.setupFee !== null ? (
-                    <Link
-                      href={`/get-started/?plan=${encodeURIComponent(plan.name)}#order-form`}
-                      className={`w-full text-center py-3 rounded-site font-bold text-sm
-                        transition-all duration-200 hover:scale-105
-                        ${plan.highlight
-                          ? "bg-gradient-brand text-white shadow-lg hover:opacity-90"
-                          : "bg-gray-900 text-white hover:bg-gray-700"
-                        }`}
-                    >
-                      Order {plan.name} Plan
-                      <ArrowRight size={14} className="inline ml-1.5 -mt-0.5" />
-                    </Link>
-                  ) : (
-                    <a
-                      href={consultationLink()}
-                      className="w-full text-center py-3 rounded-site font-bold text-sm
-                        border-2 border-gray-900 text-gray-900
-                        hover:bg-gray-900 hover:text-white transition-all duration-200"
-                    >
-                      <Phone size={14} className="inline mr-1.5 -mt-0.5" />
-                      Book a Free Consultation
-                    </a>
-                  )}
+                  <OrderButton
+                    plan={plan.name}
+                    endpoint={websiteOrderEndpoint}
+                    label={plan.setupFee !== null ? `Order ${plan.name} Plan` : "Book a Free Consultation"}
+                    className={`w-full text-center py-3 rounded-site font-bold text-sm
+                      transition-all duration-200 hover:scale-105
+                      ${plan.highlight
+                        ? "bg-gradient-brand text-white shadow-lg hover:opacity-90"
+                        : plan.setupFee === null
+                        ? "border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white"
+                        : "bg-gray-900 text-white hover:bg-gray-700"
+                      }`}
+                  />
                 </div>
               </div>
             ))}
@@ -338,14 +332,14 @@ export default function GetStartedPage() {
                 <div className="text-3xl mb-4">{svc.icon}</div>
                 <h3 className="font-bold text-white mb-2">{svc.name}</h3>
                 <p className="text-white/55 text-sm leading-relaxed mb-5">{svc.description}</p>
-                <Link
-                  href={`/get-started/?plan=${encodeURIComponent(svc.name)}#order-form`}
+                <OrderButton
+                  plan={svc.name}
+                  endpoint={websiteOrderEndpoint}
+                  label="Get a Quote →"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-white/70 hover:text-white
                              border border-white/20 hover:border-white/50
                              px-4 py-2 rounded-full transition-all"
-                >
-                  Get a Quote →
-                </Link>
+                />
               </div>
             ))}
           </div>
@@ -376,25 +370,14 @@ export default function GetStartedPage() {
         </div>
       </section>
 
-      {/* ── Order form ── */}
-      <section id="order-form" className="py-20 px-4 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-black text-gray-900 mb-3">Place Your Order</h2>
-            <p className="text-gray-500">
-              No payment now. We&apos;ll reach out within 24 hours to confirm and get started.
-            </p>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8">
-            <WebsiteOrderForm endpoint={websiteOrderEndpoint} />
-          </div>
-          <p className="text-center text-xs text-gray-400 mt-6">
-            Call{" "}
-            <a href={`tel:${zikwalaPhone}`} className="underline">{zikwalaPhone}</a>
-            {" "}or email{" "}
-            <a href={`mailto:${zikwalaEmail}`} className="underline">{zikwalaEmail}</a>
-          </p>
-        </div>
+      {/* ── Contact strip ── */}
+      <section className="py-10 px-4 bg-gray-50 border-t border-gray-100 text-center">
+        <p className="text-sm text-gray-400">
+          Questions? Call{" "}
+          <a href={`tel:${zikwalaPhone}`} className="text-primary underline font-medium">{zikwalaPhone}</a>
+          {" "}or email{" "}
+          <a href={`mailto:${zikwalaEmail}`} className="text-primary underline font-medium">{zikwalaEmail}</a>
+        </p>
       </section>
 
     </div>

@@ -127,7 +127,7 @@ export default function RootLayout({
               painting:     "HomeAndConstructionBusiness",
               handyman:     "HomeAndConstructionBusiness",
               catering:     "FoodEstablishment",
-              photography:  "LocalBusiness",
+              photography:  "Photographer",
               tutor:        "EducationalOrganization",
               insurance:    "InsuranceAgency",
               babysitting:  "LocalBusiness",
@@ -152,8 +152,42 @@ export default function RootLayout({
             ...(config.business.niche === "restaurant" || config.business.niche === "bakery" || config.business.niche === "catering"
               ? { "servesCuisine": config.business.tagline }
               : {}),
+            ...(config.social && Object.values(config.social).some(Boolean)
+              ? { "sameAs": Object.values(config.social).filter(Boolean) }
+              : {}),
+            ...(config.areasServed && config.areasServed.length > 0
+              ? { "areaServed": config.areasServed.map(a => ({ "@type": "City", "name": a.name })) }
+              : {}),
+            ...(config.testimonials && config.testimonials.items.length > 0
+              ? {
+                  "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": (config.testimonials.items.reduce((s, t) => s + t.rating, 0) / config.testimonials.items.length).toFixed(1),
+                    "reviewCount": config.testimonials.items.length,
+                    "bestRating": 5,
+                    "worstRating": 1,
+                  }
+                }
+              : {}),
           })}}
         />
+        {config.faq && config.faq.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": config.faq.map(item => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": item.answer,
+                },
+              })),
+            })}}
+          />
+        )}
       </head>
       <body>
         <CartProvider>

@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { loadStripe } from "@stripe/stripe-js"
+import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js"
 import { ShoppingBag, Minus, Plus, Trash2, CreditCard, ArrowLeft, Lock, Sparkles, ArrowRight, CheckCircle2, X } from "lucide-react"
 import { useCart } from "@/lib/cart"
 
@@ -16,12 +18,16 @@ interface Props {
 
 const API_URL = process.env.NEXT_PUBLIC_KENATRIX_API_URL ?? "https://api.zikwala.com"
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "")
+const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 
 export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug, businessName, isDemo }: Props) {
   const { items, updateQuantity, removeItem, clearCart, totalItems, totalPrice } = useCart()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [clientSecret, setClientSecret] = useState<string | null>(null)
   const [showDemoNotice, setShowDemoNotice] = useState(false)
+
+  const stripePromise = useMemo(() => loadStripe(STRIPE_KEY), [])
 
   async function handleCheckout() {
     if (items.length === 0) return
@@ -36,8 +42,7 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
           stripeConnectedAccountId,
           currency,
           sellerSlug: sellerSlug ?? "",
-          successUrl: `${SITE_URL}/order-confirmation`,
-          cancelUrl: `${SITE_URL}/order-cancelled`,
+          returnUrl: `${SITE_URL}/order-confirmation?session_id={CHECKOUT_SESSION_ID}`,
           items: items.map(item => ({
             listingId: Number(item.id),
             name: item.name,
@@ -54,14 +59,36 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
 
       const data = await res.json()
       clearCart()
-      window.location.href = data.checkoutUrl
+      setClientSecret(data.clientSecret)
 
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again or contact us.")
       setLoading(false)
     }
   }
 
+  // ── Embedded checkout view ─────────────────────────────────────────────────
+  if (clientSecret) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+        <button
+          onClick={() => setClientSecret(null)}
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors mb-6"
+        >
+          <ArrowLeft size={15} />
+          Back to cart
+        </button>
+        <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-6">Checkout</h1>
+        <div className="rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+          <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
+            <EmbeddedCheckout />
+          </EmbeddedCheckoutProvider>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Empty cart ─────────────────────────────────────────────────────────────
   if (items.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-center px-4">
@@ -79,6 +106,7 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
     )
   }
 
+  // ── Cart view ──────────────────────────────────────────────────────────────
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
 
@@ -177,7 +205,7 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
               {loading ? (
                 <>
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Redirecting to payment...
+                  Loading checkout...
                 </>
               ) : (
                 <>
@@ -256,4 +284,3 @@ export function CheckoutClient({ stripeConnectedAccountId, currency, sellerSlug,
     </div>
   )
 }
-

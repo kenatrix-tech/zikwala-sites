@@ -2,14 +2,14 @@ import type { SiteConfig } from "../types"
 
 export const config: SiteConfig = {
   business: {
-    name: "Aria Beauty Studio",
-    tagline: "Hair, Nails & Skin Care in Houston, TX",
-    phone: "+1 (713) 555-0284",
-    email: "hello@ariabeautystudio.com",
-    address: "3820 Westheimer Rd",
-    city: "Houston",
-    state: "TX",
-    logo: "https://cdn.zikwala.com/demo/beauty/aria-beauty/logo.png",
+    name: "Zyluna Beauty",
+    tagline: "Hair, Nails & Skin Care in Arlington, VA",
+    phone: "+1 (571) 555-0147",
+    email: "hello@zylunabeauty.com",
+    address: "2847 Crestvale Ln",
+    city: "Arlington",
+    state: "VA",
+    logo: "https://cdn.zikwala.com/demo/beauty/zyluna-beauty/logo.png",
     niche: "beauty",
   },
   theme: {
@@ -25,16 +25,16 @@ export const config: SiteConfig = {
   tier: "pro",
   isDemo: true,
   seo: {
-    title: "Aria Beauty Studio | Hair, Nails & Skin in Houston, TX",
+    title: "Zyluna Beauty | Hair, Nails & Skin in Arlington, VA",
     description:
-      "Premium hair, nail, and skincare services in Houston, TX. Book your appointment online today. Walk-ins welcome.",
+      "Premium hair, nail, and skincare services in Arlington, VA. Book your appointment online today. Walk-ins welcome.",
     keywords: [
-      "beauty salon Houston TX",
-      "hair salon Houston",
-      "nail salon Houston TX",
-      "facial Houston",
-      "balayage Houston",
-      "lash extensions Houston TX",
+      "beauty salon Arlington VA",
+      "hair salon Arlington VA",
+      "nail salon Arlington VA",
+      "facial Arlington VA",
+      "balayage Arlington VA",
+      "lash extensions Arlington VA",
     ],
     ogImage: "https://cdn.zikwala.com/demo/beauty/hero.jpg",
   },
@@ -42,7 +42,6 @@ export const config: SiteConfig = {
     links: [
       { label: "Home", href: "/" },
       { label: "Services", href: "/services" },
-      { label: "Book Now", href: "/booking" },
       { label: "Gallery", href: "/gallery" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
@@ -54,13 +53,13 @@ export const config: SiteConfig = {
     heading: "Look Good. Feel Confident.",
     variant: "magazine",
     subheading:
-      "Houston's go-to studio for hair, nails, and skincare. Expert stylists, relaxing atmosphere, results you'll love.",
+      "Arlington's go-to studio for hair, nails, and skincare. Expert stylists, relaxing atmosphere, results you'll love.",
     cta: { label: "Book Now", href: "/booking" },
     secondaryCta: { label: "View Services", href: "/services" },
     image: "https://cdn.zikwala.com/demo/beauty/hero.jpg",
-    badge: "Houston's Favorite Studio",
+    badge: "Arlington's Premier Studio",
     trustPoints: ["Walk-ins Welcome", "Expert Stylists", "Online Booking"],
-    socialProof: { count: "1,200+", label: "happy clients served in Houston" },
+    socialProof: { count: "1,200+", label: "happy clients served in Arlington" },
   },
   services: {
     title: "Our Services",
@@ -112,40 +111,41 @@ export const config: SiteConfig = {
   },
   gallery: {
     title: "Our Work",
-    subtitle: "Real results from our Houston studio",
+    subtitle: "Real results from our Arlington studio",
+    aspectRatio: "portrait",
     images: [
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery1.jpg", alt: "Balayage hair Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery2.jpg", alt: "Nail art Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery3.jpg", alt: "Facial treatment Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery4.jpg", alt: "Lash & Brow Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery5.jpg", alt: "Waxing Services Houston" },
-      { src: "https://cdn.zikwala.com/demo/beauty/gallery6.jpg", alt: "Makeup & BridalHouston" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery1.jpg", alt: "Balayage hair Arlington" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery2.jpg", alt: "Nail art Arlington" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery3.jpg", alt: "Facial treatment Arlington" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery4.jpg", alt: "Lash & Brow Arlington" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery5.jpg", alt: "Waxing Services Arlington" },
+      { src: "https://cdn.zikwala.com/demo/beauty/gallery6.jpg", alt: "Makeup & BridalArlington" },
     ],
   },
   testimonials: {
     title: "Client Love",
-    subtitle: "Hundreds of happy clients in Houston and beyond",
+    subtitle: "Hundreds of happy clients in Arlington and beyond",
     items: [
       {
         name: "Keisha B.",
-        role: "Regular Client, Houston TX",
-        text: "Aria is the only place I trust with my hair. My balayage looks incredible every single time. The studio is so relaxing too.",
+        role: "Regular Client, Arlington VA",
+        text: "Zyluna is the only place I trust with my hair. My balayage looks incredible every single time. The studio is so relaxing too.",
         rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/beauty/aria-beauty/testimonial-1.jpg",
+        avatar: "https://cdn.zikwala.com/demo/beauty/zyluna-beauty/testimonial-1.jpg",
       },
       {
         name: "Sofia R.",
-        role: "Client, Sugar Land TX",
+        role: "Client, McLean VA",
         text: "Best nail salon I've ever been to. The gel manicure lasted 4 weeks without chipping. I won't go anywhere else.",
         rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/beauty/aria-beauty/testimonial-2.jpg",
+        avatar: "https://cdn.zikwala.com/demo/beauty/zyluna-beauty/testimonial-2.jpg",
       },
       {
         name: "Amara J.",
-        role: "Client, Katy TX",
+        role: "Client, Bethesda MD",
         text: "I came in for a facial and left glowing. The esthetician was so knowledgeable and my skin has never looked better.",
         rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/beauty/aria-beauty/testimonial-3.jpg",
+        avatar: "https://cdn.zikwala.com/demo/beauty/zyluna-beauty/testimonial-3.jpg",
       },
     ],
   },
@@ -158,13 +158,13 @@ export const config: SiteConfig = {
     ],
   },
   about: {
-    title: "About Aria Beauty Studio",
+    title: "About Zyluna Beauty",
     story:
-      "Aria Beauty Studio opened its doors in Houston in 2017 with one goal — to make every client feel confident and beautiful. Our team of licensed stylists and estheticians bring passion, skill, and care to every appointment. We use only premium, cruelty-free products and stay up to date with the latest techniques so you always leave looking your best.",
+      "Zyluna Beauty opened its doors in Arlington in 2018 with one goal — to make every client feel confident and beautiful. Our team of licensed stylists and estheticians bring passion, skill, and care to every appointment. We use only premium, cruelty-free products and stay up to date with the latest techniques so you always leave looking your best.",
     image: "https://cdn.zikwala.com/demo/beauty/hero.jpg",
     highlights: [
       { label: "Founded", value: "2017" },
-      { label: "Location", value: "Houston, TX" },
+      { label: "Location", value: "Arlington, VA" },
       { label: "Team", value: "6 specialists" },
       { label: "Products", value: "Cruelty-free" },
     ],
@@ -172,7 +172,7 @@ export const config: SiteConfig = {
   booking: {
     title: "Book Your Appointment",
     subtitle: "Choose a service below, pick your date and time, and secure your spot with a 30% deposit.",
-    defaultDepositPercent: 30,
+    defaultDepositPercent: 0,
     services: [
       {
         name: "Hair Styling",
@@ -227,8 +227,8 @@ export const config: SiteConfig = {
   contact: {
     title: "Visit Us or Get in Touch",
     subtitle: "Walk-ins welcome — call ahead for same-day appointments.",
-    mapEmbed: "https://maps.google.com/maps?q=3820+Westheimer+Rd,+Houston,+TX&output=embed",
-    formEndpoint: "mailto:hello@ariabeautystudio.com",
+    mapEmbed: "https://maps.google.com/maps?q=2847+Crestvale+Ln,+Arlington,+VA&output=embed",
+    formEndpoint: "mailto:hello@zylunabeauty.com",
     submitLabel: "Send Message",
   },
   packages: {
@@ -285,10 +285,10 @@ export const config: SiteConfig = {
     { question: "What products do you use?", answer: "We use only premium, cruelty-free products across all services — from hair color to skincare treatments and nail care." },
     { question: "How much does a haircut cost?", answer: "Hair services start from $60 depending on length and style. Color, balayage, and highlights are priced separately. Call us for an exact quote." },
     { question: "Do you do lash extensions?", answer: "Yes — we offer lash extensions, lash lifts, brow shaping, brow tinting, and microblading. Services start from $55." },
-    { question: "Is there parking available?", answer: "Yes — free parking is available in the lot at our Westheimer Rd location in Houston." },
+    { question: "Is there parking available?", answer: "Yes — free parking is available in the lot at our Crestvale Ln location in Arlington." },
   ],
 
-  googleReviewUrl: "https://g.page/r/aria-beauty-studio-houston/review",
+  googleReviewUrl: "https://g.page/r/zyluna-beauty-studio-arlington/review",
   social: {
     instagram: "https://instagram.com",
     facebook: "https://facebook.com",

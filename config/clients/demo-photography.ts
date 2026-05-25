@@ -27,12 +27,19 @@ export const config: SiteConfig = {
   seo: {
     title: "Golden Lens Photography | Wedding & Portrait Photographer in Washington DC",
     description:
-      "Professional wedding, portrait, and event photography in Washington DC. Capturing your story with artistry and emotion.",
+      "Washington DC's trusted photography studio for weddings, portraits, family sessions, newborns, and corporate headshots. Serving DC, Maryland, and Virginia with artistry and heart. Full gallery delivered in 3 weeks.",
     keywords: [
       "wedding photographer Washington DC",
       "portrait photographer DMV",
-      "event photography DC",
-      "newborn photography Maryland",
+      "family photographer DC Maryland",
+      "newborn photographer Washington DC",
+      "engagement photographer DMV",
+      "corporate headshots Washington DC",
+      "event photographer DC",
+      "photography studio Washington DC",
+      "professional photographer Northern Virginia",
+      "photographer near me DC",
+      "maternity photographer DMV",
       "Ethiopian photographer DC",
     ],
     ogImage: "/clients/demo-photography/og.png",
@@ -156,6 +163,20 @@ export const config: SiteConfig = {
     mapEmbed: "",
     formEndpoint: "mailto:hello@goldenlensphotography.com",
   },
+  areasServed: [
+    { name: "Washington DC",     description: "Weddings, portraits, corporate, and events" },
+    { name: "Maryland",          description: "Family, newborn, and engagement sessions" },
+    { name: "Northern Virginia", description: "Corporate headshots and events" },
+    { name: "Bethesda, MD",      description: "Portraits and family sessions" },
+    { name: "Arlington, VA",     description: "Headshots and event photography" },
+  ],
+  faq: [
+    { question: "How far in advance should I book a wedding photographer?", answer: "We recommend booking 6–12 months in advance for weddings, especially for spring and fall dates. For portraits and events, 2–4 weeks is usually sufficient." },
+    { question: "When will I receive my photos?", answer: "Portrait sessions are delivered within 1–2 weeks. Wedding galleries are delivered within 3 weeks. You'll receive a private online gallery link via email." },
+    { question: "Do you travel for weddings outside Washington DC?", answer: "Yes — we're available nationwide. Travel fees may apply for destinations beyond a 50-mile radius of Washington DC." },
+    { question: "Do you offer engagement sessions?", answer: "Absolutely. We offer standalone engagement sessions and include them as an add-on in wedding packages. It's a great way to get comfortable in front of the camera before your big day." },
+    { question: "What is your photography style?", answer: "We shoot in a documentary/editorial style — candid, natural, and timeless. We guide you gently without making you feel stiff or posed." },
+  ],
   social: {
     facebook: "https://facebook.com",
     instagram: "https://instagram.com",

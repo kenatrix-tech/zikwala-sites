@@ -151,6 +151,8 @@ export interface SiteConfig {
     title: string
     subtitle: string
     images: { src: string; alt: string; badge?: string }[]
+    /** Image aspect ratio. Defaults to "square". Use "portrait" for beauty/fashion. */
+    aspectRatio?: "square" | "portrait" | "landscape"
   }
 
   // ─── Testimonials (Standard+) ────────────────────────────

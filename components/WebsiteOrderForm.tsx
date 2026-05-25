@@ -19,9 +19,9 @@ const CUSTOM_APPS = [
 
 const ALL_OPTIONS = [...WEBSITE_PLANS, ...CUSTOM_APPS]
 
-function OrderFormInner({ endpoint }: { endpoint: string }) {
+function OrderFormInner({ endpoint, initialPlan = "" }: { endpoint: string; initialPlan?: string }) {
   const params    = useSearchParams()
-  const planParam = params.get("plan") ?? ""
+  const planParam = params.get("plan") ?? initialPlan
 
   const resolve = (p: string) =>
     ALL_OPTIONS.find(
@@ -174,10 +174,10 @@ function OrderFormInner({ endpoint }: { endpoint: string }) {
   )
 }
 
-export function WebsiteOrderForm({ endpoint }: { endpoint: string }) {
+export function WebsiteOrderForm({ endpoint, initialPlan }: { endpoint: string; initialPlan?: string }) {
   return (
     <Suspense fallback={<div className="h-64" />}>
-      <OrderFormInner endpoint={endpoint} />
+      <OrderFormInner endpoint={endpoint} initialPlan={initialPlan} />
     </Suspense>
   )
 }
