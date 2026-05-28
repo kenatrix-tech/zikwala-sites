@@ -63,6 +63,7 @@ export interface SiteConfig {
   isDemo?: boolean         // true = show "order your site" demo banner
   isLive?: boolean         // true = allow Google indexing (default blocked)
   isActive?: boolean       // false = entire site blocked (default true)
+  launchDate?: string      // e.g. "April 1, 2026" — used as effective date on Terms & Privacy pages
 
   // ─── Zikwala Marketplace Integration ─────────────────────
   /** Zikwala marketplace seller slug — enables dynamic listings from Kenatrix API */
@@ -185,7 +186,9 @@ export interface SiteConfig {
       heading?: string     // h2 within the section
       body: string
       image?: string
+      imagePosition?: string  // CSS object-position — e.g. "top", "center 25%"
       highlights?: { label: string; value: string }[]
+      awards?: { title: string; org: string; year: number | string; icon?: string; color?: string }[]
     }[]
   }
 

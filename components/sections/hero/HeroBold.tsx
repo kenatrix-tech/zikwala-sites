@@ -113,7 +113,7 @@ export function HeroBold({ hero, business }: HeroProps) {
 
             {/* Massive heading — the "bold" signature */}
             <h1
-              className="font-black text-white leading-[0.92] tracking-tight mb-7"
+              className="font-black text-white leading-[0.92] tracking-tight mb-7 whitespace-pre-line"
               style={{ fontSize: "clamp(44px, 6.5vw, 88px)" }}
             >
               {hero.heading}

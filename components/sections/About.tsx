@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import Image from "next/image"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, Trophy, Star, Crown, TrendingUp, DollarSign, Target, Award, Medal } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
 
@@ -12,7 +12,7 @@ interface AboutProps {
 
 type Section = NonNullable<SiteConfig["about"]["sections"]>[0]
 
-function SectionImage({ src, alt }: { src: string; alt: string }) {
+function SectionImage({ src, alt, imagePosition }: { src: string; alt: string; imagePosition?: string }) {
   const [broken, setBroken] = useState(false)
   if (broken) return null
 
@@ -34,6 +34,7 @@ function SectionImage({ src, alt }: { src: string; alt: string }) {
           alt={alt}
           fill
           className="object-cover"
+          style={{ objectPosition: imagePosition ?? "center" }}
           onError={() => setBroken(true)}
         />
       </div>
@@ -86,6 +87,37 @@ function SectionText({
           ))}
         </div>
       )}
+
+      {section.awards && section.awards.length > 0 && (
+        <div className="mt-8 space-y-3">
+          {section.awards.map((award) => {
+            const ICON_MAP: Record<string, React.ElementType> = {
+              Trophy, Star, Crown, TrendingUp, DollarSign, Target, Award, Medal
+            }
+            const IconComponent = ICON_MAP[award.icon ?? "Trophy"] ?? Trophy
+            const bg = award.color ?? "var(--color-accent)"
+            const iconColor = award.color ? "#fff" : "var(--color-primary)"
+            return (
+              <div
+                key={`${award.title}-${award.year}`}
+                className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl px-5 py-4 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                  style={{ background: bg }}
+                >
+                  <IconComponent size={18} style={{ color: iconColor }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-gray-900 dark:text-white font-semibold text-sm">{award.title}</div>
+                  <div className="text-gray-400 dark:text-gray-500 text-xs mt-0.5">{award.org}</div>
+                </div>
+                <div className="text-primary font-black text-sm shrink-0 bg-accent px-3 py-1 rounded-full">{award.year}</div>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
@@ -128,6 +160,7 @@ export function About({ about }: AboutProps) {
                     <SectionImage
                       src={section.image!}
                       alt={section.heading ?? about.title}
+                      imagePosition={section.imagePosition}
                     />
                   </AnimateIn>
                 )}

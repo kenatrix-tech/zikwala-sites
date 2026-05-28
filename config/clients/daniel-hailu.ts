@@ -1,3 +1,4 @@
+// Client: Daniel Hailu | Plan: Basic | Setup: $399 | Monthly: $19/mo (discounted from $29)
 import type { SiteConfig } from "../types"
 
 export const config: SiteConfig = {
@@ -7,8 +8,8 @@ export const config: SiteConfig = {
     phone: "+1 (202) 500-5095",
     email: "danielhailu2721@gmail.com",
     address: "8701 Georgia Ave",
-    city: "Silver Spring",
-    state: "MD",
+    city: "Washington",
+    state: "DC",
     logo: "https://cdn.zikwala.com/demo/realestate/daniel-hailu/daniel-hailu-logo.jpg",
     niche: "realestate",
   },
@@ -23,12 +24,12 @@ export const config: SiteConfig = {
     darkMode: false,
   },
   tier: "basic",
-  isDemo: true,
+  isDemo: false,
   isActive: true,
   seo: {
     title: "Daniel Hailu | Real Estate Agent in the DMV Area",
     description:
-      "Buy, sell, or rent property across Maryland, Washington, D.C., and Virginia with a trusted local agent. 12+ years of experience and 300+ successful transactions.",
+      "Buy, sell, or rent property across Maryland, Washington, D.C., and Virginia with a trusted local agent. Licensed in MD, DC & VA. Specializing in residential, commercial, and investment real estate.",
     keywords: [
       "real estate agent Maryland",
       "DMV realtor",
@@ -40,7 +41,7 @@ export const config: SiteConfig = {
       "homes for sale Washington DC",
       "homes for sale Virginia",
     ],
-    ogImage: "https://cdn.zikwala.com/demo/realestate/daniel-hailu/daniel-hailu1.jpg",
+    ogImage: "https://cdn.zikwala.com/client/daniel-hailu/daniel_hailu_hero.jpg",
   },
   nav: {
     links: [
@@ -48,22 +49,22 @@ export const config: SiteConfig = {
       { label: "Services", href: "/services" },
       { label: "Calculator", href: "/mortgage-calculator" },
       { label: "About", href: "/about" },
-      { label: "Contact", href: "/contact" },
     ],
     ctaLabel: "Free Consultation",
     ctaHref: "/contact",
   },
   hero: {
     heading: "Your DMV Home Journey Starts Here",
-    variant: "bold",
+    variant: "magazine",
     subheading:
       "Trusted real estate expert serving Maryland, Washington D.C., and Virginia. Fluent in English & Amharic.",
     cta: { label: "Free Consultation", href: "/contact" },
-    secondaryCta: { label: "View Listings", href: "/properties" },
-    image: "https://cdn.zikwala.com/demo/realestate/hero.jpg",
-    badge: "Licensed in MD · English & Amharic",
-    trustPoints: ["12+ Years in the DMV", "300+ Transactions Closed", "Free Consultation"],
-    socialProof: { count: "300+", label: "homes sold across the DMV area" },
+    secondaryCta: { label: "View Sold Homes", href: "/sold" },
+    image: "https://cdn.zikwala.com/client/daniel-hailu/daniel_hailu_hero.jpg",
+    imagePosition: "right",
+    badge: "PGAR Platinum Award · Licensed in MD, DC & VA",
+    trustPoints: ["90+ Closed Sales · $51.3M", "Licensed in MD, DC & VA", "7 Industry Awards Since 2018"],
+    socialProof: { count: "90+", label: "closed sales totaling $51.3M across the DMV" },
   },
   services: {
     title: "Real Estate Services",
@@ -167,51 +168,50 @@ export const config: SiteConfig = {
       },
     ],
   },
-  testimonials: {
-    title: "Client Success Stories",
-    subtitle: "Trusted by families across the DMV area",
-    items: [
-      {
-        name: "Mekdes A.",
-        role: "First-time Buyer, Silver Spring MD",
-        text: "Daniel made buying my first home stress-free. Explained everything clearly and negotiated a great deal.",
-        rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/realestate/daniel-hailu/testimonial-1.jpg",
-      },
-      {
-        name: "Daniel G.",
-        role: "Seller, Washington D.C.",
-        text: "Sold my home quickly and above asking price. Excellent marketing and communication.",
-        rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/realestate/daniel-hailu/testimonial-2.jpg",
-      },
-      {
-        name: "Tigist B.",
-        role: "Investor, Fairfax VA",
-        text: "Found a great investment property with strong ROI. Daniel knows the DMV market extremely well.",
-        rating: 5,
-        avatar: "https://cdn.zikwala.com/demo/realestate/daniel-hailu/testimonial-3.jpg",
-      },
-    ],
-  },
+  // testimonials: hidden until Daniel collects real reviews
   stats: {
     items: [
-      { label: "Homes Sold", value: "300+" },
-      { label: "Years Experience", value: "12+" },
-      { label: "Client Satisfaction", value: "98%" },
-      { label: "Avg Days on Market", value: "14" },
+      { label: "Closed Sales", value: "90+" },
+      { label: "Total Value", value: "$51.3M" },
+      { label: "Industry Awards", value: "7" },
+      { label: "Years Experience", value: "7+" },
     ],
   },
   about: {
     title: "About Daniel Hailu",
-    story:
-      "With over 12 years of experience in the DMV real estate market, Daniel brings deep local knowledge and a personal touch to every transaction. As part of the Ethiopian community in Maryland, he understands the unique needs of families and investors looking to plant roots in the area.",
-    image: "https://cdn.zikwala.com/demo/realestate/daniel-hailu/daniel-hailu1.jpg",
-    highlights: [
-      { label: "Licensed in", value: "MD" },
-      { label: "Transactions Closed", value: "300+" },
-      { label: "Languages", value: "English, Amharic" },
-      { label: "Specialization", value: "Residential & Investment" },
+    sections: [
+      {
+        heading: "Meet Daniel Hailu",
+        body: "Daniel Hailu is a licensed real estate agent in Maryland, Washington D.C., and Virginia with 7+ years of experience in the DMV market. He specializes in residential real estate, commercial properties, and real estate investments — working with first-time homebuyers and seasoned investors alike.\n\nDaniel is passionate about guiding clients through every step of the process, ensuring smooth and successful transactions. Whether you're buying your first home, selling a property, or looking for a profitable investment, his goal is to help you achieve the American dream of homeownership.",
+        image: "https://cdn.zikwala.com/client/daniel-hailu/daniel_hailu_hero.jpg",
+        highlights: [
+          { label: "Licensed in", value: "MD, DC & VA" },
+          { label: "Experience", value: "7+ Years" },
+          { label: "Languages", value: "English & Amharic" },
+          { label: "Closed Sales", value: "90+ · $51.3M" },
+        ],
+      },
+      {
+        heading: "Awards & Recognition",
+        body: "Daniel's consistent performance over the years has earned him recognition from multiple organizations across the DMV real estate industry — a track record that speaks for itself.",
+        image: "https://cdn.zikwala.com/client/daniel-hailu/daniel_hailu_award.jpg",
+        imagePosition: "top",
+        highlights: [
+          { label: "Total Awards", value: "7" },
+          { label: "PGAR Awards", value: "Platinum & Gold" },
+          { label: "Active Since", value: "2018" },
+          { label: "Latest Award", value: "2025" },
+        ],
+        awards: [
+          { title: "PGAR Platinum Award", org: "Prince George's County Association of Realtors", year: 2025, icon: "Crown", color: "#64748b" },
+          { title: "Sales Person of the Year", org: "Taylor Properties", year: 2025, icon: "Star", color: "#f59e0b" },
+          { title: "PGAR Platinum Award", org: "Prince George's County Association of Realtors", year: 2022, icon: "Crown", color: "#64748b" },
+          { title: "PGAR Gold Award", org: "Prince George's County Association of Realtors", year: 2021, icon: "Award", color: "#d97706" },
+          { title: "Top Gross Production Volume & Unit", org: "Exit Realty Enterprises", year: 2019, icon: "TrendingUp", color: "#059669" },
+          { title: "Million Dollar Club", org: "Exit Realty Enterprises", year: 2019, icon: "DollarSign", color: "#7c3aed" },
+          { title: "Top Sales Award", org: "Exit Realty Enterprises", year: 2018, icon: "Target", color: "#dc2626" },
+        ],
+      },
     ],
   },
   mortgageCalculator: true,
@@ -232,8 +232,8 @@ export const config: SiteConfig = {
     { question: "How long does it take to buy a home in the DMV?", answer: "Typically 30–60 days from offer to closing, though it depends on financing, inspection, and market conditions. We'll keep you informed at every step." },
     { question: "What does it cost to work with you as a buyer?", answer: "Nothing — as a buyer, our services are free to you. The seller pays the agent commissions. You get full representation at no cost." },
     { question: "How do you determine the right listing price for my home?", answer: "We run a detailed Comparative Market Analysis (CMA) looking at recent sales, active listings, and market trends in your neighborhood to price your home competitively." },
-    { question: "Do you work with first-time homebuyers?", answer: "Absolutely. We specialize in guiding first-time buyers through the entire process — from understanding financing to closing day — in English and Amharic." },
-    { question: "What areas do you cover?", answer: "We serve the entire DMV — Maryland (Silver Spring, Bethesda, Rockville, Hyattsville), Washington D.C., and Northern Virginia (Arlington, Fairfax, Alexandria)." },
+    { question: "Do you work with first-time homebuyers?", answer: "Absolutely. Daniel has a proven track record working with first-time buyers and guides them through every step — from pre-approval to closing — in English and Amharic." },
+    { question: "What areas do you cover?", answer: "Daniel is licensed in Maryland, Washington D.C., and Virginia — serving the entire DMV area including Silver Spring, Bethesda, Rockville, Hyattsville, Arlington, Fairfax, and Alexandria." },
   ],
 
   contact: {
@@ -242,7 +242,8 @@ export const config: SiteConfig = {
     mapEmbed: "https://maps.google.com/maps?q=8701+Georgia+Ave,+Silver+Spring,+MD&output=embed",
     formEndpoint: "mailto:danielhailu2721@gmail.com",
   },
-  googleReviewUrl: "https://g.page/r/daniel-hailu-realestate/review",
+  stickyContact: "phone",
+  // googleReviewUrl: hidden until Daniel has a real Google review link
   social: {
     facebook: "https://facebook.com",
     instagram: "https://instagram.com",

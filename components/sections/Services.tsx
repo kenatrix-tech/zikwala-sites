@@ -16,10 +16,12 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 interface ServicesProps {
   services: SiteConfig["services"]
+  ctaLabel?: string
+  ctaHref?: string
   hideHeader?: boolean
 }
 
-export function Services({ services, hideHeader = false }: ServicesProps) {
+export function Services({ services, ctaLabel = "Request a Quote", ctaHref = "/contact", hideHeader = false }: ServicesProps) {
   return (
     <section className="py-24 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
       {/* Decorative background */}
@@ -82,10 +84,10 @@ export function Services({ services, hideHeader = false }: ServicesProps) {
         {/* Bottom CTA */}
         <AnimateIn className="text-center mt-14">
           <Link
-            href="/contact"
+            href={ctaHref}
             className="inline-flex items-center gap-2 bg-gradient-brand text-on-primary font-semibold px-8 py-4 rounded-site shadow-lg hover:shadow-xl hover:opacity-90 transition-all text-base"
           >
-            Request a Quote
+            {ctaLabel}
             <ArrowRight size={18} />
           </Link>
         </AnimateIn>

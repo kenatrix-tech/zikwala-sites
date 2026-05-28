@@ -3,6 +3,8 @@ import { getConfig } from "@/config"
 import { getFeatures } from "@/lib/features"
 import { fetchListingsBySellerSlug } from "@/lib/kenatrix"
 
+export const dynamic = "force-static"
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const config = getConfig()
   const features = getFeatures(config.tier)
@@ -17,8 +19,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/services/`,lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ]
 
-  // Products listing page
-  if (features.productListings && (config.products || config.sellerSlug)) {
+  if (config.mortgageCalculator) {
+    routes.push({ url: `${base}/mortgage-calculator/`, lastModified: now, changeFrequency: "monthly", priority: 0.7 })
+  }
+
+  // Products listing page — skip for real estate (uses /properties/ instead)
+  if (features.productListings && config.business.niche !== "realestate" && (config.products || config.sellerSlug)) {
     routes.push({ url: `${base}/products/`, lastModified: now, changeFrequency: "daily", priority: 0.9 })
   }
 
@@ -46,21 +52,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     routes.push({ url: `${base}/properties/`, lastModified: now, changeFrequency: "weekly", priority: 0.9 })
   }
 
-  // Individual product detail pages — highest SEO value (Google can index each product)
+  // Individual listing detail pages — highest SEO value (Google can index each listing)
   if (config.sellerSlug) {
-    try {
-      const listings = await fetchListingsBySellerSlug(config.sellerSlug, { listingType: "PRODUCT" })
-      listings
-        .filter(l => l.status !== "SOLD" && l.status !== "INACTIVE")
-        .forEach(l => {
-          routes.push({
-            url: `${base}/products/${l.slug ?? String(l.id)}/`,
-            lastModified: now,
-            changeFrequency: "weekly",
-            priority: 0.8,
+    if (config.business.niche === "realestate") {
+      // Property detail pages for real estate agents
+      try {
+        const listings = await fetchListingsBySellerSlug(config.sellerSlug, { listingType: "PROPERTY" })
+        listings
+          .filter(l => l.status !== "INACTIVE")
+          .forEach(l => {
+            routes.push({
+              url: `${base}/properties/${l.slug ?? String(l.id)}/`,
+              lastModified: now,
+              changeFrequency: "weekly",
+              priority: 0.8,
+            })
           })
-        })
-    } catch {}
+      } catch {}
+    } else {
+      // Product detail pages for other niches
+      try {
+        const listings = await fetchListingsBySellerSlug(config.sellerSlug, { listingType: "PRODUCT" })
+        listings
+          .filter(l => l.status !== "SOLD" && l.status !== "INACTIVE")
+          .forEach(l => {
+            routes.push({
+              url: `${base}/products/${l.slug ?? String(l.id)}/`,
+              lastModified: now,
+              changeFrequency: "weekly",
+              priority: 0.8,
+            })
+          })
+      } catch {}
+    }
   }
 
   return routes

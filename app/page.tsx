@@ -94,7 +94,7 @@ export default function HomePage() {
 
         {features.stats && config.stats && <Stats stats={config.stats} />}
 
-        <Services services={config.services} />
+        <Services services={config.services} ctaLabel={config.nav.ctaLabel} ctaHref={config.nav.ctaHref} />
 
         {features.testimonials && config.testimonials && (
           <Testimonials testimonials={config.testimonials} googleReviewUrl={config.googleReviewUrl} />
@@ -168,7 +168,7 @@ export default function HomePage() {
         <HighlightStrip trustPoints={config.hero.trustPoints} />
       )}
 
-      <Services services={config.services} />
+      <Services services={config.services} ctaLabel={config.nav.ctaLabel} ctaHref={config.nav.ctaHref} />
 
       {features.vehicleListings && config.vehicles && (
         <VehicleListings vehicles={config.vehicles} business={config.business} preview />

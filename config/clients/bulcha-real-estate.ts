@@ -25,6 +25,7 @@ export const config: SiteConfig = {
   tier: "pro",
   isDemo: false,
   isLive: true,
+  launchDate: "April 1, 2026",
   seo: {
     title: "Bulcha Real Estate | Keller Williams Portland Elite | OR & WA",
     description:

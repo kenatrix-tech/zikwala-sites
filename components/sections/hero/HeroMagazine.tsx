@@ -50,6 +50,7 @@ export function HeroMagazine({ hero, business }: HeroProps) {
           sizes="(max-width: 1024px) 100vw, 60vw"
           className="object-cover"
           style={{ objectPosition: hero.imagePosition ?? "center" }}
+          quality={90}
           priority
         />
 

@@ -55,38 +55,57 @@ export default function MortgageCalculatorPage() {
       <MortgageCalculator nav={config.nav} business={config.business} hideHeader />
 
       {/* SEO content block */}
-      <section className="py-16 bg-white dark:bg-gray-900">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-gray dark:prose-invert prose-sm max-w-none">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            How to Use This Mortgage Calculator
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">
-            Enter the home price, your expected down payment, current interest rate, and loan term
-            to get an instant estimate of your principal and interest payment. The calculator
-            updates in real time as you adjust each slider.
-          </p>
+      <section className="py-14 bg-white dark:bg-gray-900">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-10">
 
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-8">
-            What&apos;s Not Included
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 mb-2">
-            This calculator shows principal &amp; interest only. Your actual monthly payment will
-            also include:
-          </p>
-          <ul className="list-disc pl-5 text-gray-500 dark:text-gray-400 space-y-1 mb-4">
-            <li>Property taxes (varies by county)</li>
-            <li>Homeowner&apos;s insurance (~0.5–1% of home value annually)</li>
-            <li>HOA fees (if applicable)</li>
-            <li>PMI — if your down payment is under 20%</li>
-          </ul>
+            {/* Left — How to use */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">How It Works</h2>
+              <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                Adjust the sliders for home price, down payment, interest rate, and loan term.
+                Your estimated monthly payment updates instantly in real time.
+              </p>
+            </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-8">
-            Ready to Buy or Sell?
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400">
-            {agent} is a top-rated real estate agent who can connect you with trusted local lenders
-            and guide you through every step of the process — from pre-approval to closing day.
-          </p>
+            {/* Right — What's not included */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Not Included</h2>
+              <ul className="text-gray-500 dark:text-gray-400 text-sm space-y-2">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" style={{ background: "var(--color-primary)" }} />
+                  Property taxes
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-primary)" }} />
+                  Homeowner&apos;s insurance
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-primary)" }} />
+                  HOA fees (if applicable)
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-primary)" }} />
+                  PMI (if down payment under 20%)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center bg-accent dark:bg-gray-800 rounded-2xl p-8 border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Ready to Take the Next Step?</h2>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-5">
+              {agent} can connect you with trusted lenders and guide you from pre-approval to closing.
+            </p>
+            <a
+              href={config.nav.ctaHref}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-site text-white text-sm font-semibold shadow-md hover:opacity-90 transition-all"
+              style={{ background: "var(--color-primary)" }}
+            >
+              Book a Free Consultation
+            </a>
+          </div>
         </div>
       </section>
     </>

@@ -10,8 +10,9 @@ export function generateMetadata(): Metadata {
 }
 
 export default function PrivacyPage() {
-  const { business } = getConfig()
-  const effectiveDate = "January 1, 2025"
+  const config = getConfig()
+  const { business } = config
+  const effectiveDate = config.launchDate ?? "January 1, 2025"
 
   return (
     <div className="bg-white min-h-screen">
