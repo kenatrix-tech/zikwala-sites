@@ -521,6 +521,30 @@ export function adaptListingsToProperties(
   }
 }
 
+/** Adapt ListingDto[] (SOLD/RENTED/UNDER_CONTRACT from by-status endpoint) into soldListings item format */
+export function adaptListingsToSoldItems(items: ListingDto[]): {
+  image: string; address: string; city: string; price: number
+  type: "House" | "Condo" | "Townhouse" | "Apartment" | "Land" | "Commercial"
+  bedrooms?: number; bathrooms?: number; sqft?: number; soldYear?: number
+  status?: "Sold" | "Under Contract"
+}[] {
+  return items.map((l) => {
+    const specs = parsePropertySpecs(l.titleLine2)
+    return {
+      image:     l.thumbnailUrl ?? "",
+      address:   l.titleLine1 ?? "",
+      city:      l.location ?? "",
+      price:     l.price ? Number(l.price) : 0,
+      type:      parsePropertyType(undefined, l.categoryName),
+      bedrooms:  specs.bedrooms,
+      bathrooms: specs.bathrooms,
+      sqft:      specs.sqft,
+      soldYear:  new Date().getFullYear(),
+      status:    l.status === "UNDER_CONTRACT" ? "Under Contract" : "Sold",
+    }
+  })
+}
+
 /** Adapt ListingDto[] (from /listing/seller endpoint) into the products config format */
 export function adaptListings(
   items: ListingDto[],

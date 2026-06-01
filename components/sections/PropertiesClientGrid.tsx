@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { Home, Phone } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { PropertyListings } from "@/components/sections/PropertyListings"
-import { fetchListingsBySellerSlug, adaptListingsToProperties } from "@/lib/kenatrix"
+import { fetchListingsBySellerSlugAndStatus, adaptListingsToProperties } from "@/lib/kenatrix"
 
 interface Props {
   sellerSlug: string
@@ -49,7 +49,11 @@ export function PropertiesClientGrid({ sellerSlug, business, fallback, storefron
 
   useEffect(() => {
     setLoading(true)
-    fetchListingsBySellerSlug(sellerSlug, storefrontFilter)
+    fetchListingsBySellerSlugAndStatus(
+      sellerSlug,
+      ["ACTIVE", "UNDER_CONTRACT", "RENTED"],
+      storefrontFilter?.listingType
+    )
       .then(items => {
         const filtered = purposeFilter
           ? items.filter(l => {

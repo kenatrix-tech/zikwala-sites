@@ -4,8 +4,8 @@ import { Suspense } from "react"
 import { getConfig } from "@/config"
 import { getFeatures } from "@/lib/features"
 import { PropertyListings } from "@/components/sections/PropertyListings"
-import { SoldListingsConditional } from "@/components/sections/SoldListingsConditional"
 import { PropertyFilterTabs } from "@/components/sections/PropertyFilterTabs"
+import { SoldListingsConditional } from "@/components/sections/SoldListingsConditional"
 import { fetchPropertiesBySeller, adaptProperties } from "@/lib/kenatrix"
 import { PropertiesClientGrid } from "@/components/sections/PropertiesClientGrid"
 import { PropertiesPageTitle } from "@/components/sections/PropertiesPageTitle"
@@ -53,7 +53,7 @@ export default async function PropertiesPage() {
           />
         </Suspense>
 
-        {/* ── Recently Sold & Under Contract — dynamic from API, falls back to config ── */}
+        {/* ── Recently Sold & Under Contract — static fallback + dynamic API ── */}
         {(config.sellerSlug || config.soldListings) && (
           <div className="border-t border-gray-100">
             <Suspense>
@@ -66,6 +66,7 @@ export default async function PropertiesPage() {
             </Suspense>
           </div>
         )}
+
       </>
     )
   }

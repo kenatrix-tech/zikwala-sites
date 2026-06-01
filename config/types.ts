@@ -307,6 +307,7 @@ export interface SiteConfig {
       bathrooms?: number
       sqft?: number
       soldYear?: number   // e.g. 2024
+      status?: "Sold" | "Under Contract"
     }[]
   }
 

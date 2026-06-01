@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Phone, ArrowRight, Home, Share2, Check } from "lucide-react"
+import { Phone, ArrowRight, Home, Share2, Check, MapPin } from "lucide-react"
 import type { SiteConfig } from "@/config/types"
 import { AnimateIn } from "@/components/ui/AnimateIn"
 import { useState } from "react"
@@ -23,13 +23,6 @@ function formatPrice(price: number, status: string) {
   return status === "For Rent" ? n + "/mo" : n
 }
 
-function whatsappLink(phone: string, p: Property) {
-  const d = phone.replace(/\D/g, "")
-  const t = encodeURIComponent(
-    `Hi! I'm interested in the property at ${p.address}, ${p.city} (${p.status} · ${formatPrice(p.price, p.status)}). Is it still available?`
-  )
-  return `https://wa.me/${d}?text=${t}`
-}
 
 const STATUS_STYLE: Record<string, string> = {
   "For Sale":       "bg-blue-600 text-white",
@@ -69,7 +62,7 @@ function ShareButton({ slug, address }: { slug: string; address: string }) {
   )
 }
 
-function PropertyCard({ p, business }: { p: Property; business: SiteConfig["business"] }) {
+function PropertyCard({ p }: { p: Property }) {
   const sold = p.status === "Sold" || p.status === "Under Contract"
   const href = p.slug ? `/properties/${p.slug}` : null
 
@@ -123,23 +116,24 @@ function PropertyCard({ p, business }: { p: Property; business: SiteConfig["busi
         </p>
 
         {/* Beds · Baths · Sqft */}
-        {(p.specsLine || p.bedrooms !== undefined || p.bathrooms !== undefined || p.sqft !== undefined) && (
-          <p className="text-xs sm:text-sm text-gray-700 font-medium leading-snug">
+        {(p.specsLine || p.bedrooms || p.bathrooms || p.sqft) && (
+          <p className="text-xs text-gray-500 pb-2 border-b border-gray-100">
             {p.specsLine ?? [
-              p.bedrooms  !== undefined && `${p.bedrooms} bd`,
-              p.bathrooms !== undefined && `${p.bathrooms} ba`,
-              p.sqft      !== undefined && `${p.sqft.toLocaleString()} sqft`,
+              p.bedrooms  && `${p.bedrooms} bd`,
+              p.bathrooms && `${p.bathrooms} ba`,
+              p.sqft      && `${p.sqft.toLocaleString()} sqft`,
             ].filter(Boolean).join(" | ")}
           </p>
         )}
 
         {/* Street address */}
-        <p className="text-xs sm:text-sm text-gray-900 font-medium truncate leading-snug mt-0.5">
+        <p className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-900 font-medium truncate leading-snug mt-0.5">
+          <MapPin size={13} className="text-primary shrink-0" />
           {p.address || p.title}
         </p>
 
         {/* City, state */}
-        <p className="text-xs sm:text-sm text-gray-500 truncate leading-snug">
+        <p className="text-xs sm:text-sm text-gray-500 truncate leading-snug pl-5">
           {p.city}
         </p>
 
@@ -207,7 +201,7 @@ export function PropertyListings({ properties, business, preview = false, hideHe
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             {visible.map((p, i) => (
               <AnimateIn key={p.id ?? i} delay={i * 60}>
-                <PropertyCard p={p} business={business} />
+                <PropertyCard p={p} />
               </AnimateIn>
             ))}
           </div>

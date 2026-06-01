@@ -15,19 +15,11 @@ interface Props {
   preview?: boolean
 }
 
-type Item = NonNullable<SiteConfig["soldListings"]>["items"][0]
 
 function formatPrice(n: number) {
   return "$" + n.toLocaleString("en-US")
 }
 
-function whatsappLink(phone: string, item: Item) {
-  const digits = phone.replace(/\D/g, "")
-  const text = encodeURIComponent(
-    `Hi, I saw a similar ${item.type.toLowerCase()} you sold at ${item.address}. I'm looking for something similar — can we talk?`
-  )
-  return `https://wa.me/${digits}?text=${text}`
-}
 
 export function SoldListings({ soldListings, business, hideHeader = false, preview = false }: Props) {
   const items = preview ? soldListings.items.slice(0, 6) : soldListings.items
@@ -63,10 +55,11 @@ export function SoldListings({ soldListings, business, hideHeader = false, previ
                   {/* Dark overlay */}
                   <div className="absolute inset-0 bg-black/30" />
 
-                  {/* SOLD badge */}
-                  <span className="absolute top-3 left-3 bg-gray-900 text-white
-                                   text-xs font-black px-3 py-1 rounded-full tracking-widest uppercase">
-                    Sold
+                  {/* Status badge */}
+                  <span className={`absolute top-3 left-3 text-white
+                                   text-xs font-black px-3 py-1 rounded-full tracking-widest uppercase
+                                   ${item.status === "Under Contract" ? "bg-amber-500" : "bg-gray-900"}`}>
+                    {item.status ?? "Sold"}
                   </span>
 
                   {/* Year sold */}
@@ -140,7 +133,7 @@ export function SoldListings({ soldListings, business, hideHeader = false, previ
           ))}
         </div>
 
-        {preview && soldListings.items.length > 6 && (
+        {preview && (
           <AnimateIn className="text-center mt-10">
             <Link
               href="/sold"

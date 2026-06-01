@@ -26,6 +26,7 @@ export const config: SiteConfig = {
   tier: "basic",
   isDemo: false,
   isActive: true,
+  launchDate: "May 2026",
   seo: {
     title: "Daniel Hailu | Real Estate Agent in the DMV Area",
     description:

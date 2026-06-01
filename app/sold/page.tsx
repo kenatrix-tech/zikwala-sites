@@ -2,6 +2,9 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getConfig } from "@/config"
 import { SoldListings } from "@/components/sections/SoldListings"
+import { fetchListingsBySellerSlugAndStatus, adaptListingsToSoldItems } from "@/lib/kenatrix"
+
+export const dynamic = "force-static"
 
 export function generateMetadata(): Metadata {
   const config = getConfig()
@@ -11,10 +14,34 @@ export function generateMetadata(): Metadata {
   }
 }
 
-export default function SoldListingsPage() {
+export default async function SoldListingsPage() {
   const config = getConfig()
 
   if (config.business.niche !== "realestate" || !config.soldListings) redirect("/")
+
+  const staticItems = config.soldListings.items
+
+  // Fetch API sold/rented listings — Pro and Premium only (Standard uses static config only)
+  const isApiTier = config.tier === "pro" || config.tier === "premium"
+  let apiItems: typeof staticItems = []
+  if (isApiTier && config.sellerSlug) {
+    try {
+      const listings = await fetchListingsBySellerSlugAndStatus(
+        config.sellerSlug,
+        ["SOLD", "RENTED", "UNDER_CONTRACT"],
+        "PROPERTY"
+      )
+      apiItems = adaptListingsToSoldItems(listings)
+    } catch {}
+  }
+
+  // API items first (newest closings), static items after
+  const mergedItems = [...apiItems, ...staticItems]
+
+  const soldListings = {
+    ...config.soldListings,
+    items: mergedItems,
+  }
 
   return (
     <>
@@ -27,7 +54,7 @@ export default function SoldListingsPage() {
         </div>
       </section>
 
-      <SoldListings soldListings={config.soldListings} business={config.business} hideHeader />
+      <SoldListings soldListings={soldListings} business={config.business} hideHeader />
     </>
   )
 }
