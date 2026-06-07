@@ -10,6 +10,8 @@ import { DemoBanner } from "@/components/layout/DemoBanner"
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
 import { CartProvider } from "@/lib/cart"
 import { CartDrawer } from "@/components/ui/CartDrawer"
+import { ChatWidget } from "@/components/ui/ChatWidget"
+import { buildChatPrompt } from "@/lib/buildChatPrompt"
 
 const config = getConfig()
 const features = getFeatures(config.tier)
@@ -207,6 +209,13 @@ export default function RootLayout({
             mode={config.stickyContact ?? "both"}
           />
           {paymentEnabled && <CartDrawer />}
+          {config.features?.liveChat && (
+            <ChatWidget
+              systemPrompt={buildChatPrompt(config)}
+              businessName={config.business.name}
+              apiBase={process.env.NEXT_PUBLIC_AI_MOCK === "true" ? "mock" : (process.env.NEXT_PUBLIC_KENATRIX_API_URL ?? "https://api.zikwala.com")}
+            />
+          )}
         </CartProvider>
       </body>
     </html>
