@@ -17,6 +17,9 @@ var CLIENT_MAP = {
   // ─── Paying clients ──────────────────────────────────────────
   "bulcharealestate.com":     "bulcha-real-estate",
 
+  // ─── Kenatrix company site ───────────────────────────────────
+  "kenatrix.com":             "kenatrix",
+
   // ─── Add new clients below ───────────────────────────────────
   // "nextclient.com":         "next-client",
 };

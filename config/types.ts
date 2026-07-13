@@ -56,6 +56,7 @@ export interface SiteConfig {
     roundedLevel: "none" | "sm" | "md" | "lg" | "full"
     darkMode: boolean
     allowDarkMode?: boolean  // false = hide toggle and never apply dark mode
+    autoTimeMode?: boolean   // false = never auto-switch by time of day; only manual toggle (default true)
   }
 
   // ─── Tier & Demo ─────────────────────────────────────────

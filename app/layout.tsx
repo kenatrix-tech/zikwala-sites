@@ -196,7 +196,7 @@ export default function RootLayout({
           {config.isDemo && (
             <DemoBanner businessName={config.business.name} />
           )}
-          <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} paymentEnabled={paymentEnabled} />
+          <Navbar business={config.business} nav={config.nav} extraLinks={listingLinks} defaultDark={defaultDark} allowDarkMode={allowDarkMode} autoTimeMode={config.theme.autoTimeMode} paymentEnabled={paymentEnabled} />
           <main>{children}</main>
           <Footer
             business={config.business}

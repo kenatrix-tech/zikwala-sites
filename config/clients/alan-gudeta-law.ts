@@ -22,6 +22,7 @@ export const config: SiteConfig = {
     font: "Playfair Display",
     roundedLevel: "sm",
     darkMode: false,
+    autoTimeMode: false,
   },
 
   tier: "pro",
@@ -48,7 +49,6 @@ export const config: SiteConfig = {
     links: [
       { label: "Home",           href: "/" },
       { label: "Practice Areas", href: "/services" },
-      { label: "Book Now",       href: "/booking" },
       { label: "About",          href: "/about" },
       { label: "Contact",        href: "/contact" },
     ],
@@ -202,8 +202,8 @@ export const config: SiteConfig = {
   },
 
   contact: {
-    title: "Schedule a Free Consultation",
-    subtitle: "Reach out today — we respond within one business day.",
+    title: "Get in Touch",
+    subtitle: "Have a question before booking? Reach out and we'll respond within one business day.",
     mapEmbed: "https://maps.google.com/maps?q=817+Silver+Spring+Ave+Suite+204+Silver+Spring+MD+20910&output=embed",
     formEndpoint: "mailto:alangudeta@gmail.com",
     notifyEmail: "alangudeta@gmail.com",

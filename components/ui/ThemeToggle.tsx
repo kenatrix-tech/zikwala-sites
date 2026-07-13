@@ -5,9 +5,10 @@ import { Sun, Moon } from "lucide-react"
 
 interface ThemeToggleProps {
   defaultDark: boolean
+  autoTimeMode?: boolean
 }
 
-export function ThemeToggle({ defaultDark }: ThemeToggleProps) {
+export function ThemeToggle({ defaultDark, autoTimeMode = true }: ThemeToggleProps) {
   const [dark, setDark] = useState(defaultDark)
   const [mounted, setMounted] = useState(false)
 
@@ -20,10 +21,13 @@ export function ThemeToggle({ defaultDark }: ThemeToggleProps) {
     } else if (defaultDark) {
       // Config explicitly sets dark mode
       isDark = true
-    } else {
+    } else if (autoTimeMode) {
       // Auto: dark from 7pm to 7am
       const hour = new Date().getHours()
       isDark = hour >= 19 || hour < 7
+    } else {
+      // Time-based auto-switch disabled — stay light until manually toggled
+      isDark = false
     }
     setDark(isDark)
     document.documentElement.classList.toggle("dark", isDark)

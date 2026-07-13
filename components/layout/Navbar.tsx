@@ -14,10 +14,11 @@ interface NavbarProps {
   extraLinks?: { label: string; href: string }[]
   defaultDark?: boolean
   allowDarkMode?: boolean
+  autoTimeMode?: boolean
   paymentEnabled?: boolean
 }
 
-export function Navbar({ business, nav, extraLinks = [], defaultDark = false, allowDarkMode = true, paymentEnabled = false }: NavbarProps) {
+export function Navbar({ business, nav, extraLinks = [], defaultDark = false, allowDarkMode = true, autoTimeMode = true, paymentEnabled = false }: NavbarProps) {
   const { totalItems, openCart } = useCart()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -140,7 +141,7 @@ export function Navbar({ business, nav, extraLinks = [], defaultDark = false, al
                 {nav.ctaLabel}
               </Link>
 
-              {allowDarkMode && <ThemeToggle defaultDark={defaultDark} />}
+              {allowDarkMode && <ThemeToggle defaultDark={defaultDark} autoTimeMode={autoTimeMode} />}
 
               {/* Hamburger — morphs to X when open */}
               <button

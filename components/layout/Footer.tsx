@@ -136,12 +136,12 @@ export function Footer({ business, nav, social }: FooterProps) {
 
         <div className="border-t border-white/10 pt-6 text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-3">
           <a
-            href="https://zikwala.com"
+            href="https://kenatrix.com"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-300 hover:text-white transition"
           >
-            Powered by Zikwala
+            Powered by Kenatrix
           </a>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
